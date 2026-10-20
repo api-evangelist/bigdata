@@ -1,0 +1,702 @@
+openapi: 3.2.0
+info:
+  title: Bigdata Structured Data Analyst Estimates API
+  description: Bigdata API documentation
+  version: 1.0.0
+servers:
+- url: https://api.bigdata.com/
+security:
+- ApiKeyAuth: []
+tags:
+- name: Analyst Estimates
+  description: Analyst estimates and ratings including analyst ratings, estimates, target prices, and earnings surprises
+paths:
+  /v1/analyst-estimates/query:
+    post:
+      tags:
+      - Analyst Estimates
+      summary: Analyst Estimates
+      description: 'Retrieves analyst financial estimates for a given symbol, including projected revenue,
+
+        earnings per share (EPS), and other key metrics, as forecasted by industry analysts.
+
+
+        Each request returns estimates for one company. The `results.values` array is ordered
+
+        with the furthest-future forecasted period first, working backward to the oldest
+
+        period returned.
+
+
+        Forward-looking forecasts and past periods sit on the same timeline, so how much history
+
+        and how far ahead analysts forecast varies by company. Coverage is densest for the next
+
+        two to three years and thins out beyond that.
+
+
+        Filtering by date range is not supported. Use `period` to choose annual or quarterly
+
+        estimates and `limit` to control how many periods are returned.'
+      operationId: query_analyst_estimates_v1_analyst_estimates_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAnalystEstimatesQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnalystEstimatesResponse'
+  /v1/analyst-ratings/query:
+    post:
+      tags:
+      - Analyst Estimates
+      summary: Analyst Ratings
+      description: 'Retrieves analyst ratings and recommendations for a given symbol, including
+
+        buy/hold/sell counts and the consensus recommendations.'
+      operationId: query_analyst_ratings_v1_analyst_ratings_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalystRatingsQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalystRatingsResponse'
+  /v1/latest-surprise/query:
+    post:
+      tags:
+      - Analyst Estimates
+      summary: Earnings Surprises
+      description: 'The Earnings Surprises API allows users to retrieve the most recent quarterly
+
+        earnings surprise data for a specific company. This endpoint provides actual versus
+
+        estimated earnings per share (EPS) and revenue (sales), highlighting whether the
+
+        company has beaten, missed, or met expectations.'
+      operationId: query_latest_surprise_v1_latest_surprise_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LatestSurpriseQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestSurpriseResponse'
+  /v1/price/target/query:
+    post:
+      tags:
+      - Analyst Estimates
+      summary: Target Price
+      description: This endpoint retrieves target price for a company, including target high, target low, target consensus, and target median.
+      operationId: query_target_price_v1_target_price_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetPriceQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicTargetPriceResponse'
+components:
+  schemas:
+    AnalystRatingsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AnalystRatings'
+          type: array
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: AnalystRatingsResponse
+    TargetPriceQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: An object containing the identifier value(s) and their type for the Target Price tool.
+      type: object
+      required:
+      - identifier
+      title: TargetPriceQuery
+    Consensus:
+      type: string
+      enum:
+      - Strong Buy
+      - Buy
+      - Hold
+      - Sell
+      - Strong Sell
+      title: Consensus
+      description: Enum for the consensus rating of analysts.
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    PublicAnalystEstimatesQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the analyst estimates. You must supply one type and its corresponding value.
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the estimates to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - annual
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Maximum number of analyst estimates to return, starting from the furthest-future forecasted period available and working backwards. If omitted, defaults to 20. Values above 200 are rejected.
+          default: 20
+          examples:
+          - 20
+      type: object
+      required:
+      - identifier
+      title: PublicAnalystEstimatesQuery
+    AllowedPeriods:
+      type: string
+      enum:
+      - annual
+      - quarter
+      title: AllowedPeriods
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    PublicAnalystEstimatesResponse:
+      properties:
+        results:
+          $ref: '#/components/schemas/AnalystEstimates'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicAnalystEstimatesResponse
+    AnalystRatingsQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the analyst ratings. You must supply one type and its corresponding value.
+      type: object
+      required:
+      - identifier
+      title: AnalystRatingsQuery
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
+    AnalystRatings:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: RavenPack internal entity identifier.
+          examples:
+          - 4A6F00
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier provided in the request, e.g., stock symbol.
+          examples:
+          - AAPL
+          - MSFT
+        strong_buy:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Strong Buy
+          description: Number of analysts who have issued a 'Strong Buy' recommendation for the stock.
+        buy:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Buy
+          description: Number of analysts who have issued a 'Buy' rating.
+        hold:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Hold
+          description: Number of analysts recommending to hold the stock.
+        sell:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sell
+          description: Number of analysts recommending to sell the stock.
+        strong_sell:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Strong Sell
+          description: Number of analysts recommending a 'Strong Sell'.
+        consensus:
+          anyOf:
+          - $ref: '#/components/schemas/Consensus'
+          - type: 'null'
+          description: The overall recommendation derived from aggregating all analyst ratings.
+          examples:
+          - Strong Buy
+          - Buy
+          - Hold
+          - Sell
+          - Strong Sell
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      title: AnalystRatings
+    LatestSurprise:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: RavenPack internal entity identifier.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Identifier Id
+          description: The target identifier provided in the request, e.g., stock symbol.
+          examples:
+          - GOOGL
+        reporting_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Reporting Date
+          description: The end date of the fiscal period.
+          examples:
+          - '2025-07-23'
+        eps_actual:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Eps Actual
+          description: The actual EPS of the company.
+          examples:
+          - 2.31
+        eps_estimated:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Eps Estimated
+          description: The estimated EPS of the company.
+          examples:
+          - 2.15
+        revenue_actual:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Revenue Actual
+          description: The actual revenue of the company.
+          examples:
+          - 96428000000
+        revenue_estimated:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Revenue Estimated
+          description: The estimated revenue of the company.
+          examples:
+          - 99697450760
+        last_updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Updated
+          description: The last updated date of the data.
+          examples:
+          - '2025-09-16'
+        eps_surprise_pct:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Eps Surprise Pct
+          description: The surprise percentage of the EPS.
+          examples:
+          - 7.441
+        revenue_surprise_pct:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Revenue Surprise Pct
+          description: The surprise percentage of the revenue.
+          examples:
+          - -3.379
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      title: LatestSurprise
+    TargetPrice:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: RavenPack internal entity identifier.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier provided in the request, e.g., stock symbol.
+          examples:
+          - GOOGL
+        target_high:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target High
+          description: The target high price of the company.
+          examples:
+          - 290
+        target_low:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Low
+          description: The target low price of the company.
+          examples:
+          - 160
+        target_consensus:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Consensus
+          description: The target consensus price of the company.
+          examples:
+          - 242.31
+        target_median:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Median
+          description: The target median price of the company.
+          examples:
+          - 265
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: The currency of the price target values.
+          examples:
+          - USD
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      title: TargetPrice
+    Metadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - request_id
+      title: Metadata
+    AnalystEstimates:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+          type: array
+          title: Fields
+          description: The fields of the analyst estimates.
+          examples:
+          - - FISCAL_PERIOD_END_DATE
+            - REVENUE_LOW
+            - REVENUE_HIGH
+            - REVENUE_AVG
+            - EBITDA_LOW
+            - EBITDA_HIGH
+            - EBITDA_AVG
+            - EBIT_LOW
+            - EBIT_HIGH
+            - EBIT_AVG
+            - NET_INCOME_LOW
+            - NET_INCOME_HIGH
+            - NET_INCOME_AVG
+            - SGA_EXPENSE_LOW
+            - SGA_EXPENSE_HIGH
+            - SGA_EXPENSE_AVG
+            - EPS_LOW
+            - EPS_HIGH
+            - EPS_AVG
+            - NUM_ANALYSTS_REVENUE
+            - NUM_ANALYSTS_EPS
+        values:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: integer
+              - type: number
+            type: array
+          type: array
+          title: Values
+          description: The values of the analyst estimates.
+          examples:
+          - - '2025-12-31'
+            - 387588929898
+            - 399321530206
+            - 394966067919
+            - 135473353787
+            - 139574231263
+            - 138051873327
+            - 115816555170
+            - 119322406979
+            - 118020938853
+            - 118458970299
+            - 126884966950
+            - 121111982610
+            - 55347517673
+            - 57022927502
+            - 56400969528
+            - 9.94514
+            - 10.19402
+            - 9.51707
+            - 42
+            - 47
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: AnalystEstimates
+    Identifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierType'
+          description: The identifier namespace. Currently only `rp_entity_id` is supported.
+          default: rp_entity_id
+          examples:
+          - rp_entity_id
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: Identifier
+    LatestSurpriseResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/LatestSurprise'
+          type: array
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: LatestSurpriseResponse
+    PublicTargetPriceResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/TargetPrice'
+          type: array
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicTargetPriceResponse
+    LatestSurpriseQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the financial latest surprise. You must supply one type and its corresponding value.
+      type: object
+      required:
+      - identifier
+      title: LatestSurpriseQuery
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

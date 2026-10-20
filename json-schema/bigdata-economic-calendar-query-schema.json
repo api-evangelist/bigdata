@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-economic-calendar-query-schema.json",
+  "title": "EconomicCalendarQuery",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/EconomicCalendarQuery",
+  "properties": {
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Start Date",
+      "description": "First day of the window, as YYYY-MM-DD. Inclusive."
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "title": "End Date",
+      "description": "Last day of the window, as YYYY-MM-DD. Inclusive."
+    },
+    "countries": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/EconomicCalendarCountryCode"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Countries",
+      "description": "Countries to return releases for, as ISO 3166-1 alpha-2 codes (case-insensitive). 'UK' is accepted as an alias for 'GB' and returned as 'GB'. The sole non-ISO code is 'EMU' (euro area), which carries ECB decisions and euro-area aggregates. Omit to cover all countries."
+    },
+    "impacts": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ImpactLevel"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Impacts",
+      "description": "Expected market impact levels to return. Omit for every level. Case does not matter."
+    },
+    "categories": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/EconomicCategory"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Categories",
+      "description": "Categories to filter by. Valid values: bond-auctions, capital-flows, central-banks, consumption, economic-activity, energy, holidays, housing-market, inflation, interest-rates, labor-market, politics. Omit for every category. A value outside that set is rejected."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "start_date",
+    "end_date"
+  ],
+  "$defs": {
+    "EconomicCalendarCountryCode": {
+      "type": "string",
+      "enum": [
+        "AE",
+        "AR",
+        "AT",
+        "AU",
+        "BE",
+        "BR",
+        "CA",
+        "CH",
+        "CL",
+        "CN",
+        "CO",
+        "CZ",
+        "DE",
+        "DK",
+        "EG",
+        "EMU",
+        "ES",
+        "FI",
+        "FR",
+        "GB",
+        "GR",
+        "HK",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IN",
+        "IS",
+        "IT",
+        "JP",
+        "KR",
+        "KW",
+        "MX",
+        "NL",
+        "NO",
+        "NZ",
+        "PL",
+        "PT",
+        "QA",
+        "RO",
+        "RU",
+        "SA",
+        "SE",
+        "SG",
+        "SK",
+        "TH",
+        "TR",
+        "UA",
+        "UK",
+        "US",
+        "VN",
+        "ZA"
+      ],
+      "title": "EconomicCalendarCountryCode"
+    },
+    "EconomicCategory": {
+      "type": "string",
+      "enum": [
+        "bond-auctions",
+        "capital-flows",
+        "central-banks",
+        "consumption",
+        "economic-activity",
+        "energy",
+        "holidays",
+        "housing-market",
+        "inflation",
+        "interest-rates",
+        "labor-market",
+        "politics"
+      ],
+      "title": "EconomicCategory"
+    },
+    "ImpactLevel": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "title": "ImpactLevel",
+      "description": "How much market movement a release is expected to cause.\n\nThe 'impacts' filter takes these names, and each release answers the one it carries.\nCase does not matter."
+    }
+  }
+}

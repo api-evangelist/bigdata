@@ -1,0 +1,1290 @@
+openapi: 3.2.0
+info:
+  title: Bigdata Structured Data Private Markets API
+  description: Bigdata API documentation
+  version: 1.0.0
+servers:
+- url: https://api.bigdata.com/
+security:
+- ApiKeyAuth: []
+tags:
+- name: Private Markets
+  description: Private company data including profile, headquarters, funding totals and valuation
+paths:
+  /v1/private-companies/query:
+    post:
+      tags:
+      - Private Markets
+      summary: Private Company Overview
+      description: 'Returns an overview of a private company: what it does, where it is headquartered,
+
+        how much it has raised and what it was last valued at, along with how active it is.
+
+
+        Request up to 50 companies at a time by RavenPack entity ID. `results` holds one row
+
+        per requested ID, in request order, each carrying its `rp_entity_id`. A company with
+
+        no overview to serve comes back as a row holding only its `rp_entity_id`.
+
+
+        A company that is now listed also gets an overview, so check `ipo_status` before reading
+
+        the funding fields. For a listed company, `valuation` can be years old and is not a
+
+        market capitalisation. The latest funding round can be one raised after the listing,
+
+        such as a `post_ipo_debt` or `post_ipo_equity` round.'
+      operationId: Private_Company_Overview_v1_private_companies_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicPrivateCompanyOverviewQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPrivateCompanyOverviewResponse'
+              example:
+                results:
+                - rp_entity_id: UWCVKI
+                  name: OpenAI
+                  legal_name: OpenAI OpCo, LLC
+                  short_description: OpenAI is an AI research and deployment company that develops advanced AI models, including ChatGPT.
+                  website: https://openai.com
+                  operating_status: active
+                  company_type: for_profit
+                  ipo_status: private
+                  founded_on:
+                    value: '2015-12-08'
+                    precision: day
+                  employee_range:
+                  - 1001
+                  - 5000
+                  categories:
+                  - Agentic AI
+                  - AI Infrastructure
+                  - Artificial Intelligence (AI)
+                  - Foundational AI
+                  - Generative AI
+                  - Information Services
+                  - Information Technology
+                  - Machine Learning
+                  - Natural Language Processing
+                  - SaaS
+                  headquarters:
+                    street_1: 1455 3rd Street
+                    postal_code: '94158'
+                    city: San Francisco
+                    region: California
+                    region_code: CA
+                    country: United States
+                    country_code: US
+                  funding_total:
+                    value: 201125120000
+                    currency: USD
+                    value_usd: 201125120000
+                  num_funding_rounds: 14
+                  last_funding_total:
+                    value: 75000000
+                    currency: USD
+                    value_usd: 75000000
+                  last_funding_type: series_unknown
+                  last_funding_date:
+                    value: '2026-04-22'
+                  valuation:
+                    value: 852000000000
+                    currency: USD
+                    value_usd: 852000000000
+                  valuation_date:
+                    value: '2026-02-27'
+                  activity_rank:
+                    overall_rank: 6
+                    change_7d: 0
+                    change_30d: -0.9
+                    change_90d: 1.5
+                - rp_entity_id: 98A8F2
+                  name: Stripe
+                  legal_name: Stripe, LLC.
+                  short_description: Stripe enables businesses to accept payments, manage billing, and embed financial services into digital platforms.
+                  website: https://stripe.com
+                  operating_status: active
+                  company_type: for_profit
+                  ipo_status: private
+                  founded_on:
+                    value: '2010-01-01'
+                    precision: year
+                  employee_range:
+                  - 5001
+                  - 10000
+                  categories:
+                  - Billing
+                  - Compliance
+                  - E-Commerce Platforms
+                  - Finance
+                  - Financial Services
+                  - FinTech
+                  - Fraud Detection
+                  - Payments
+                  - Software
+                  headquarters:
+                    street_1: 354 Oyster Point Rd.
+                    postal_code: '94080'
+                    city: South San Francisco
+                    region: California
+                    region_code: CA
+                    country: United States
+                    country_code: US
+                  funding_total:
+                    value: 10440247725
+                    currency: USD
+                    value_usd: 10440247725
+                  num_funding_rounds: 25
+                  last_funding_type: secondary_market
+                  last_funding_date:
+                    value: '2026-03-09'
+                  valuation:
+                    value: 159000000000
+                    currency: USD
+                    value_usd: 159000000000
+                  valuation_date:
+                    value: '2026-02-24'
+                  activity_rank:
+                    overall_rank: 53
+                    change_7d: 3.6
+                    change_30d: -1.8
+                    change_90d: 6.2
+                metadata:
+                  request_id: 123e4567-e89b-12d3-a456-426614174000
+                  timestamp: '2026-10-05T09:30:00+00:00'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+  /v1/funding-rounds/query:
+    post:
+      tags:
+      - Private Markets
+      summary: Private Company Funding Rounds
+      description: 'Returns the funding rounds one private company has raised: when each was announced
+
+        and closed, what kind of round it was, how much it raised, what the company was
+
+        valued at before and after, and who invested.
+
+
+        One company per request, keyed by RavenPack entity ID. Results are paged: send back
+
+        `pagination.cursor` to get the next page, and keep going until
+
+        `pagination.has_cursor` is false. A company the data provider has no rounds for
+
+        comes back with an empty `results`.'
+      operationId: Private_Company_Funding_Rounds_v1_funding_rounds_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicFundingRoundsQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicFundingRoundsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+  /v1/private-company-people/query:
+    post:
+      tags:
+      - Private Markets
+      summary: Private Company People
+      description: 'Returns the people who hold or held a position at one private company: who they
+
+        are, their title, what kind of position it is, whether they still hold it, and when
+
+        it started and ended.
+
+
+        One company per request, keyed by RavenPack entity ID. Results are paged: send back
+
+        `pagination.cursor` to get the next page, and keep going until
+
+        `pagination.has_cursor` is false. A company the data provider has no positions for
+
+        comes back with an empty `results`.'
+      operationId: Private_Company_People_v1_private_company_people_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicPeopleQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPeopleResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+components:
+  schemas:
+    PublicPrivateCompanyOverview:
+      properties:
+        rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Rp Entity Id
+          description: The RavenPack entity ID this overview is for.
+          examples:
+          - UWCVKI
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Company name.
+          examples:
+          - OpenAI
+        legal_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Legal Name
+          description: Registered legal name.
+          examples:
+          - OpenAI OpCo, LLC
+        short_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Short Description
+          description: One-sentence description of the company.
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+          description: Company website.
+          examples:
+          - https://openai.com
+        operating_status:
+          anyOf:
+          - $ref: '#/components/schemas/OperatingStatus'
+          - type: 'null'
+          description: Whether the company still operates.
+          examples:
+          - active
+        company_type:
+          anyOf:
+          - $ref: '#/components/schemas/PrivateCompanyType'
+          - type: 'null'
+          description: Whether the company is run for profit.
+          examples:
+          - for_profit
+        ipo_status:
+          anyOf:
+          - $ref: '#/components/schemas/IpoStatus'
+          - type: 'null'
+          description: Whether the company is listed. A listed company still gets an overview.
+          examples:
+          - private
+        founded_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the company was founded.
+        employee_range:
+          anyOf:
+          - prefixItems:
+            - type: integer
+            - anyOf:
+              - type: integer
+              - type: 'null'
+            type: array
+            maxItems: 2
+            minItems: 2
+          - type: 'null'
+          title: Employee Range
+          description: Headcount band as [min, max] employees, both inclusive. max is null for the open top band, [10001, null].
+          examples:
+          - - 1001
+            - 5000
+        categories:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Categories
+          description: Industries the company works in.
+          examples:
+          - - Artificial Intelligence (AI)
+            - Generative AI
+        headquarters:
+          anyOf:
+          - $ref: '#/components/schemas/Address'
+          - type: 'null'
+          description: Address of the company's headquarters.
+        funding_total:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Total raised across every funding round.
+        num_funding_rounds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Funding Rounds
+          description: Number of funding rounds.
+          examples:
+          - 14
+        last_funding_total:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Amount raised in the most recent round.
+        last_funding_type:
+          anyOf:
+          - $ref: '#/components/schemas/FundingType'
+          - type: 'null'
+          description: Type of the most recent round.
+          examples:
+          - series_unknown
+        last_funding_date:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date of the most recent round.
+        valuation:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Most recent reported valuation. For a listed company it can be years old and is not a market capitalisation.
+        valuation_date:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date of the most recent valuation.
+        activity_rank:
+          anyOf:
+          - $ref: '#/components/schemas/ActivityRank'
+          - type: 'null'
+          description: The data provider's ranking of the company, with its current position and recent movement. Null when the data provider sends none of the rank fields.
+      type: object
+      required:
+      - rp_entity_id
+      title: PublicPrivateCompanyOverview
+    DateWithPrecision:
+      properties:
+        value:
+          type: string
+          format: date
+          title: Value
+          description: The date.
+          examples:
+          - '2015-12-08'
+        precision:
+          anyOf:
+          - $ref: '#/components/schemas/DatePrecision'
+          - type: 'null'
+          description: How much of the date is known. Parts of the date beyond it carry no meaning.
+          examples:
+          - day
+      type: object
+      required:
+      - value
+      title: DateWithPrecision
+      description: A date that may be known only to the month or the year.
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    MoneyAmount:
+      properties:
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Value
+          description: The amount, in the currency it was reported in.
+          examples:
+          - 201125120000
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: Code of the reported currency.
+          examples:
+          - USD
+        value_usd:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Value Usd
+          description: The amount converted to US dollars.
+          examples:
+          - 201125120000
+      type: object
+      title: MoneyAmount
+      description: An amount of money, as reported and converted to US dollars.
+    RoleType:
+      anyOf:
+      - type: string
+        enum:
+        - executive
+        - employee
+        - advisor
+        - board_member
+        - board_observer
+        title: RoleType
+        description: What kind of position a person holds at a company.
+      - type: string
+    OperatingStatus:
+      anyOf:
+      - type: string
+        enum:
+        - active
+        - closed
+        title: OperatingStatus
+        description: Whether the company still operates.
+      - type: string
+    EntityType:
+      anyOf:
+      - type: string
+        enum:
+        - organization
+        - person
+        - funding_round
+        title: EntityType
+        description: What kind of entity a reference points at.
+      - type: string
+    PrivateCompanyType:
+      anyOf:
+      - type: string
+        enum:
+        - for_profit
+        - non_profit
+        title: PrivateCompanyType
+        description: Whether the company is run for profit.
+      - type: string
+    Address:
+      properties:
+        street_1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street 1
+          description: First line of the street address.
+          examples:
+          - 1455 3rd Street
+        street_2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street 2
+          description: Second line of the street address.
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+          description: Postal code.
+          examples:
+          - '94158'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City name.
+          examples:
+          - San Francisco
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: State, province or region name.
+          examples:
+          - California
+        region_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Code
+          description: Code of the state, province or region.
+          examples:
+          - CA
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: Country name.
+          examples:
+          - United States
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+          description: Two-letter country code.
+          examples:
+          - US
+      type: object
+      title: Address
+      description: A postal address.
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    InternalServerError:
+      properties:
+        statusCode:
+          type: integer
+          const: 500
+          title: Statuscode
+          default: 500
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: InternalServerError
+      description: Internal Server Error
+      example:
+        message: Internal Server Error
+        statusCode: 500
+    DatePrecision:
+      anyOf:
+      - type: string
+        enum:
+        - day
+        - month
+        - year
+        title: DatePrecision
+        description: How much of a date is known. Parts of the date beyond it carry no meaning.
+      - type: string
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    FundingType:
+      anyOf:
+      - type: string
+        enum:
+        - angel
+        - convertible_note
+        - corporate_round
+        - debt_financing
+        - equity_crowdfunding
+        - grant
+        - initial_coin_offering
+        - non_equity_assistance
+        - post_ipo_debt
+        - post_ipo_equity
+        - post_ipo_secondary
+        - pre_seed
+        - private_equity
+        - product_crowdfunding
+        - secondary_market
+        - seed
+        - series_a
+        - series_b
+        - series_c
+        - series_d
+        - series_e
+        - series_f
+        - series_g
+        - series_h
+        - series_i
+        - series_j
+        - series_unknown
+        - undisclosed
+        title: FundingType
+        description: The kind of a funding round.
+      - type: string
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    PublicFundingRoundsMetadata:
+      properties:
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+        rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company requested.
+          examples:
+          - UWCVKI
+      type: object
+      required:
+      - rp_entity_id
+      title: PublicFundingRoundsMetadata
+    Pagination:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Next page token or URL to retrieve the next page of results.
+          examples:
+          - 00000DexaRK4NT6t
+        has_cursor:
+          type: boolean
+          title: Has Cursor
+          description: Whether there are more pages available after this one.
+          default: false
+          examples:
+          - true
+      type: object
+      title: Pagination
+      description: Common pagination response for endpoints that support pagination.
+    TooManyRequestsError:
+      properties:
+        statusCode:
+          type: integer
+          const: 429
+          title: Statuscode
+          default: 429
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: TooManyRequestsError
+      description: Too many requests. Please try again later.
+      example:
+        message: Too many requests. Please try again later.
+        statusCode: 429
+    PublicFundingRoundsQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the company's funding rounds. You must supply one type and its corresponding value.
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          description: Funding rounds to return, from 1 to 100.
+          default: 100
+          examples:
+          - 100
+        cursor:
+          anyOf:
+          - type: string
+            maxLength: 256
+          - type: 'null'
+          title: Cursor
+          description: Token for the next page. Send back 'pagination.cursor' from the previous response, unchanged and with the same identifier; 'limit' may differ. Omit it for the first page.
+      additionalProperties: false
+      type: object
+      required:
+      - identifier
+      title: PublicFundingRoundsQuery
+      example:
+        identifier:
+          type: rp_entity_id
+          value: UWCVKI
+        limit: 100
+    PublicPrivateCompanyOverviewResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicPrivateCompanyOverview'
+          type: array
+          title: Results
+          description: One overview per requested ID, in request order. A company with no overview to serve carries only its rp_entity_id, which covers a company we cannot map, a mapped company with no record, and a lookup that failed.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicPrivateCompanyOverviewResponse
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
+    PublicFundingRoundsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicFundingRound'
+          type: array
+          title: Results
+          description: The company's funding rounds, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no rounds for the company.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicFundingRoundsMetadata'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicFundingRoundsResponse
+    PublicPeopleResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicPosition'
+          type: array
+          title: Results
+          description: People who hold or held a position at the company, one entry per position, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no positions for the company.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicPeopleMetadata'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicPeopleResponse
+    PublicPeopleQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the company profile. You must supply one type and its corresponding value.
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          description: Positions to return, from 1 to 100.
+          default: 100
+          examples:
+          - 100
+        cursor:
+          anyOf:
+          - type: string
+            maxLength: 256
+          - type: 'null'
+          title: Cursor
+          description: Token for the next page. Send back 'pagination.cursor' from the previous response, unchanged and with the same identifier; 'limit' may differ. Omit it for the first page.
+      additionalProperties: false
+      type: object
+      required:
+      - identifier
+      title: PublicPeopleQuery
+      example:
+        identifier:
+          type: rp_entity_id
+          value: UWCVKI
+        limit: 100
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
+    PublicPrivateCompanyOverviewQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request private company data. Supply one type and its corresponding value or a list of values (max 50).
+          examples:
+          - type: rp_entity_id
+            value:
+            - UWCVKI
+            - 98A8F2
+      type: object
+      required:
+      - identifier
+      title: PublicPrivateCompanyOverviewQuery
+    PublicPosition:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Name of the person who holds or held the position.
+          examples:
+          - Sam Altman
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The position's title.
+          examples:
+          - Co-Founder and CEO
+        role_type:
+          anyOf:
+          - $ref: '#/components/schemas/RoleType'
+          - type: 'null'
+          description: The kind of position.
+          examples:
+          - executive
+        is_current:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Current
+          description: Whether the person still holds the position.
+        started_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the person started in the position.
+        ended_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the person left the position.
+      type: object
+      title: PublicPosition
+      description: One position a person holds or held at the company.
+    Metadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - request_id
+      title: Metadata
+    ValuationSource:
+      anyOf:
+      - type: string
+        enum:
+        - confirmed
+        - estimated
+        title: ValuationSource
+        description: Whether a valuation is confirmed or estimated.
+      - type: string
+    InvestmentStage:
+      anyOf:
+      - type: string
+        enum:
+        - early_stage_venture
+        - late_stage_venture
+        - private_equity
+        - seed
+        title: InvestmentStage
+        description: The stage of the company a funding round belongs to.
+      - type: string
+    Identifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierType'
+          description: The identifier namespace. Currently only `rp_entity_id` is supported.
+          default: rp_entity_id
+          examples:
+          - rp_entity_id
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: Identifier
+    IpoStatus:
+      anyOf:
+      - type: string
+        enum:
+        - delisted
+        - private
+        - public
+        title: IpoStatus
+        description: Whether the company is listed.
+      - type: string
+    ActivityRank:
+      properties:
+        overall_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Overall Rank
+          description: Where the company stands against all other companies, with 1 as the top. Calculated by the data provider from signals such as total funding, relationships with other organizations, and recent attention, so it moves as the company's activity changes.
+          examples:
+          - 6
+        change_7d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 7D
+          description: Movement in the rank over the last 7 days, a score from -10 to 10.
+          examples:
+          - 0.0
+        change_30d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 30D
+          description: Movement in the rank over the last 30 days, a score from -10 to 10.
+          examples:
+          - -0.9
+        change_90d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 90D
+          description: Movement in the rank over the last 90 days, a score from -10 to 10.
+          examples:
+          - 1.5
+      type: object
+      title: ActivityRank
+      description: A company's position in the data provider's ranking, and how it has moved.
+    BadRequestError:
+      properties:
+        statusCode:
+          type: integer
+          const: 400
+          title: Statuscode
+          default: 400
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: BadRequestError
+      description: Bad Request Error
+      example:
+        message: Bad Request Error
+        statusCode: 400
+    PublicFundingRound:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The round's name.
+          examples:
+          - Series F - OpenAI
+        announced_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the round was announced.
+        closed_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the round closed.
+        investment_type:
+          anyOf:
+          - $ref: '#/components/schemas/FundingType'
+          - type: 'null'
+          description: The kind of round.
+          examples:
+          - series_f
+        investment_stage:
+          anyOf:
+          - $ref: '#/components/schemas/InvestmentStage'
+          - type: 'null'
+          description: The stage of the company the round belongs to.
+          examples:
+          - late_stage_venture
+        money_raised:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Amount raised in the round.
+        target_money_raised:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Amount the round set out to raise.
+        pre_money_valuation:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Valuation of the company before the round.
+        post_money_valuation:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Valuation of the company after the round.
+        post_money_valuation_source:
+          anyOf:
+          - $ref: '#/components/schemas/ValuationSource'
+          - type: 'null'
+          description: Whether the post-money valuation is confirmed or estimated.
+          examples:
+          - confirmed
+        is_equity:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Equity
+          description: Whether the round was an equity round.
+        num_investors:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Investors
+          description: Number of investors in the round.
+          examples:
+          - 32
+        lead_investors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EntityReference'
+            type: array
+          - type: 'null'
+          title: Lead Investors
+          description: The investors who led the round.
+        investors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EntityReference'
+            type: array
+          - type: 'null'
+          title: Investors
+          description: Every investor in the round, the leads included.
+      type: object
+      title: PublicFundingRound
+      description: One funding round a company raised.
+    PublicPeopleMetadata:
+      properties:
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+        rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company requested.
+          examples:
+          - UWCVKI
+      type: object
+      required:
+      - rp_entity_id
+      title: PublicPeopleMetadata
+    EntityReference:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Name of the entity.
+          examples:
+          - Khosla Ventures
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+          description: What the reference points at.
+          examples:
+          - organization
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity identifier of the entity, where it has one. Null where the entity cannot be mapped, which leaves the name and the kind as the whole of what identifies it.
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - entity_type
+      title: EntityReference
+      description: Another entity a row points at, such as an investor in a funding round.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

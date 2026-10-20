@@ -1,0 +1,556 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-public-company-profile-response-schema.json",
+  "title": "PublicCompanyProfileResponse",
+  "description": "Response model for company profile query.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/PublicCompanyProfileResponse",
+  "properties": {
+    "results": {
+      "items": {
+        "$ref": "#/$defs/CompanyProfileData"
+      },
+      "type": "array",
+      "title": "Results",
+      "description": "Company profile data keyed by RP entity ID"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Metadata"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed."
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Usage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Tokens the request consumed, per content tier. Present only for API keys billed in tokens."
+    }
+  },
+  "type": "object",
+  "required": [
+    "results"
+  ],
+  "$defs": {
+    "CompanyProfileData": {
+      "properties": {
+        "rp_entity_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rp Entity Id",
+          "description": "The RavenPack internal entity identifier."
+        },
+        "target_identifier_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Target Identifier Id",
+          "description": "The target identifier provided in the request, e.g., stock symbol."
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Price",
+          "description": "The price of the company."
+        },
+        "market_cap": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Market Cap",
+          "description": "The market capitalization of the company."
+        },
+        "beta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Beta",
+          "description": "The beta of the company, i.e. the volatility of the stock."
+        },
+        "last_dividend": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Dividend",
+          "description": "The last dividend of the company."
+        },
+        "range": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Range",
+          "description": "The range of the company's stock prices, e.g. '166.37-488.54'."
+        },
+        "change": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Change",
+          "description": "The change of the stock price of the company."
+        },
+        "change_percentage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Change Percentage",
+          "description": "The percentage change of the stock price of company."
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Volume",
+          "description": "The volume of the company's stock."
+        },
+        "average_volume": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Average Volume",
+          "description": "The average volume of the company's stock."
+        },
+        "company_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Company Name",
+          "description": "The name of the company."
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Currency",
+          "description": "The currency of the company's stock."
+        },
+        "cik": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cik",
+          "description": "The Central Index Key (CIK) of the company."
+        },
+        "isin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Isin",
+          "description": "The International Securities Identification Number (ISIN) of the company."
+        },
+        "cusip": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cusip",
+          "description": "The Committee on Uniform Securities Identification Procedures (CUSIP) of the company."
+        },
+        "exchange_full_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exchange Full Name",
+          "description": "The full name of the exchange where the company is listed."
+        },
+        "exchange": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exchange",
+          "description": "The exchange where the company is listed."
+        },
+        "industry": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Industry",
+          "description": "The industry of the company."
+        },
+        "website": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Website",
+          "description": "The website of the company."
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Description",
+          "description": "The description of the company, e.g. 'Tesla, Inc. designs, develops, ...'"
+        },
+        "ceo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ceo",
+          "description": "The name of the CEO of the company."
+        },
+        "sector": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sector",
+          "description": "The sector of the company."
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Country",
+          "description": "The country where the company is located."
+        },
+        "full_time_employees": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Full Time Employees",
+          "description": "The number of full-time employees of the company"
+        },
+        "phone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Phone",
+          "description": "The phone number of the company."
+        },
+        "address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Address",
+          "description": "The address of the company."
+        },
+        "city": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "City",
+          "description": "The city where the company is located."
+        },
+        "state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "State",
+          "description": "The state where the company is located."
+        },
+        "zip": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip",
+          "description": "The zip code of the company."
+        },
+        "image": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Image",
+          "description": "The image URL of the company."
+        },
+        "ipo_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ipo Date",
+          "description": "The IPO date of the company, e.g. '2010-06-29'."
+        },
+        "default_image": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Default Image",
+          "description": "Whether the image is the default image or not."
+        },
+        "is_etf": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Etf",
+          "description": "Whether the company is an ETF or not."
+        },
+        "is_actively_trading": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Actively Trading",
+          "description": "Whether the company is actively trading or not."
+        },
+        "is_adr": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Adr",
+          "description": "Whether the company is an ADR or not, i.e. American Depositary Receipt."
+        },
+        "is_fund": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Fund",
+          "description": "Whether the company is a fund or not."
+        }
+      },
+      "type": "object",
+      "title": "CompanyProfileData",
+      "description": "Company profile data model."
+    },
+    "Metadata": {
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "title": "Request Id"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "Timestamp"
+        }
+      },
+      "type": "object",
+      "required": [
+        "request_id"
+      ],
+      "title": "Metadata"
+    },
+    "Source": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "Content catalog identifier of the source."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Catalog name of the dataset the data came from."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Source",
+      "description": "A content catalog source that contributed data to a structured-data response."
+    },
+    "Usage": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object",
+      "title": "Usage",
+      "description": "Public structured-data usage for a request, aggregated per content tier.\n\nA flat object keyed per content tier, where each key is derived from the\ncontent tier identifier by dropping the ``content-`` prefix and appending\n``_tokens`` (e.g. ``corporate-fundamentals`` ->\n``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero\ntokens appear, and an absent key means zero tokens for that tier."
+    }
+  }
+}

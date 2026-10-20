@@ -1,0 +1,739 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-public-get-holdings-overview-response-schema.json",
+  "title": "PublicGetHoldingsOverviewResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/PublicGetHoldingsOverviewResponse",
+  "properties": {
+    "results": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PublicGetHoldingsOverviewResult"
+        },
+        {
+          "$ref": "#/$defs/EmptyResponse"
+        }
+      ],
+      "title": "Results"
+    },
+    "errors": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Errors"
+    },
+    "metadata": {
+      "$ref": "#/$defs/PublicHoldingsRequestMetadata"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed."
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Usage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Tokens the request consumed, per content tier. Present only for API keys billed in tokens."
+    }
+  },
+  "type": "object",
+  "required": [
+    "results",
+    "metadata"
+  ],
+  "$defs": {
+    "EmptyResponse": {
+      "properties": {},
+      "type": "object",
+      "title": "EmptyResponse"
+    },
+    "ErrorDetail": {
+      "properties": {
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Message"
+        }
+      },
+      "type": "object",
+      "title": "ErrorDetail"
+    },
+    "HoldingStatus": {
+      "type": "string",
+      "enum": [
+        "new",
+        "increased",
+        "maintained",
+        "reduced",
+        "closed"
+      ],
+      "title": "HoldingStatus"
+    },
+    "PublicGetHoldingsOverviewResult": {
+      "properties": {
+        "holdings": {
+          "items": {
+            "$ref": "#/$defs/PublicHolding"
+          },
+          "type": "array",
+          "title": "Holdings",
+          "description": "List of holdings in the portfolio."
+        },
+        "quarter_return": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Quarter Return",
+          "description": "The quarter return percentage."
+        },
+        "aum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum",
+          "description": "Assets under management."
+        },
+        "aum_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum Last",
+          "description": "Assets under management in the last period."
+        },
+        "aum_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum Change",
+          "description": "Change in assets under management."
+        },
+        "aum_change_percent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum Change Percent",
+          "description": "Percentage change in assets under management."
+        },
+        "aum_top_10": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum Top 10",
+          "description": "Assets under management in top 10 holdings."
+        },
+        "aum_top_10_as_percent_of_aum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Aum Top 10 As Percent Of Aum",
+          "description": "Top 10 holdings as percentage of total AUM."
+        },
+        "capital_flow": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capital Flow",
+          "description": "Capital flow amount."
+        },
+        "capital_flow_as_percent_of_aum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capital Flow As Percent Of Aum",
+          "description": "Capital flow as percentage of AUM."
+        },
+        "etfs_percent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Etfs Percent",
+          "description": "Percentage of portfolio in ETFs."
+        },
+        "turnover_percent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Turnover Percent",
+          "description": "Portfolio turnover percentage."
+        },
+        "holdings_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Holdings Count",
+          "description": "Number of holdings."
+        },
+        "holdings_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Holdings Last",
+          "description": "Number of holdings in the last period."
+        },
+        "holdings_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Holdings Change",
+          "description": "Change in number of holdings."
+        },
+        "new_positions": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "New Positions",
+          "description": "Number of new positions."
+        },
+        "new_positions_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "New Positions Last",
+          "description": "Number of new positions in the last period."
+        },
+        "new_positions_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "New Positions Change",
+          "description": "Change in number of new positions."
+        },
+        "closed_positions": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Closed Positions",
+          "description": "Number of closed positions."
+        },
+        "closed_positions_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Closed Positions Last",
+          "description": "Number of closed positions in the last period."
+        },
+        "closed_positions_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Closed Positions Change",
+          "description": "Change in number of closed positions."
+        },
+        "increased_positions": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Increased Positions",
+          "description": "Number of increased positions."
+        },
+        "increased_positions_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Increased Positions Last",
+          "description": "Number of increased positions in the last period."
+        },
+        "increased_positions_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Increased Positions Change",
+          "description": "Change in number of increased positions."
+        },
+        "reduced_positions": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reduced Positions",
+          "description": "Number of reduced positions."
+        },
+        "reduced_positions_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reduced Positions Last",
+          "description": "Number of reduced positions in the last period."
+        },
+        "reduced_positions_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reduced Positions Change",
+          "description": "Change in number of reduced positions."
+        },
+        "sector_composition": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/PublicSectorComposition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sector Composition",
+          "description": "Sector composition breakdown of the portfolio."
+        },
+        "top_transactions": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PublicTopTransactions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Top buys and sells transactions for the portfolio."
+        }
+      },
+      "type": "object",
+      "required": [
+        "holdings"
+      ],
+      "title": "PublicGetHoldingsOverviewResult",
+      "description": "Result object containing holdings list and portfolio summary data."
+    },
+    "PublicHolding": {
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "title": "Rank",
+          "description": "The rank of the holding in the portfolio."
+        },
+        "rp_entity_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 6,
+              "minLength": 6
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rp Entity Id",
+          "description": "RavenPack's internal entity identifier for the stock."
+        },
+        "ticker": {
+          "type": "string",
+          "title": "Ticker",
+          "description": "The ticker symbol of the stock."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the stock."
+        },
+        "active": {
+          "type": "boolean",
+          "title": "Active",
+          "description": "Whether the stock is active."
+        },
+        "market_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Market Value",
+          "description": "The market value of the holding."
+        },
+        "status": {
+          "$ref": "#/$defs/HoldingStatus",
+          "description": "The status of the holding."
+        },
+        "portfolio_weight": {
+          "type": "number",
+          "title": "Portfolio Weight",
+          "description": "The portfolio weight of the holding.",
+          "default": 0
+        },
+        "shares": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shares",
+          "description": "The number of shares held."
+        },
+        "shares_last": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shares Last",
+          "description": "The number of shares held in the last period."
+        },
+        "shares_change": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shares Change",
+          "description": "The change in the number of shares held."
+        },
+        "shares_change_percent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shares Change Percent",
+          "description": "The percentage change in the number of shares held."
+        },
+        "capital_flow": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capital Flow",
+          "description": "The capital flow of the holding."
+        }
+      },
+      "type": "object",
+      "required": [
+        "rank",
+        "rp_entity_id",
+        "ticker",
+        "name",
+        "active",
+        "status"
+      ],
+      "title": "PublicHolding",
+      "description": "Model for a single holding in the portfolio."
+    },
+    "PublicHoldingsRequestMetadata": {
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "title": "Request Id"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "Timestamp"
+        },
+        "rp_entity_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 6,
+              "minLength": 6,
+              "description": "Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rp Entity Id"
+        },
+        "fund_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fund Name"
+        },
+        "fiscal_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fiscal Year"
+        },
+        "fiscal_quarter": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fiscal Quarter"
+        }
+      },
+      "type": "object",
+      "required": [
+        "request_id"
+      ],
+      "title": "PublicHoldingsRequestMetadata",
+      "description": "Metadata for the request. Includes the backend request."
+    },
+    "PublicSectorComposition": {
+      "properties": {
+        "sector": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "title": "Sector"
+        },
+        "percent": {
+          "type": "number",
+          "title": "Percent"
+        }
+      },
+      "type": "object",
+      "required": [
+        "sector",
+        "percent"
+      ],
+      "title": "PublicSectorComposition"
+    },
+    "PublicTopTransactions": {
+      "properties": {
+        "buys": {
+          "items": {
+            "$ref": "#/$defs/PublicHolding"
+          },
+          "type": "array",
+          "title": "Buys",
+          "description": "List of top buys."
+        },
+        "sells": {
+          "items": {
+            "$ref": "#/$defs/PublicHolding"
+          },
+          "type": "array",
+          "title": "Sells",
+          "description": "List of top sells."
+        }
+      },
+      "type": "object",
+      "required": [
+        "buys",
+        "sells"
+      ],
+      "title": "PublicTopTransactions",
+      "description": "Model for top buys and sells transactions."
+    },
+    "Source": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "Content catalog identifier of the source."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Catalog name of the dataset the data came from."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Source",
+      "description": "A content catalog source that contributed data to a structured-data response."
+    },
+    "Usage": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object",
+      "title": "Usage",
+      "description": "Public structured-data usage for a request, aggregated per content tier.\n\nA flat object keyed per content tier, where each key is derived from the\ncontent tier identifier by dropping the ``content-`` prefix and appending\n``_tokens`` (e.g. ``corporate-fundamentals`` ->\n``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero\ntokens appear, and an absent key means zero tokens for that tier."
+    }
+  }
+}

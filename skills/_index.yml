@@ -1,0 +1,27 @@
+generated: '2026-10-19'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/bigdata-structured_data.json
+skills:
+- file: skills/bigdata-fetch-market-data.md
+  name: bigdata-fetch-market-data
+  api: openapi/bigdata-structured_data.json
+  operations:
+  - query_daily_prices_v1_price_daily_query_post
+  - query_intraday_prices_v1_price_intraday_query_post
+  - query_company_quote_v1_quote_query_post
+- file: skills/bigdata-fetch-financial-statements.md
+  name: bigdata-fetch-financial-statements
+  api: openapi/bigdata-structured_data.json
+  operations:
+  - query_balance_sheet_v1_balance_sheet_query_post
+  - query_income_statement_v1_income_statement_query_post
+  - query_cash_flow_statement_v1_cash_flow_statement_query_post
+  - query_company_ratios_ttm_v1_company_ratios_ttm_query_post
+  - query_key_metrics_TTM_v1_key_metrics_ttm_query_post
+- file: skills/bigdata-company-profile-and-events.md
+  name: bigdata-company-profile-and-events
+  api: openapi/bigdata-structured_data.json
+  operations:
+  - query_company_profile_v1_company_profile_query_post
+  - query_events_calendar_v1_events_calendar_query_post

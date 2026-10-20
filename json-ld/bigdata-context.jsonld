@@ -1,0 +1,1081 @@
+{
+  "@context": {
+    "@vocab": "https://bigdata.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "bigdata": "https://bigdata.com/schema#",
+    "AftermarketQuery": "bigdata:AftermarketQuery",
+    "identifier": {
+      "@id": "bigdata:identifier",
+      "@type": "@id"
+    },
+    "AftermarketTrade": "bigdata:AftermarketTrade",
+    "price": {
+      "@id": "bigdata:price"
+    },
+    "trade_size": {
+      "@id": "bigdata:trade_size"
+    },
+    "timestamp": {
+      "@id": "bigdata:timestamp"
+    },
+    "AftermarketQuote": "bigdata:AftermarketQuote",
+    "bid_price": {
+      "@id": "bigdata:bid_price"
+    },
+    "bid_size": {
+      "@id": "bigdata:bid_size"
+    },
+    "ask_price": {
+      "@id": "bigdata:ask_price"
+    },
+    "ask_size": {
+      "@id": "bigdata:ask_size"
+    },
+    "volume": {
+      "@id": "bigdata:volume"
+    },
+    "AftermarketRecord": "bigdata:AftermarketRecord",
+    "rp_entity_id": {
+      "@id": "bigdata:rp_entity_id"
+    },
+    "target_identifier_id": {
+      "@id": "bigdata:target_identifier_id"
+    },
+    "trade": {
+      "@id": "bigdata:trade"
+    },
+    "quote": {
+      "@id": "bigdata:quote"
+    },
+    "AftermarketResponse": "bigdata:AftermarketResponse",
+    "results": {
+      "@id": "bigdata:results",
+      "@container": "@list"
+    },
+    "errors": {
+      "@id": "bigdata:errors"
+    },
+    "metadata": {
+      "@id": "bigdata:metadata"
+    },
+    "sources": {
+      "@id": "bigdata:sources",
+      "@container": "@list"
+    },
+    "usage": {
+      "@id": "bigdata:usage"
+    },
+    "AllowedCategories": "bigdata:AllowedCategories",
+    "AllowedPeriods": "bigdata:AllowedPeriods",
+    "AnalystEstimates": "bigdata:AnalystEstimates",
+    "fields": {
+      "@id": "bigdata:fields",
+      "@container": "@list"
+    },
+    "values": {
+      "@id": "bigdata:values",
+      "@container": "@list"
+    },
+    "AnalystRatings": "bigdata:AnalystRatings",
+    "strong_buy": {
+      "@id": "bigdata:strong_buy"
+    },
+    "buy": {
+      "@id": "bigdata:buy"
+    },
+    "hold": {
+      "@id": "bigdata:hold"
+    },
+    "sell": {
+      "@id": "bigdata:sell"
+    },
+    "strong_sell": {
+      "@id": "bigdata:strong_sell"
+    },
+    "consensus": {
+      "@id": "bigdata:consensus"
+    },
+    "AnalystRatingsQuery": "bigdata:AnalystRatingsQuery",
+    "AnalystRatingsResponse": "bigdata:AnalystRatingsResponse",
+    "BadRequestError": "bigdata:BadRequestError",
+    "statusCode": {
+      "@id": "bigdata:statusCode",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "bigdata:message",
+      "@type": "xsd:string"
+    },
+    "BalanceSheet": "bigdata:BalanceSheet",
+    "CashFlowStatement": "bigdata:CashFlowStatement",
+    "CompanyRatiosTTM": "bigdata:CompanyRatiosTTM",
+    "gross_profit_margin_ttm": {
+      "@id": "bigdata:gross_profit_margin_ttm"
+    },
+    "ebit_margin_ttm": {
+      "@id": "bigdata:ebit_margin_ttm"
+    },
+    "ebitda_margin_ttm": {
+      "@id": "bigdata:ebitda_margin_ttm"
+    },
+    "operating_profit_margin_ttm": {
+      "@id": "bigdata:operating_profit_margin_ttm"
+    },
+    "pretax_profit_margin_ttm": {
+      "@id": "bigdata:pretax_profit_margin_ttm"
+    },
+    "continuous_operations_profit_margin_ttm": {
+      "@id": "bigdata:continuous_operations_profit_margin_ttm"
+    },
+    "net_profit_margin_ttm": {
+      "@id": "bigdata:net_profit_margin_ttm"
+    },
+    "bottom_line_profit_margin_ttm": {
+      "@id": "bigdata:bottom_line_profit_margin_ttm"
+    },
+    "receivables_turnover_ttm": {
+      "@id": "bigdata:receivables_turnover_ttm"
+    },
+    "payables_turnover_ttm": {
+      "@id": "bigdata:payables_turnover_ttm"
+    },
+    "inventory_turnover_ttm": {
+      "@id": "bigdata:inventory_turnover_ttm"
+    },
+    "fixed_asset_turnover_ttm": {
+      "@id": "bigdata:fixed_asset_turnover_ttm"
+    },
+    "asset_turnover_ttm": {
+      "@id": "bigdata:asset_turnover_ttm"
+    },
+    "current_ratio_ttm": {
+      "@id": "bigdata:current_ratio_ttm"
+    },
+    "quick_ratio_ttm": {
+      "@id": "bigdata:quick_ratio_ttm"
+    },
+    "solvency_ratio_ttm": {
+      "@id": "bigdata:solvency_ratio_ttm"
+    },
+    "cash_ratio_ttm": {
+      "@id": "bigdata:cash_ratio_ttm"
+    },
+    "price_to_earnings_ratio_ttm": {
+      "@id": "bigdata:price_to_earnings_ratio_ttm"
+    },
+    "price_to_earnings_growth_ratio_ttm": {
+      "@id": "bigdata:price_to_earnings_growth_ratio_ttm"
+    },
+    "forward_price_to_earnings_growth_ratio_ttm": {
+      "@id": "bigdata:forward_price_to_earnings_growth_ratio_ttm"
+    },
+    "price_to_book_ratio_ttm": {
+      "@id": "bigdata:price_to_book_ratio_ttm"
+    },
+    "price_to_sales_ratio_ttm": {
+      "@id": "bigdata:price_to_sales_ratio_ttm"
+    },
+    "price_to_free_cash_flow_ratio_ttm": {
+      "@id": "bigdata:price_to_free_cash_flow_ratio_ttm"
+    },
+    "price_to_operating_cash_flow_ratio_ttm": {
+      "@id": "bigdata:price_to_operating_cash_flow_ratio_ttm"
+    },
+    "debt_to_assets_ratio_ttm": {
+      "@id": "bigdata:debt_to_assets_ratio_ttm"
+    },
+    "debt_to_equity_ratio_ttm": {
+      "@id": "bigdata:debt_to_equity_ratio_ttm"
+    },
+    "debt_to_capital_ratio_ttm": {
+      "@id": "bigdata:debt_to_capital_ratio_ttm"
+    },
+    "long_term_debt_to_capital_ratio_ttm": {
+      "@id": "bigdata:long_term_debt_to_capital_ratio_ttm"
+    },
+    "financial_leverage_ratio_ttm": {
+      "@id": "bigdata:financial_leverage_ratio_ttm"
+    },
+    "working_capital_turnover_ratio_ttm": {
+      "@id": "bigdata:working_capital_turnover_ratio_ttm"
+    },
+    "operating_cash_flow_ratio_ttm": {
+      "@id": "bigdata:operating_cash_flow_ratio_ttm"
+    },
+    "operating_cash_flow_sales_ratio_ttm": {
+      "@id": "bigdata:operating_cash_flow_sales_ratio_ttm"
+    },
+    "free_cash_flow_operating_cash_flow_ratio_ttm": {
+      "@id": "bigdata:free_cash_flow_operating_cash_flow_ratio_ttm"
+    },
+    "debt_service_coverage_ratio_ttm": {
+      "@id": "bigdata:debt_service_coverage_ratio_ttm"
+    },
+    "interest_coverage_ratio_ttm": {
+      "@id": "bigdata:interest_coverage_ratio_ttm"
+    },
+    "short_term_operating_cash_flow_coverage_ratio_ttm": {
+      "@id": "bigdata:short_term_operating_cash_flow_coverage_ratio_ttm"
+    },
+    "operating_cash_flow_coverage_ratio_ttm": {
+      "@id": "bigdata:operating_cash_flow_coverage_ratio_ttm"
+    },
+    "capital_expenditure_coverage_ratio_ttm": {
+      "@id": "bigdata:capital_expenditure_coverage_ratio_ttm"
+    },
+    "dividend_paid_and_capex_coverage_ratio_ttm": {
+      "@id": "bigdata:dividend_paid_and_capex_coverage_ratio_ttm"
+    },
+    "dividend_payout_ratio_ttm": {
+      "@id": "bigdata:dividend_payout_ratio_ttm"
+    },
+    "dividend_yield_ttm": {
+      "@id": "bigdata:dividend_yield_ttm"
+    },
+    "enterprise_value_ttm": {
+      "@id": "bigdata:enterprise_value_ttm"
+    },
+    "revenue_per_share_ttm": {
+      "@id": "bigdata:revenue_per_share_ttm"
+    },
+    "net_income_per_share_ttm": {
+      "@id": "bigdata:net_income_per_share_ttm"
+    },
+    "interest_debt_per_share_ttm": {
+      "@id": "bigdata:interest_debt_per_share_ttm"
+    },
+    "cash_per_share_ttm": {
+      "@id": "bigdata:cash_per_share_ttm"
+    },
+    "book_value_per_share_ttm": {
+      "@id": "bigdata:book_value_per_share_ttm"
+    },
+    "tangible_book_value_per_share_ttm": {
+      "@id": "bigdata:tangible_book_value_per_share_ttm"
+    },
+    "shareholders_equity_per_share_ttm": {
+      "@id": "bigdata:shareholders_equity_per_share_ttm"
+    },
+    "operating_cash_flow_per_share_ttm": {
+      "@id": "bigdata:operating_cash_flow_per_share_ttm"
+    },
+    "capex_per_share_ttm": {
+      "@id": "bigdata:capex_per_share_ttm"
+    },
+    "free_cash_flow_per_share_ttm": {
+      "@id": "bigdata:free_cash_flow_per_share_ttm"
+    },
+    "net_income_per_ebt_ttm": {
+      "@id": "bigdata:net_income_per_ebt_ttm"
+    },
+    "ebt_per_ebit_ttm": {
+      "@id": "bigdata:ebt_per_ebit_ttm"
+    },
+    "price_to_fair_value_ttm": {
+      "@id": "bigdata:price_to_fair_value_ttm"
+    },
+    "debt_to_market_cap_ttm": {
+      "@id": "bigdata:debt_to_market_cap_ttm"
+    },
+    "effective_tax_rate_ttm": {
+      "@id": "bigdata:effective_tax_rate_ttm"
+    },
+    "enterprise_value_multiple_ttm": {
+      "@id": "bigdata:enterprise_value_multiple_ttm"
+    },
+    "dividend_per_share_ttm": {
+      "@id": "bigdata:dividend_per_share_ttm"
+    },
+    "CompanyRatiosTTMQuery": "bigdata:CompanyRatiosTTMQuery",
+    "CompanyRatiosTTMResponse": "bigdata:CompanyRatiosTTMResponse",
+    "CompanyRevenueGeographic": "bigdata:CompanyRevenueGeographic",
+    "CompanyRevenueProduct": "bigdata:CompanyRevenueProduct",
+    "CompanyScreenerFilters": "bigdata:CompanyScreenerFilters",
+    "market_cap_more_than": {
+      "@id": "bigdata:market_cap_more_than"
+    },
+    "market_cap_lower_than": {
+      "@id": "bigdata:market_cap_lower_than"
+    },
+    "price_more_than": {
+      "@id": "bigdata:price_more_than"
+    },
+    "price_lower_than": {
+      "@id": "bigdata:price_lower_than"
+    },
+    "beta_more_than": {
+      "@id": "bigdata:beta_more_than"
+    },
+    "beta_lower_than": {
+      "@id": "bigdata:beta_lower_than"
+    },
+    "volume_more_than": {
+      "@id": "bigdata:volume_more_than"
+    },
+    "volume_lower_than": {
+      "@id": "bigdata:volume_lower_than"
+    },
+    "dividend_more_than": {
+      "@id": "bigdata:dividend_more_than"
+    },
+    "dividend_lower_than": {
+      "@id": "bigdata:dividend_lower_than"
+    },
+    "is_etf": {
+      "@id": "bigdata:is_etf"
+    },
+    "is_fund": {
+      "@id": "bigdata:is_fund"
+    },
+    "is_actively_trading": {
+      "@id": "bigdata:is_actively_trading"
+    },
+    "sector": {
+      "@id": "bigdata:sector"
+    },
+    "industry": {
+      "@id": "bigdata:industry"
+    },
+    "country": {
+      "@id": "bigdata:country"
+    },
+    "exchange": {
+      "@id": "bigdata:exchange"
+    },
+    "Exchange": "bigdata:Exchange",
+    "CompanyScreenerQuery": "bigdata:CompanyScreenerQuery",
+    "filters": {
+      "@id": "bigdata:filters"
+    },
+    "limit": {
+      "@id": "bigdata:limit",
+      "@type": "xsd:integer"
+    },
+    "CompanyTypes": "bigdata:CompanyTypes",
+    "CountryCode": "bigdata:CountryCode",
+    "CompanyProfileData": "bigdata:CompanyProfileData",
+    "market_cap": {
+      "@id": "bigdata:market_cap"
+    },
+    "beta": {
+      "@id": "bigdata:beta"
+    },
+    "last_dividend": {
+      "@id": "bigdata:last_dividend"
+    },
+    "range": {
+      "@id": "bigdata:range"
+    },
+    "change": {
+      "@id": "bigdata:change"
+    },
+    "change_percentage": {
+      "@id": "bigdata:change_percentage"
+    },
+    "average_volume": {
+      "@id": "bigdata:average_volume"
+    },
+    "company_name": {
+      "@id": "bigdata:company_name"
+    },
+    "currency": {
+      "@id": "bigdata:currency"
+    },
+    "cik": {
+      "@id": "bigdata:cik"
+    },
+    "isin": {
+      "@id": "bigdata:isin"
+    },
+    "cusip": {
+      "@id": "bigdata:cusip"
+    },
+    "exchange_full_name": {
+      "@id": "bigdata:exchange_full_name"
+    },
+    "website": {
+      "@id": "bigdata:website"
+    },
+    "description": {
+      "@id": "bigdata:description"
+    },
+    "ceo": {
+      "@id": "bigdata:ceo"
+    },
+    "full_time_employees": {
+      "@id": "bigdata:full_time_employees"
+    },
+    "phone": {
+      "@id": "bigdata:phone"
+    },
+    "address": {
+      "@id": "bigdata:address"
+    },
+    "city": {
+      "@id": "bigdata:city"
+    },
+    "state": {
+      "@id": "bigdata:state"
+    },
+    "zip": {
+      "@id": "bigdata:zip"
+    },
+    "image": {
+      "@id": "bigdata:image"
+    },
+    "ipo_date": {
+      "@id": "bigdata:ipo_date"
+    },
+    "default_image": {
+      "@id": "bigdata:default_image"
+    },
+    "is_adr": {
+      "@id": "bigdata:is_adr"
+    },
+    "CompanyQuote": "bigdata:CompanyQuote",
+    "name": {
+      "@id": "bigdata:name",
+      "@type": "xsd:string"
+    },
+    "day_low": {
+      "@id": "bigdata:day_low"
+    },
+    "day_high": {
+      "@id": "bigdata:day_high"
+    },
+    "year_high": {
+      "@id": "bigdata:year_high"
+    },
+    "year_low": {
+      "@id": "bigdata:year_low"
+    },
+    "price_avg_50": {
+      "@id": "bigdata:price_avg_50"
+    },
+    "price_avg_200": {
+      "@id": "bigdata:price_avg_200"
+    },
+    "open": {
+      "@id": "bigdata:open"
+    },
+    "previous_close": {
+      "@id": "bigdata:previous_close"
+    },
+    "CompanyQuoteQuery": "bigdata:CompanyQuoteQuery",
+    "Consensus": "bigdata:Consensus",
+    "DailyPricesQuery": "bigdata:DailyPricesQuery",
+    "date_range": {
+      "@id": "bigdata:date_range"
+    },
+    "DailyPricesResponse": "bigdata:DailyPricesResponse",
+    "DailyPricesResults": "bigdata:DailyPricesResults",
+    "DateRange": "bigdata:DateRange",
+    "start": {
+      "@id": "bigdata:start",
+      "@type": "xsd:date"
+    },
+    "end": {
+      "@id": "bigdata:end",
+      "@type": "xsd:date"
+    },
+    "DateRangeFilter": "bigdata:DateRangeFilter",
+    "Document": "bigdata:Document",
+    "id": {
+      "@id": "bigdata:id",
+      "@type": "xsd:string"
+    },
+    "headline": {
+      "@id": "bigdata:headline",
+      "@type": "xsd:string"
+    },
+    "document_type": {
+      "@id": "bigdata:document_type"
+    },
+    "source": {
+      "@id": "bigdata:source",
+      "@type": "@id"
+    },
+    "url": {
+      "@id": "bigdata:url"
+    },
+    "chunks": {
+      "@id": "bigdata:chunks",
+      "@container": "@list"
+    },
+    "DocumentChunk": "bigdata:DocumentChunk",
+    "cnum": {
+      "@id": "bigdata:cnum",
+      "@type": "xsd:integer"
+    },
+    "text": {
+      "@id": "bigdata:text",
+      "@type": "xsd:string"
+    },
+    "relevance": {
+      "@id": "bigdata:relevance",
+      "@type": "xsd:decimal"
+    },
+    "DocumentSource": "bigdata:DocumentSource",
+    "DocumentTypeFilter": "bigdata:DocumentTypeFilter",
+    "mode": {
+      "@id": "bigdata:mode",
+      "@type": "xsd:string"
+    },
+    "ESGPerformanceScore": "bigdata:ESGPerformanceScore",
+    "ticker": {
+      "@id": "bigdata:ticker",
+      "@type": "xsd:string"
+    },
+    "economic_sector": {
+      "@id": "bigdata:economic_sector"
+    },
+    "esg_scores": {
+      "@id": "bigdata:esg_scores",
+      "@container": "@list"
+    },
+    "EntityFilter": "bigdata:EntityFilter",
+    "all_of": {
+      "@id": "bigdata:all_of"
+    },
+    "any_of": {
+      "@id": "bigdata:any_of"
+    },
+    "none_of": {
+      "@id": "bigdata:none_of"
+    },
+    "ErrorDetail": "bigdata:ErrorDetail",
+    "EventCalendar": "bigdata:EventCalendar",
+    "category": {
+      "@id": "bigdata:category",
+      "@type": "xsd:string"
+    },
+    "event_datetime": {
+      "@id": "bigdata:event_datetime"
+    },
+    "title": {
+      "@id": "bigdata:title",
+      "@type": "xsd:string"
+    },
+    "fiscal_year": {
+      "@id": "bigdata:fiscal_year"
+    },
+    "fiscal_period": {
+      "@id": "bigdata:fiscal_period"
+    },
+    "rp_collection_id": {
+      "@id": "bigdata:rp_collection_id"
+    },
+    "updated_at": {
+      "@id": "bigdata:updated_at"
+    },
+    "created_at": {
+      "@id": "bigdata:created_at"
+    },
+    "EventsCalendarQuery": "bigdata:EventsCalendarQuery",
+    "start_date": {
+      "@id": "bigdata:start_date"
+    },
+    "end_date": {
+      "@id": "bigdata:end_date"
+    },
+    "countries": {
+      "@id": "bigdata:countries"
+    },
+    "exchanges": {
+      "@id": "bigdata:exchanges"
+    },
+    "categories": {
+      "@id": "bigdata:categories"
+    },
+    "cursor": {
+      "@id": "bigdata:cursor"
+    },
+    "EventsCalendarResponse": "bigdata:EventsCalendarResponse",
+    "pagination": {
+      "@id": "bigdata:pagination"
+    },
+    "events_unmapped": {
+      "@id": "bigdata:events_unmapped"
+    },
+    "HTTPValidationError": "bigdata:HTTPValidationError",
+    "detail": {
+      "@id": "bigdata:detail",
+      "@container": "@list"
+    },
+    "HoldingField": "bigdata:HoldingField",
+    "HoldingStatus": "bigdata:HoldingStatus",
+    "Identifier": "bigdata:Identifier",
+    "type": {
+      "@id": "bigdata:type",
+      "@type": "@id"
+    },
+    "value": {
+      "@id": "bigdata:value"
+    },
+    "IdentifierQuery": "bigdata:IdentifierQuery",
+    "IdentifierType": "bigdata:IdentifierType",
+    "IncomeStatement": "bigdata:IncomeStatement",
+    "Industry": "bigdata:Industry",
+    "InputPagination": "bigdata:InputPagination",
+    "InternalServerError": "bigdata:InternalServerError",
+    "IntradayPricesQuery": "bigdata:IntradayPricesQuery",
+    "interval": {
+      "@id": "bigdata:interval",
+      "@type": "@id"
+    },
+    "IntradayPricesResponse": "bigdata:IntradayPricesResponse",
+    "DividendsQuery": "bigdata:DividendsQuery",
+    "DividendsResponse": "bigdata:DividendsResponse",
+    "DividendsResults": "bigdata:DividendsResults",
+    "IntradayPricesResults": "bigdata:IntradayPricesResults",
+    "IntradayTimeFrame": "bigdata:IntradayTimeFrame",
+    "KeywordFilter": "bigdata:KeywordFilter",
+    "KeyMetricsTTM": "bigdata:KeyMetricsTTM",
+    "ev_to_sales_ttm": {
+      "@id": "bigdata:ev_to_sales_ttm"
+    },
+    "ev_to_operating_cash_flow_ttm": {
+      "@id": "bigdata:ev_to_operating_cash_flow_ttm"
+    },
+    "ev_to_free_cash_flow_ttm": {
+      "@id": "bigdata:ev_to_free_cash_flow_ttm"
+    },
+    "ev_to_ebitda_ttm": {
+      "@id": "bigdata:ev_to_ebitda_ttm"
+    },
+    "net_debt_to_ebitda_ttm": {
+      "@id": "bigdata:net_debt_to_ebitda_ttm"
+    },
+    "income_quality_ttm": {
+      "@id": "bigdata:income_quality_ttm"
+    },
+    "graham_number_ttm": {
+      "@id": "bigdata:graham_number_ttm"
+    },
+    "graham_net_net_ttm": {
+      "@id": "bigdata:graham_net_net_ttm"
+    },
+    "tax_burden_ttm": {
+      "@id": "bigdata:tax_burden_ttm"
+    },
+    "interest_burden_ttm": {
+      "@id": "bigdata:interest_burden_ttm"
+    },
+    "working_capital_ttm": {
+      "@id": "bigdata:working_capital_ttm"
+    },
+    "invested_capital_ttm": {
+      "@id": "bigdata:invested_capital_ttm"
+    },
+    "return_on_assets_ttm": {
+      "@id": "bigdata:return_on_assets_ttm"
+    },
+    "operating_return_on_assets_ttm": {
+      "@id": "bigdata:operating_return_on_assets_ttm"
+    },
+    "return_on_tangible_assets_ttm": {
+      "@id": "bigdata:return_on_tangible_assets_ttm"
+    },
+    "return_on_equity_ttm": {
+      "@id": "bigdata:return_on_equity_ttm"
+    },
+    "return_on_invested_capital_ttm": {
+      "@id": "bigdata:return_on_invested_capital_ttm"
+    },
+    "return_on_capital_employed_ttm": {
+      "@id": "bigdata:return_on_capital_employed_ttm"
+    },
+    "earnings_yield_ttm": {
+      "@id": "bigdata:earnings_yield_ttm"
+    },
+    "free_cash_flow_yield_ttm": {
+      "@id": "bigdata:free_cash_flow_yield_ttm"
+    },
+    "capex_to_operating_cash_flow_ttm": {
+      "@id": "bigdata:capex_to_operating_cash_flow_ttm"
+    },
+    "capex_to_depreciation_ttm": {
+      "@id": "bigdata:capex_to_depreciation_ttm"
+    },
+    "capex_to_revenue_ttm": {
+      "@id": "bigdata:capex_to_revenue_ttm"
+    },
+    "sales_general_and_admin_to_revenue_ttm": {
+      "@id": "bigdata:sales_general_and_admin_to_revenue_ttm"
+    },
+    "research_and_development_to_revenue_ttm": {
+      "@id": "bigdata:research_and_development_to_revenue_ttm"
+    },
+    "stock_based_compensation_to_revenue_ttm": {
+      "@id": "bigdata:stock_based_compensation_to_revenue_ttm"
+    },
+    "intangibles_to_total_assets_ttm": {
+      "@id": "bigdata:intangibles_to_total_assets_ttm"
+    },
+    "average_receivables_ttm": {
+      "@id": "bigdata:average_receivables_ttm"
+    },
+    "average_payables_ttm": {
+      "@id": "bigdata:average_payables_ttm"
+    },
+    "average_inventory_ttm": {
+      "@id": "bigdata:average_inventory_ttm"
+    },
+    "days_of_sales_outstanding_ttm": {
+      "@id": "bigdata:days_of_sales_outstanding_ttm"
+    },
+    "days_of_payables_outstanding_ttm": {
+      "@id": "bigdata:days_of_payables_outstanding_ttm"
+    },
+    "days_of_inventory_outstanding_ttm": {
+      "@id": "bigdata:days_of_inventory_outstanding_ttm"
+    },
+    "operating_cycle_ttm": {
+      "@id": "bigdata:operating_cycle_ttm"
+    },
+    "cash_conversion_cycle_ttm": {
+      "@id": "bigdata:cash_conversion_cycle_ttm"
+    },
+    "free_cash_flow_to_equity_ttm": {
+      "@id": "bigdata:free_cash_flow_to_equity_ttm"
+    },
+    "free_cash_flow_to_firm_ttm": {
+      "@id": "bigdata:free_cash_flow_to_firm_ttm"
+    },
+    "tangible_asset_value_ttm": {
+      "@id": "bigdata:tangible_asset_value_ttm"
+    },
+    "net_current_asset_value_ttm": {
+      "@id": "bigdata:net_current_asset_value_ttm"
+    },
+    "KeyMetricsTTMQuery": "bigdata:KeyMetricsTTMQuery",
+    "KeyMetricsTTMResponse": "bigdata:KeyMetricsTTMResponse",
+    "LatestSurprise": "bigdata:LatestSurprise",
+    "reporting_date": {
+      "@id": "bigdata:reporting_date"
+    },
+    "eps_actual": {
+      "@id": "bigdata:eps_actual"
+    },
+    "eps_estimated": {
+      "@id": "bigdata:eps_estimated"
+    },
+    "revenue_actual": {
+      "@id": "bigdata:revenue_actual"
+    },
+    "revenue_estimated": {
+      "@id": "bigdata:revenue_estimated"
+    },
+    "last_updated": {
+      "@id": "bigdata:last_updated"
+    },
+    "eps_surprise_pct": {
+      "@id": "bigdata:eps_surprise_pct"
+    },
+    "revenue_surprise_pct": {
+      "@id": "bigdata:revenue_surprise_pct"
+    },
+    "LatestSurpriseQuery": "bigdata:LatestSurpriseQuery",
+    "LatestSurpriseResponse": "bigdata:LatestSurpriseResponse",
+    "MarketCap": "bigdata:MarketCap",
+    "Metadata": "bigdata:Metadata",
+    "request_id": {
+      "@id": "bigdata:request_id",
+      "@type": "xsd:string"
+    },
+    "Pagination-Input": "bigdata:Pagination-Input",
+    "Pagination-Output": "bigdata:Pagination-Output",
+    "has_cursor": {
+      "@id": "bigdata:has_cursor",
+      "@type": "xsd:boolean"
+    },
+    "PriceChanges": "bigdata:PriceChanges",
+    "ytd": {
+      "@id": "bigdata:ytd"
+    },
+    "max": {
+      "@id": "bigdata:max"
+    },
+    "PriceChangesQuery": "bigdata:PriceChangesQuery",
+    "PublicAnalystEstimatesQuery": "bigdata:PublicAnalystEstimatesQuery",
+    "period": {
+      "@id": "bigdata:period",
+      "@type": "@id"
+    },
+    "PublicAnalystEstimatesResponse": "bigdata:PublicAnalystEstimatesResponse",
+    "PublicBalanceSheetQuery": "bigdata:PublicBalanceSheetQuery",
+    "PublicBalanceSheetResponse": "bigdata:PublicBalanceSheetResponse",
+    "PublicCompanyProfileResponse": "bigdata:PublicCompanyProfileResponse",
+    "PublicCompanyQuoteResponse": "bigdata:PublicCompanyQuoteResponse",
+    "PublicCompanyRevenueGeographicQuery": "bigdata:PublicCompanyRevenueGeographicQuery",
+    "PublicCompanyRevenueGeographicResponse": "bigdata:PublicCompanyRevenueGeographicResponse",
+    "PublicCompanyRevenueProductQuery": "bigdata:PublicCompanyRevenueProductQuery",
+    "PublicCompanyRevenueProductResponse": "bigdata:PublicCompanyRevenueProductResponse",
+    "PublicESGPerformanceScoreResponse": "bigdata:PublicESGPerformanceScoreResponse",
+    "PublicCompanyScreenerResponse": "bigdata:PublicCompanyScreenerResponse",
+    "PublicCashFlowResponse": "bigdata:PublicCashFlowResponse",
+    "PublicCashFlowStatementQuery": "bigdata:PublicCashFlowStatementQuery",
+    "PublicPriceChangesResponse": "bigdata:PublicPriceChangesResponse",
+    "PublicNetCallsItem": "bigdata:PublicNetCallsItem",
+    "active": {
+      "@id": "bigdata:active",
+      "@type": "xsd:boolean"
+    },
+    "net_calls": {
+      "@id": "bigdata:net_calls",
+      "@type": "xsd:integer"
+    },
+    "calls": {
+      "@id": "bigdata:calls",
+      "@type": "xsd:integer"
+    },
+    "puts": {
+      "@id": "bigdata:puts",
+      "@type": "xsd:integer"
+    },
+    "PublicNetClosedPositionsItem": "bigdata:PublicNetClosedPositionsItem",
+    "net_closed_positions": {
+      "@id": "bigdata:net_closed_positions",
+      "@type": "xsd:integer"
+    },
+    "new_positions": {
+      "@id": "bigdata:new_positions",
+      "@type": "xsd:integer"
+    },
+    "closed_positions": {
+      "@id": "bigdata:closed_positions",
+      "@type": "xsd:integer"
+    },
+    "PublicNetIncreasedPositionsItem": "bigdata:PublicNetIncreasedPositionsItem",
+    "net_increased_positions": {
+      "@id": "bigdata:net_increased_positions",
+      "@type": "xsd:integer"
+    },
+    "increased_positions": {
+      "@id": "bigdata:increased_positions",
+      "@type": "xsd:integer"
+    },
+    "reduced_positions": {
+      "@id": "bigdata:reduced_positions",
+      "@type": "xsd:integer"
+    },
+    "PublicNetNewPositionsItem": "bigdata:PublicNetNewPositionsItem",
+    "net_new_positions": {
+      "@id": "bigdata:net_new_positions",
+      "@type": "xsd:integer"
+    },
+    "PublicNetPutsItem": "bigdata:PublicNetPutsItem",
+    "net_puts": {
+      "@id": "bigdata:net_puts",
+      "@type": "xsd:integer"
+    },
+    "PublicNetReducedPositionsItem": "bigdata:PublicNetReducedPositionsItem",
+    "net_reduced_positions": {
+      "@id": "bigdata:net_reduced_positions",
+      "@type": "xsd:integer"
+    },
+    "PublicPositionChangeItem": "bigdata:PublicPositionChangeItem",
+    "current": {
+      "@id": "bigdata:current",
+      "@type": "xsd:integer"
+    },
+    "previous": {
+      "@id": "bigdata:previous",
+      "@type": "xsd:integer"
+    },
+    "change_percent": {
+      "@id": "bigdata:change_percent"
+    },
+    "PublicSectorComposition": "bigdata:PublicSectorComposition",
+    "percent": {
+      "@id": "bigdata:percent",
+      "@type": "xsd:decimal"
+    },
+    "HoldingsOverviewFilters": "bigdata:HoldingsOverviewFilters",
+    "year": {
+      "@id": "bigdata:year",
+      "@type": "xsd:integer"
+    },
+    "quarter": {
+      "@id": "bigdata:quarter",
+      "@type": "@id"
+    },
+    "PublicFundTrendsMetadata": "bigdata:PublicFundTrendsMetadata",
+    "reporting_year": {
+      "@id": "bigdata:reporting_year"
+    },
+    "reporting_quarter": {
+      "@id": "bigdata:reporting_quarter"
+    },
+    "filters_applied": {
+      "@id": "bigdata:filters_applied"
+    },
+    "sort_dir": {
+      "@id": "bigdata:sort_dir",
+      "@type": "xsd:string"
+    },
+    "mapping": {
+      "@id": "bigdata:mapping"
+    },
+    "PublicFundTrendsResponse": "bigdata:PublicFundTrendsResponse",
+    "PublicFundTrendsResults": "bigdata:PublicFundTrendsResults",
+    "holding_in_top": {
+      "@id": "bigdata:holding_in_top",
+      "@container": "@list"
+    },
+    "PublicGetCompanyFundsHoldingsQuery": "bigdata:PublicGetCompanyFundsHoldingsQuery",
+    "PublicGetCompanyFundsHoldingsResponse": "bigdata:PublicGetCompanyFundsHoldingsResponse",
+    "CompanyFundHoldingsRow": "bigdata:CompanyFundHoldingsRow",
+    "rank": {
+      "@id": "bigdata:rank"
+    },
+    "market_value": {
+      "@id": "bigdata:market_value"
+    },
+    "status": {
+      "@id": "bigdata:status"
+    },
+    "shares": {
+      "@id": "bigdata:shares"
+    },
+    "shares_last": {
+      "@id": "bigdata:shares_last"
+    },
+    "shares_change": {
+      "@id": "bigdata:shares_change"
+    },
+    "shares_change_percent": {
+      "@id": "bigdata:shares_change_percent"
+    },
+    "capital_flow": {
+      "@id": "bigdata:capital_flow"
+    },
+    "CompanyFundHoldingsResults": "bigdata:CompanyFundHoldingsResults",
+    "funds": {
+      "@id": "bigdata:funds"
+    },
+    "CompanyFundsHoldingsFilters": "bigdata:CompanyFundsHoldingsFilters",
+    "PublicCompanyFundsHoldingsRequestMetadata": "bigdata:PublicCompanyFundsHoldingsRequestMetadata",
+    "stock_name": {
+      "@id": "bigdata:stock_name"
+    },
+    "PublicGetFundTrendsQuery": "bigdata:PublicGetFundTrendsQuery",
+    "PublicGetHoldingsOverviewQuery": "bigdata:PublicGetHoldingsOverviewQuery",
+    "PublicGetHoldingsOverviewResponse": "bigdata:PublicGetHoldingsOverviewResponse",
+    "PublicGetHoldingsOverviewResult": "bigdata:PublicGetHoldingsOverviewResult",
+    "holdings": {
+      "@id": "bigdata:holdings",
+      "@container": "@list"
+    },
+    "quarter_return": {
+      "@id": "bigdata:quarter_return"
+    },
+    "aum": {
+      "@id": "bigdata:aum"
+    },
+    "aum_last": {
+      "@id": "bigdata:aum_last"
+    },
+    "aum_change": {
+      "@id": "bigdata:aum_change"
+    },
+    "aum_change_percent": {
+      "@id": "bigdata:aum_change_percent"
+    },
+    "aum_top_10": {
+      "@id": "bigdata:aum_top_10"
+    },
+    "aum_top_10_as_percent_of_aum": {
+      "@id": "bigdata:aum_top_10_as_percent_of_aum"
+    },
+    "capital_flow_as_percent_of_aum": {
+      "@id": "bigdata:capital_flow_as_percent_of_aum"
+    },
+    "etfs_percent": {
+      "@id": "bigdata:etfs_percent"
+    },
+    "turnover_percent": {
+      "@id": "bigdata:turnover_percent"
+    },
+    "holdings_count": {
+      "@id": "bigdata:holdings_count"
+    },
+    "holdings_last": {
+      "@id": "bigdata:holdings_last"
+    },
+    "holdings_change": {
+      "@id": "bigdata:holdings_change"
+    },
+    "new_positions_last": {
+      "@id": "bigdata:new_positions_last"
+    },
+    "new_positions_change": {
+      "@id": "bigdata:new_positions_change"
+    },
+    "closed_positions_last": {
+      "@id": "bigdata:closed_positions_last"
+    },
+    "closed_positions_change": {
+      "@id": "bigdata:closed_positions_change"
+    },
+    "increased_positions_last": {
+      "@id": "bigdata:increased_positions_last"
+    },
+    "increased_positions_change": {
+      "@id": "bigdata:increased_positions_change"
+    },
+    "reduced_positions_last": {
+      "@id": "bigdata:reduced_positions_last"
+    },
+    "reduced_positions_change": {
+      "@id": "bigdata:reduced_positions_change"
+    },
+    "sector_composition": {
+      "@id": "bigdata:sector_composition"
+    },
+    "top_transactions": {
+      "@id": "bigdata:top_transactions"
+    },
+    "PublicHolding": "bigdata:PublicHolding",
+    "portfolio_weight": {
+      "@id": "bigdata:portfolio_weight",
+      "@type": "xsd:decimal"
+    },
+    "PublicGetPerformanceScoreQuery": "bigdata:PublicGetPerformanceScoreQuery",
+    "PublicHoldingsRequestMetadata": "bigdata:PublicHoldingsRequestMetadata",
+    "fund_name": {
+      "@id": "bigdata:fund_name"
+    },
+    "fiscal_quarter": {
+      "@id": "bigdata:fiscal_quarter"
+    },
+    "PublicHoldingsRequestMetadataPagination": "bigdata:PublicHoldingsRequestMetadataPagination",
+    "PublicIncomeStatementQuery": "bigdata:PublicIncomeStatementQuery",
+    "PublicIncomeStatementResponse": "bigdata:PublicIncomeStatementResponse",
+    "Status": "bigdata:Status",
+    "TargetPrice": "bigdata:TargetPrice",
+    "target_high": {
+      "@id": "bigdata:target_high"
+    },
+    "target_low": {
+      "@id": "bigdata:target_low"
+    },
+    "target_consensus": {
+      "@id": "bigdata:target_consensus"
+    },
+    "target_median": {
+      "@id": "bigdata:target_median"
+    },
+    "TargetPriceQuery": "bigdata:TargetPriceQuery",
+    "TimeSeriesSentimentQuery": "bigdata:TimeSeriesSentimentQuery"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "RavenPack API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects RavenPack's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-19) from openapi/bigdata-structured_data.json.",
+  "dcterms:created": "2026-10-19",
+  "dcterms:source": [
+    "openapi/bigdata-structured_data.json"
+  ]
+}

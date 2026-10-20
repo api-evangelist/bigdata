@@ -1,0 +1,22 @@
+generated: '2026-10-19'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://bigdata.com/pricing
+sources:
+- https://bigdata.com/pricing
+- https://docs.bigdata.com/getting-started/bigdata_pricing.md
+- https://docs.bigdata.com/how-to-guides/agents/workflows/execution_modes.md
+- https://docs.bigdata.com/use-cases/research-tools/pricing-power.md
+name: RavenPack pricing
+audience: business-product
+pricing_basis: usage-other
+plans:
+- name: Starter
+  price_text: $ 0 / month
+  price: 0
+  description: For trying agents on live financial data, no card required
+- name: Enterprise
+  price_text: Talk to sales
+  description: Volume, shared wallet, SSO/SAML and organizational controls
+docs: https://bigdata.com/pricing
+note: 2 extracted row(s) were dropped because their quote was not on the page.

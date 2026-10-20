@@ -1,23 +1,252 @@
 aid: bigdata
 name: RavenPack
-description: 'RavenPack is a company surfaced via the API Evangelist harvest backlog (source: g2-catalog)
-  and added to the network as a stub for full-pipeline profiling.'
+image: https://framerusercontent.com/images/VrOQfwdVdsAIUHQ1aYd2eKd1ICM.webp
+description: RavenPack provides AI-driven analytics and data solutions for finance, delivering real-time insights, sentiment analysis, and predictive
+  modeling to help firms make data‑driven decisions across markets, risk, and strategy. The platform aggregates news, social media, and alternative
+  data, transforming it into structured, searchable signals for investors, traders, and analysts.
 url: https://raw.githubusercontent.com/api-evangelist/bigdata/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:g2-catalog
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-19 (modular-v1; was harvest)
 specificationVersion: '0.20'
 created: '2026-10-19'
 modified: '2026-10-19'
 tags:
 - Company
-apis: []
+- Finance
+- AI
+- DataAnalytics
+- MarketInsights
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/bigdata-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/bigdata-rate-limits.yml
+- type: Plans
+  url: plans/bigdata-plans-pricing.yml
+- type: Spectral
+  url: rules/bigdata-rules.yml
+- type: JSONLD
+  url: json-ld/bigdata-context.jsonld
+- type: Vocabulary
+  url: vocabulary/bigdata-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/bigdata-data-model.yml
+- type: ChangeLog
+  url: changelog/bigdata-changelog.yml
+- type: ErrorCatalog
+  url: errors/bigdata-problem-types.yml
+- type: Conformance
+  url: conformance/bigdata-conformance.yml
+- type: LLMsTxt
+  url: llms/bigdata-llms.txt
+- type: AgentCard
+  url: a2a/bigdata-a2a.yml
+- type: SecurityTxt
+  url: well-known/bigdata-status-security.txt
+- type: WellKnown
+  url: well-known/bigdata-well-known.yml
+- type: Hosts
+  url: hosts/bigdata-hosts.yml
+- type: Vendors
+  url: vendors/bigdata-vendors.yml
+- type: TermsOfService
+  url: https://bigdata.com/terms-and-conditions
+- type: StatusPage
+  url: https://status.bigdata.com/
+- type: PrivacyPolicy
+  url: https://www.bigdata.com/privacy
+- type: ChangeLog
+  url: https://docs.bigdata.com/release-notes/api_changelog
+- type: DeveloperPortal
+  url: https://docs.bigdata.com\
+- type: Authentication
+  url: authentication/bigdata-authentication.yml
+- type: DomainSecurity
+  url: security/bigdata-domain-security.yml
 - type: Website
   url: https://bigdata.com/
+- type: Documentation
+  url: https://bigdata.com/developers
+- type: APIReference
+  url: https://bigdata.com/developers
+- type: GettingStarted
+  url: https://bigdata.com/how-it-works
+- type: Pricing
+  url: https://bigdata.com/pricing
+- type: Blog
+  url: https://bigdata.com/blog
+apis:
+- aid: bigdata:bigdata-analyst-estimates-api
+  name: RavenPack Analyst Estimates API
+  description: >-
+    Analyst estimates and ratings including analyst ratings, estimates, target prices, and earnings surprises
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Analyst Estimates
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-analyst-estimates-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-company-events-api
+  name: RavenPack Company & Events API
+  description: Company information and events including company profile and events calendar
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Company & Events
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-company-events-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-financials-ratios-api
+  name: RavenPack Financials & Ratios API
+  description: >-
+    Financial statements and ratios including balance sheet, income statement, cash flow statement, key
+    metrics TTM, and company ratios TTM
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Financials & Ratios
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-financials-ratios-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-fixed-income-api
+  name: RavenPack Fixed Income API
+  description: 'Bond reference data: the bonds a company has issued and their terms'
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Fixed Income
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-fixed-income-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-fund-holdings-api
+  name: RavenPack Fund Holdings API
+  description: >-
+    Institutional fund holdings from SEC 13F filings including fund holdings and stock fund holdings
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Fund Holdings
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-fund-holdings-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-market-data-api
+  name: RavenPack Market Data API
+  description: >-
+    Market data endpoints including intraday prices, daily prices, price changes, and real-time quotes
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-market-data-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+- aid: bigdata:bigdata-private-markets-api
+  name: RavenPack Private Markets API
+  description: Private company data including profile, headquarters, funding totals and valuation
+  humanURL: https://docs.bigdata.com/api-rest/openapi/openapi_structured_data.json
+  baseURL: https://api.bigdata.com/
+  tags:
+  - Private Markets
+  properties:
+  - type: OpenAPI
+    url: openapi/bigdata-private-markets-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-query-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-get-holdings-overview-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-events-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-public-company-profile-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-response-schema.json
+  - type: JSONSchema
+    url: json-schema/bigdata-economic-calendar-query-schema.json
+x-enrichment:
+  date: '2026-10-19'
+  status: enriched
+  artifacts_added: 35
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

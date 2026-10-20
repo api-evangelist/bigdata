@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-events-calendar-response-schema.json",
+  "title": "EventsCalendarResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/EventsCalendarResponse",
+  "properties": {
+    "results": {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/EventCalendar"
+        },
+        "type": "array"
+      },
+      "type": "object",
+      "title": "Results",
+      "description": "A dictionary mapping RP entity IDs to lists of event calendar entries for each company. Only events whose company has an rp_entity_id appear here; the rest are in 'events_unmapped', so read both to get the whole calendar."
+    },
+    "errors": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Errors"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Metadata"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pagination": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Pagination"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "events_unmapped": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/EventCalendar"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Events Unmapped",
+      "description": "Events whose company has not been mapped to an rp_entity_id appear here instead of in 'results'. For an IPO listing this reflects a temporary state in the mapping process: once the company begins trading and mapping completes, the event moves into 'results'. A delisted company may instead never have been mapped. Identify these events by 'ticker' and 'company_name'."
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed."
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Usage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Tokens the request consumed, per content tier. Present only for API keys billed in tokens."
+    }
+  },
+  "type": "object",
+  "required": [
+    "results"
+  ],
+  "$defs": {
+    "ErrorDetail": {
+      "properties": {
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Message"
+        }
+      },
+      "type": "object",
+      "title": "ErrorDetail"
+    },
+    "EventCalendar": {
+      "properties": {
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "description": "The category of the event, such as 'earnings-call' or 'conference-call'."
+        },
+        "event_datetime": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Datetime",
+          "description": "The date and time of the event in ISO 8601 format (e.g., '2023-12-05T20:00:00Z'). Events whose source dates them to the day rather than to the minute, such as IPO listings and delistings, are reported at midnight UTC on that date."
+        },
+        "title": {
+          "type": "string",
+          "title": "Title",
+          "description": "The title of the event, which provides a brief description of the event's content."
+        },
+        "fiscal_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fiscal Year",
+          "description": "The fiscal year of the event."
+        },
+        "fiscal_period": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fiscal Period",
+          "description": "The fiscal period of the event, such as 'Q1', 'Q2', etc."
+        },
+        "rp_collection_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rp Collection Id",
+          "description": "The RP collection id. All RP documents can be fetched using this id. Absent for events with no document behind them, such as IPO listings and delistings."
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Updated At",
+          "description": "The date and time when the event data was last updated, in ISO 8601 format (e.g., '2024-02-27T09:35:45Z')."
+        },
+        "created_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Created At",
+          "description": "The date and time when the event data was created, in ISO 8601 format (e.g., '2023-11-15T08:14:26Z')."
+        },
+        "ticker": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ticker",
+          "description": "The ticker the company trades, or traded, under. IPO listings and delistings only."
+        },
+        "company_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Company Name",
+          "description": "The company name as the source reports it. IPO listings and delistings only."
+        },
+        "exchange": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exchange",
+          "description": "The exchange the company listed on, or was delisted from, as the source names it (e.g. 'NASDAQ'). IPO listings and delistings only. This is the source's own name, not a MIC code, and neither category can be filtered by exchange at all: setting the 'exchanges' request filter excludes both from the response."
+        }
+      },
+      "type": "object",
+      "required": [
+        "category",
+        "title"
+      ],
+      "title": "EventCalendar"
+    },
+    "Metadata": {
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "title": "Request Id"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "Timestamp"
+        }
+      },
+      "type": "object",
+      "required": [
+        "request_id"
+      ],
+      "title": "Metadata"
+    },
+    "Pagination": {
+      "properties": {
+        "cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cursor",
+          "description": "Next page token or URL to retrieve the next page of results."
+        },
+        "has_cursor": {
+          "type": "boolean",
+          "title": "Has Cursor",
+          "description": "Whether there are more pages available after this one.",
+          "default": false
+        }
+      },
+      "type": "object",
+      "title": "Pagination",
+      "description": "Common pagination response for endpoints that support pagination."
+    },
+    "Source": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "Content catalog identifier of the source."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Catalog name of the dataset the data came from."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Source",
+      "description": "A content catalog source that contributed data to a structured-data response."
+    },
+    "Usage": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object",
+      "title": "Usage",
+      "description": "Public structured-data usage for a request, aggregated per content tier.\n\nA flat object keyed per content tier, where each key is derived from the\ncontent tier identifier by dropping the ``content-`` prefix and appending\n``_tokens`` (e.g. ``corporate-fundamentals`` ->\n``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero\ntokens appear, and an absent key means zero tokens for that tier."
+    }
+  }
+}

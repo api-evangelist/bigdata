@@ -1,0 +1,25 @@
+{
+  "provider": "bigdata",
+  "sources": [
+    "bigdata-structured_data.json"
+  ],
+  "outputs": [
+    "bigdata-analyst-estimates-api-openapi.yml",
+    "bigdata-company-events-api-openapi.yml",
+    "bigdata-financials-ratios-api-openapi.yml",
+    "bigdata-fixed-income-api-openapi.yml",
+    "bigdata-fund-holdings-api-openapi.yml",
+    "bigdata-market-data-api-openapi.yml",
+    "bigdata-private-markets-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/bigdata-structured_data.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "bigdata-structured_data.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+7 apis, 7 total)"
+  ],
+  "skipped": []
+}

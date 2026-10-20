@@ -1,0 +1,422 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/bigdata-structured_data.json
+vocabulary:
+  name: RavenPack Domain Vocabulary
+  description: 'Terms declared by RavenPack''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Market Data
+    definition: Market data endpoints including intraday prices, daily prices, price changes, and real-time quotes
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Analyst Estimates
+    definition: Analyst estimates and ratings including analyst ratings, estimates, target prices, and earnings surprises
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Financials & Ratios
+    definition: Financial statements and ratios including balance sheet, income statement, cash flow statement, key metrics TTM, and company ratios
+      TTM
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Company & Events
+    definition: Company information and events including company profile and events calendar
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Fund Holdings
+    definition: Institutional fund holdings from SEC 13F filings including fund holdings and stock fund holdings
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Knowledge Graph
+    definition: Corporate ownership and hierarchy data.
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Private Markets
+    definition: Private company data including profile, headquarters, funding totals and valuation
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: Fixed Income
+    definition: 'Bond reference data: the bonds a company has issued and their terms'
+    tags:
+    - Resource Group
+    source: openapi/bigdata-structured_data.json
+  - term: AftermarketQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AftermarketQuery
+  - term: AftermarketTrade
+    definition: Latest extended-hours (aftermarket) trade.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AftermarketTrade
+  - term: AftermarketQuote
+    definition: Latest extended-hours (aftermarket) quote.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AftermarketQuote
+  - term: AftermarketRecord
+    definition: Latest extended-hours trade and quote for a single entity.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AftermarketRecord
+  - term: AftermarketResponse
+    definition: Company aftermarket trades & quotes response model.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AftermarketResponse
+  - term: AllowedCategories
+    definition: 'Enumeration declared by the contract with values: earnings-call, conference-call, ipos-calendar, delisted-company.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/AllowedCategories
+  - term: AllowedPeriods
+    definition: 'Enumeration declared by the contract with values: annual, quarter.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/AllowedPeriods
+  - term: AnalystEstimates
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AnalystEstimates
+  - term: AnalystRatings
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, strong_buy, buy, hold, sell, strong_sell, consensus.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AnalystRatings
+  - term: AnalystRatingsQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AnalystRatingsQuery
+  - term: AnalystRatingsResponse
+    definition: 'Object declared by the contract with fields: results, errors, metadata, sources, usage.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/AnalystRatingsResponse
+  - term: BadRequestError
+    definition: Bad Request Error
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/BadRequestError
+  - term: BalanceSheet
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/BalanceSheet
+  - term: CashFlowStatement
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CashFlowStatement
+  - term: CompanyRatiosTTM
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, gross_profit_margin_ttm, ebit_margin_ttm, ebitda_margin_ttm,
+      operating_profit_margin_ttm, pretax_profit_margin_ttm, continuous_operations_profit_margin_ttm, net_profit_margin_ttm, bottom_line_profit_margin_ttm,
+      receivables_turnover_ttm, payables_turnover_ttm. (49 more)'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyRatiosTTM
+  - term: CompanyRatiosTTMQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyRatiosTTMQuery
+  - term: CompanyRatiosTTMResponse
+    definition: 'Object declared by the contract with fields: results, errors, metadata, sources, usage.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyRatiosTTMResponse
+  - term: CompanyRevenueGeographic
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyRevenueGeographic
+  - term: CompanyRevenueProduct
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyRevenueProduct
+  - term: CompanyScreenerFilters
+    definition: Filters for the company screener request.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyScreenerFilters
+  - term: Exchange
+    definition: 'Enumeration declared by the contract with values: AQSE, ARCX, ASEX, BCXE, BMEX, BVMF, DSMD, MISX, NEOE, OTC, ROCO, XAMS. (129
+      more)'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/Exchange
+  - term: CompanyScreenerQuery
+    definition: Allows filtering companies based on various financial and descriptive criteria.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyScreenerQuery
+  - term: CompanyTypes
+    definition: 'Enumeration declared by the contract with values: PUBLIC, PRIVATE.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyTypes
+  - term: CountryCode
+    definition: 'Enumeration declared by the contract with values: SS, NE, BF, GD, ID, NP, BQ, GI, KZ, MH, CV, HN. (238 more)'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/CountryCode
+  - term: CompanyProfileData
+    definition: Company profile data model.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyProfileData
+  - term: CompanyQuote
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, name, price, change_percentage, change, volume,
+      day_low, day_high, year_high, year_low, market_cap. (7 more)'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyQuote
+  - term: CompanyQuoteQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/CompanyQuoteQuery
+  - term: Consensus
+    definition: Enum for the consensus rating of analysts.
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/Consensus
+  - term: DailyPricesQuery
+    definition: 'Object declared by the contract with fields: identifier, date_range.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DailyPricesQuery
+  - term: DailyPricesResponse
+    definition: Company Daily Prices response model.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DailyPricesResponse
+  - term: DailyPricesResults
+    definition: Prices for an entity id.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DailyPricesResults
+  - term: DailyPricesValue
+    definition: Represents one row of values as a tuple (or list).
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DailyPricesValue
+  - term: DateRange
+    definition: Date range for filtering sentiment data.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DateRange
+  - term: DateRangeFilter
+    definition: Filters based on a time window.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DateRangeFilter
+  - term: Document
+    definition: A document that can be returned in search results.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/Document
+  - term: DocumentChunk
+    definition: A chunk of text from a document.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DocumentChunk
+  - term: DocumentSource
+    definition: Supported document sources
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DocumentSource
+  - term: DocumentTypeFilter
+    definition: 'Object declared by the contract with fields: mode, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DocumentTypeFilter
+  - term: ESGPerformanceScore
+    definition: 'Object declared by the contract with fields: rp_entity_id, name, ticker, industry, economic_sector, esg_scores, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/ESGPerformanceScore
+  - term: EntityFilter
+    definition: 'Object declared by the contract with fields: all_of, any_of, none_of.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/EntityFilter
+  - term: ErrorDetail
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/ErrorDetail
+  - term: EventCalendar
+    definition: 'Object declared by the contract with fields: category, event_datetime, title, fiscal_year, fiscal_period, rp_collection_id, updated_at,
+      created_at, ticker, company_name, exchange.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/EventCalendar
+  - term: EventsCalendarQuery
+    definition: 'Object declared by the contract with fields: rp_entity_id, start_date, end_date, countries, exchanges, categories, cursor, limit.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/EventsCalendarQuery
+  - term: EventsCalendarResponse
+    definition: 'Object declared by the contract with fields: results, errors, metadata, pagination, events_unmapped, sources, usage.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/EventsCalendarResponse
+  - term: HTTPValidationError
+    definition: 'Object declared by the contract with fields: detail.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/HTTPValidationError
+  - term: HoldingField
+    definition: 'Enumeration declared by the contract with values: RANK, RP_ENTITY_ID, WSR_ENTITY_ID, TICKER, NAME, ACTIVE, MARKET_VALUE, STATUS,
+      PORTFOLIO_WEIGHT, SHARES, SHARES_LAST, SHARES_CHANGE. (4 more)'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/HoldingField
+  - term: HoldingRow
+    definition: 'Represents one row of intraday price data as a tuple, this is the structure: - [0] int: Rank - [1] str: RavenPack Entity ID -
+      [2] str: Wall Street Rank Entity ID (Ticker) - [3] str: Ticker - [4] str: Name - [5] bool: Active - [6] int: Market Value - [7] str: Status
+      - [8] RoundedFloat: Portfolio Weight - [9] int: Shares - [10] int: Shares Last - [11] int: Shares Change - [12] RoundedFloat: Shares C'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/HoldingRow
+  - term: HoldingStatus
+    definition: 'Enumeration declared by the contract with values: new, increased, maintained, reduced, closed.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/HoldingStatus
+  - term: Identifier
+    definition: 'Object declared by the contract with fields: type, value.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/Identifier
+  - term: IdentifierQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IdentifierQuery
+  - term: IdentifierType
+    definition: 'Enumeration declared by the contract with values: rp_entity_id.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/IdentifierType
+  - term: IncomeStatement
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IncomeStatement
+  - term: Industry
+    definition: Industry enum for public API.
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/Industry
+  - term: InputPagination
+    definition: 'Object declared by the contract with fields: limit, cursor.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/InputPagination
+  - term: InternalServerError
+    definition: Internal Server Error
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/InternalServerError
+  - term: IntradayPricesQuery
+    definition: 'Object declared by the contract with fields: identifier, timestamp, interval.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IntradayPricesQuery
+  - term: IntradayPricesResponse
+    definition: Company Intraday Prices response model.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IntradayPricesResponse
+  - term: DividendsQuery
+    definition: 'Object declared by the contract with fields: identifier, limit.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DividendsQuery
+  - term: DividendsResponse
+    definition: Company Dividends response model.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DividendsResponse
+  - term: DividendsResults
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, fields, values.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/DividendsResults
+  - term: IntradayPricesResults
+    definition: Alternative result model with strongly typed records.
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IntradayPricesResults
+  - term: IntradayPricesValue
+    definition: Represents one row of values as a tuple (or list).
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/IntradayPricesValue
+  - term: IntradayTimeFrame
+    definition: 'Enumeration declared by the contract with values: 1min, 5min, 15min, 30min, 1hour, 4hour.'
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/IntradayTimeFrame
+  - term: KeywordFilter
+    definition: 'Object declared by the contract with fields: all_of, any_of, none_of.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/KeywordFilter
+  - term: KeyMetricsTTM
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, market_cap, enterprise_value_ttm, ev_to_sales_ttm,
+      ev_to_operating_cash_flow_ttm, ev_to_free_cash_flow_ttm, ev_to_ebitda_ttm, net_debt_to_ebitda_ttm, current_ratio_ttm, income_quality_ttm,
+      graham_number_ttm. (32 more)'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/KeyMetricsTTM
+  - term: KeyMetricsTTMQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/KeyMetricsTTMQuery
+  - term: KeyMetricsTTMResponse
+    definition: 'Object declared by the contract with fields: results, errors, metadata, sources, usage.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/KeyMetricsTTMResponse
+  - term: LatestSurprise
+    definition: 'Object declared by the contract with fields: rp_entity_id, target_identifier_id, reporting_date, eps_actual, eps_estimated, revenue_actual,
+      revenue_estimated, last_updated, eps_surprise_pct, revenue_surprise_pct.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/LatestSurprise
+  - term: LatestSurpriseQuery
+    definition: 'Object declared by the contract with fields: identifier.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/LatestSurpriseQuery
+  - term: LatestSurpriseResponse
+    definition: 'Object declared by the contract with fields: results, errors, metadata, sources, usage.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/LatestSurpriseResponse
+  - term: MarketCap
+    definition: Enum for market capitalization values.
+    tags:
+    - Enumeration
+    source: openapi/bigdata-structured_data.json#/components/schemas/MarketCap
+  - term: Metadata
+    definition: 'Object declared by the contract with fields: request_id, timestamp.'
+    tags:
+    - Object
+    source: openapi/bigdata-structured_data.json#/components/schemas/Metadata

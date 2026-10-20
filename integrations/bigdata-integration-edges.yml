@@ -1,0 +1,18 @@
+generated: '2026-10-19'
+method: none
+source:
+- https://zapier.com/apps/bigdata/integrations
+- https://zapier.com/apps/ravenpack/integrations
+- https://n8n.io/integrations/bigdata/
+- https://composio.dev/toolkits/bigdata
+- https://monid.ai/tools/bigdata
+checked:
+- https://composio.dev/toolkits/bigdata
+- https://monid.ai/tools/bigdata
+- https://n8n.io/integrations/bigdata/
+- https://zapier.com/apps/bigdata/integrations
+- https://zapier.com/apps/ravenpack/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

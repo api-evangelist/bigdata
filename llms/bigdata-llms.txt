@@ -1,0 +1,360 @@
+# Bigdata.com API developer docs
+
+- [Welcome](https://docs.bigdata.com/index.md)
+- [Introduction](https://docs.bigdata.com/getting-started/introduction.md)
+- [Pricing](https://docs.bigdata.com/getting-started/bigdata_pricing.md)
+- [Research Agent Quickstart Guide](https://docs.bigdata.com/getting-started/quickstart_guide_research_agent.md): Welcome to the Quickstart guide for using the Bigdata **Research Agent**.
+- [Workflows API Quickstart Guide](https://docs.bigdata.com/getting-started/quickstart_guide_workflows.md): Get started with the Bigdata Workflows API for templated, reproducible research
+- [Search Quickstart Guide](https://docs.bigdata.com/getting-started/quickstart_guide.md): Welcome to the Bigdata.com API Quickstart guide!
+- [Search in Bigdata](https://docs.bigdata.com/getting-started/search/overview.md)
+- [Query filters](https://docs.bigdata.com/getting-started/search/query_filters.md)
+- [Scope](https://docs.bigdata.com/getting-started/search/scope.md)
+- [Date range](https://docs.bigdata.com/getting-started/search/date_range.md)
+- [SortBy](https://docs.bigdata.com/getting-started/search/sort_by.md)
+- [Response - Document](https://docs.bigdata.com/getting-started/search/search_results.md)
+- [Co-mentions](https://docs.bigdata.com/getting-started/search/search_co_mentions.md)
+- [Watchlist search](https://docs.bigdata.com/getting-started/search/search_watchlist.md)
+- [Chunk sentiment](https://docs.bigdata.com/getting-started/search/chunk_sentiment.md)
+- [Manage your Searches](https://docs.bigdata.com/getting-started/search/search_management.md)
+- [Get started with Monitors](https://docs.bigdata.com/getting-started/monitors/overview.md): Turn a Bigdata Search into a recurring feed of structured, source-backed events.
+- [Upload your own content](https://docs.bigdata.com/getting-started/upload_your_own_content.md)
+- [Introduction](https://docs.bigdata.com/getting-started/knowledge_graph/introduction.md)
+- [Find Companies](https://docs.bigdata.com/getting-started/knowledge_graph/find_companies.md)
+- [Find ETFs](https://docs.bigdata.com/getting-started/knowledge_graph/find_etfs.md)
+- [Find Organizations](https://docs.bigdata.com/getting-started/knowledge_graph/find_organizations.md)
+- [Find People](https://docs.bigdata.com/getting-started/knowledge_graph/find_people.md)
+- [Find Places](https://docs.bigdata.com/getting-started/knowledge_graph/find_places.md)
+- [Find Products](https://docs.bigdata.com/getting-started/knowledge_graph/find_products.md)
+- [Find Sources](https://docs.bigdata.com/getting-started/knowledge_graph/find_sources.md)
+- [Find Topics](https://docs.bigdata.com/getting-started/knowledge_graph/find_topics.md)
+- [Filter Values](https://docs.bigdata.com/getting-started/knowledge_graph/filter_values.md)
+- [Autosuggest](https://docs.bigdata.com/getting-started/knowledge_graph/autosuggest.md)
+- [Get objects by id](https://docs.bigdata.com/getting-started/knowledge_graph/get_objects_by_id.md)
+- [Manage your Watchlists](https://docs.bigdata.com/getting-started/watchlist_management.md)
+- [SSL certificate verification](https://docs.bigdata.com/getting-started/troubleshooting/macos_ssl_certificate.md)
+- [Privacy Questions](https://docs.bigdata.com/faq/privacy_questions.md)
+- [Source Questions](https://docs.bigdata.com/faq/source_questions.md)
+- [Comparison to competitors](https://docs.bigdata.com/faq/comparison_to_competitors.md)
+- [Functionality Questions](https://docs.bigdata.com/faq/functionality_questions.md)
+- [Technical Questions](https://docs.bigdata.com/faq/technical_questions.md)
+- [Product Questions](https://docs.bigdata.com/faq/product_questions.md)
+- [GenAI Terms for Finance](https://docs.bigdata.com/faq/genai_terms_for_finance.md)
+- [Introduction](https://docs.bigdata.com/how-to-guides/introduction.md)
+- [Prerequisites](https://docs.bigdata.com/how-to-guides/how_to_prerequisites.md)
+- [Monitor usage](https://docs.bigdata.com/how-to-guides/monitor_usage.md)
+- [Concepts Overview](https://docs.bigdata.com/how-to-guides/agents/concepts/overview.md): How the Bigdata.com Research Agent and Workflows behave at the protocol level, and the order to read these guides.
+- [Streaming Responses](https://docs.bigdata.com/how-to-guides/agents/concepts/streaming-responses.md): How the Bigdata.com Research Agent and Workflows stream results, what each message type means, and how to build a robust streaming handler.
+- [Grounding and Citations](https://docs.bigdata.com/how-to-guides/agents/concepts/grounding-and-citations.md): How GROUNDING messages link spans of the answer to their source documents, and how to render inline citations correctly.
+- [Code execution and charts](https://docs.bigdata.com/how-to-guides/agents/concepts/code-execution-and-charts.md): How the Research Agent and Workflows run Python to analyze structured data and produce charts, and how to configure and read them.
+- [Error Handling](https://docs.bigdata.com/how-to-guides/agents/concepts/error-handling.md): How to handle HTTP-level errors and stream-level error messages from the Research Agent and Workflows.
+- [Conversation Continuity](https://docs.bigdata.com/how-to-guides/agents/concepts/conversation-continuity.md): Resume Research Agent conversations with chat_id and checkpoints, and Workflows runs with execution_id.
+- [Non-streaming response](https://docs.bigdata.com/how-to-guides/agents/research/how_to_non_streaming.md)
+- [Search Tool Configuration](https://docs.bigdata.com/how-to-guides/agents/research/search-tool-configuration.md): Scope Research Agent queries to specific entities, time ranges, sources, and tags using tools_configs.search.
+- [Structured Output Extraction](https://docs.bigdata.com/how-to-guides/agents/research/structured-output-extraction.md): Extract typed JSON data from Research Agent responses using structured_output_schema.
+- [Multi-turn Conversations](https://docs.bigdata.com/how-to-guides/agents/research/multi-turn-conversations.md): Practical patterns for multi-turn Research Agent conversations - follow-ups, branching, resets, and recovery.
+- [Creating Workflow Templates](https://docs.bigdata.com/how-to-guides/agents/workflows/creating_templates.md): Learn how to build effective workflow templates for reproducible research
+- [Running a Workflow](https://docs.bigdata.com/how-to-guides/agents/workflows/running-a-workflow.md): Submit a workflow that runs independently of your connection, read its result, watch it live, and cancel it.
+- [Using Research Plans](https://docs.bigdata.com/how-to-guides/agents/workflows/execution_modes.md): Learn how research plans control workflow execution
+- [Execution history](https://docs.bigdata.com/how-to-guides/agents/workflows/execution-history.md): List, retrieve, and delete stored workflow runs, with their status, consumption, and full result.
+- [Community Templates](https://docs.bigdata.com/how-to-guides/agents/workflows/community_templates.md): Discover, clone, and customize shared workflow templates
+- [Example Workflow Templates](https://docs.bigdata.com/how-to-guides/agents/workflows/example_templates.md): Ready-to-use workflow templates for financial research and analysis
+- [Grounding with Bigdata.com](https://docs.bigdata.com/how-to-guides/search/grounding_with_bigdata.md)
+- [Batch Search](https://docs.bigdata.com/how-to-guides/search/batch_search.md): Process large volumes of search queries asynchronously.
+- [Visualize theme volume evolution](https://docs.bigdata.com/how-to-guides/search/search-volume.md)
+- [Retrieve limited chunks](https://docs.bigdata.com/how-to-guides/queries_with_chunk_limit.md)
+- [Rerank search](https://docs.bigdata.com/how-to-guides/rerank_search.md)
+- [Search with specific sources](https://docs.bigdata.com/how-to-guides/search_with_specific_sources.md)
+- [Daily portfolio impact brief with Claude Cowork](https://docs.bigdata.com/how-to-guides/search/claude-cowork/pm-top-topics-impact.md)
+- [Upload and search your content](https://docs.bigdata.com/how-to-guides/private-content/upload-and-search-your-content.md)
+- [Batch files upload](https://docs.bigdata.com/how-to-guides/private-content/batch-files-upload.md)
+- [Interact with your investment research content](https://docs.bigdata.com/how-to-guides/private-content/interact-with-investment-research.md): Set up an investment research connector, audit synced documents, filter by broker tags, query with the Search API and Research Agent, or use Claude with Bigdata MCP—aligned with the Colab tutorial.
+- [Threading - Find Entities](https://docs.bigdata.com/how-to-guides/threading_find_entities.md)
+- [Introduction](https://docs.bigdata.com/use-cases/introduction.md)
+- [Build your own MCP](https://docs.bigdata.com/use-cases/research-tools/build-your-own-mcp.md): Implement your own MCP to power your AI agents with Bigdata.com REST API workflows.
+- [Build Your First RAG](https://docs.bigdata.com/use-cases/search-service/build_your_first_rag.md)
+- [Similarity Search Demystified](https://docs.bigdata.com/use-cases/search-service/similarity_search_demystified.md)
+- [Search with Re-Ranking](https://docs.bigdata.com/use-cases/search-service/supercharge_your_search_relevance.md)
+- [Global All-Cap Screening in One Batch Job](https://docs.bigdata.com/use-cases/search-service/one_job_for_thousands_of_companies.md): Screen thousands of companies in a single batch job using the Batch Search API, with no client-side scaling required.
+- [Smart Batching for Universe-Scale Search](https://docs.bigdata.com/use-cases/search-service/smart-batching.md): Plan and execute large-universe Search workflows with adaptive batching, proportional sampling, and reusable search plans.
+- [Pricing Power Analysis](https://docs.bigdata.com/use-cases/research-tools/pricing-power.md): Automated Analysis of Pricing Power Narratives and Competitive Positioning
+- [Liquid Cooling Market Watch](https://docs.bigdata.com/use-cases/research-tools/liquid-cooling.md): Automated Analysis of Liquid Cooling Technology Providers and Adopters
+- [AI Cost Cutting Market Analysis](https://docs.bigdata.com/use-cases/research-tools/ai-cost-cutting.md): Automated Analysis of AI Cost Cutting Providers and Users
+- [AI Revenue Generation Market Analysis](https://docs.bigdata.com/use-cases/research-tools/ai-revenue-generation.md): Automated Analysis of AI Revenue Generation Providers and Users
+- [Tracking Inflation Drivers](https://docs.bigdata.com/use-cases/research-tools/tracking-inflation-drivers.md): Automated Analysis of US Inflation Dynamics and Economic Drivers
+- [Election Monitor](https://docs.bigdata.com/use-cases/research-tools/election-monitor.md): Automated Analysis of Corporate Perspectives on Election Outcomes
+- [Crypto Institutional Adoption](https://docs.bigdata.com/use-cases/research-tools/screener-for-crypto.md): Assess crypto exposure to institutional adoption trends using premium sources
+- [Risk Analyzer](https://docs.bigdata.com/use-cases/research-tools/risk-analyzer.md): Identifying Corporate Exposure to Risks
+- [Deploy Your Risk Analyzer](https://docs.bigdata.com/use-cases/docker-services/risk-analyzer.md): Learn how to run your own financial risk analyzer service with a pre-built Docker and the Bigdata API.
+- [AI Threat Assessment](https://docs.bigdata.com/use-cases/research-tools/report-ai-threats.md): Automated Analysis of AI Threats and Opportunities in Companies
+- [Regulation Risks](https://docs.bigdata.com/use-cases/research-tools/report-regulatory-issues.md): Automated Analysis of Regulatory Risks and Company Mitigation Strategies
+- [US Tariffs: Risks & Strategies](https://docs.bigdata.com/use-cases/research-tools/specialized-report-tariffs.md): Automated Analysis of Trade Tariff Risks and Corporate Mitigation Strategies
+- [Rising Bond Spread Risks](https://docs.bigdata.com/use-cases/research-tools/rising-bond-spread-risks.md): Analyzing Spillover Risks from Rising Bond Spreads in Western Europe
+- [Thematic Screeners](https://docs.bigdata.com/use-cases/research-tools/screeners.md): Identify companies aligned with investment themes using REST search, smart-batching, and LLM labeling.
+- [Deploy Your Thematic Screener](https://docs.bigdata.com/use-cases/docker-services/thematic-screener.md): Analyze corporate exposure to specific themes and events, quantifying the impact for each company in your universe.
+- [Credit Ratings Monitoring](https://docs.bigdata.com/use-cases/research-tools/credit-ratings-monitor.md): Automated Detection and Analysis of Credit Rating Events
+- [Board Management Monitoring](https://docs.bigdata.com/use-cases/research-tools/board-management-monitoring.md): Automated Analysis of Board Member and Management Activity Exposure
+- [Self-Updating Thematic Dashboards with MCP](https://docs.bigdata.com/use-cases/research-tools/self-updating-research-dashboard.md): Grounded, self-updating dashboards from MCP tools. Replicate the pattern for any theme you can express as data plus search.
+- [Brief Generation](https://docs.bigdata.com/use-cases/docker-services/briefs.md): Learn how to run your own financial brief generation service with a pre-built Docker and the Bigdata API.
+- [Bigdata Briefs 2.0](https://docs.bigdata.com/use-cases/bigdata-briefs-pipeline.md): A LangGraph pipeline that generates structured, novelty-filtered briefs for a universe of companies.
+- [Introduction](https://docs.bigdata.com/use-cases/research-tools/daily-digests-introduction.md)
+- [Central Banks Announcements](https://docs.bigdata.com/use-cases/research-tools/daily-digest-central-banks.md): Automated Analysis of Market-Moving Central Bank News and Policy Themes
+- [Crude Oil Market Trend Analysis](https://docs.bigdata.com/use-cases/research-tools/daily-digest-crude-oil.md): Automated Analysis of Market-Moving News and Trending Topics
+- [Narrative Miners](https://docs.bigdata.com/use-cases/research-tools/miners.md): Uncover the Stories That Drive Markets
+- [Authentication](https://docs.bigdata.com/sdk-reference/introduction.md)
+- [Environment Variables](https://docs.bigdata.com/sdk-reference/environment_variables.md)
+- [Proxy configuration](https://docs.bigdata.com/sdk-reference/proxy_configuration.md)
+- [SSL Verification](https://docs.bigdata.com/sdk-reference/ssl_verification.md)
+- [Exceptions](https://docs.bigdata.com/sdk-reference/exceptions.md)
+- [Introduction](https://docs.bigdata.com/mcp-reference/introduction.md)
+- [Bigdata Authentication](https://docs.bigdata.com/mcp-reference/bigdata_authentication.md)
+- [MCP Error Codes](https://docs.bigdata.com/mcp-reference/mcp-error-codes.md)
+- [bigdata_search](https://docs.bigdata.com/mcp-reference/tools/bigdata-search.md): Search engine for financial documents, earnings call transcripts, news articles, analyst reports, SEC filings, private uploads, and business content.
+- [find_securities](https://docs.bigdata.com/mcp-reference/tools/find-securities.md): Search for ETFs, funds, and securities using names, tickers, or identifiers.
+- [get_securities](https://docs.bigdata.com/mcp-reference/tools/get-securities.md): Resolve exact security identifiers (ISIN, CUSIP, SEDOL, listing codes) to issuer records.
+- [list_entity_filter_values](https://docs.bigdata.com/mcp-reference/tools/list-entity-filter-values.md): List valid filter values for organizations, people, places, and products.
+- [find_entities](https://docs.bigdata.com/mcp-reference/tools/find-entities.md): Find organizations, people, places, and products by name or exact filters.
+- [bigdata_events_calendar](https://docs.bigdata.com/mcp-reference/tools/bigdata-events-calendar.md): Returns either the corporate events calendar - earnings, conferences, IPO listings and delistings - or the economic calendar of macroeconomic releases.
+- [bigdata_screen_companies](https://docs.bigdata.com/mcp-reference/tools/bigdata-screen-companies.md): Finds listed companies matching numeric and categorical criteria such as market cap, price, sector, industry, country and exchange.
+- [bigdata_company_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-company-tearsheet.md): Receive comprehensive financial data, market intelligence, and analyst coverage for both public and private companies.
+- [bigdata_country_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-country-tearsheet.md): Returns a comprehensive country economic tearsheet.
+- [bigdata_market_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-market-tearsheet.md): Returns a comprehensive global equity markets snapshot.
+- [bigdata_sentiment_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-sentiment-tearsheet.md): Provides real-time media sentiment analysis for public and private companies.
+- [bigdata_etf_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-etf-tearsheet.md): Provides a comprehensive analysis of exchange-traded funds (ETFs).
+- [bigdata_portfolio_tearsheet](https://docs.bigdata.com/mcp-reference/tools/bigdata-portfolio-tearsheet.md): Returns financial data across a portfolio of companies in a single consolidated data grid.
+- [bigdata_create_watchlist](https://docs.bigdata.com/mcp-reference/tools/bigdata-create-watchlist.md): Create a watchlist in Bigdata.com from a name and a list of companies or securities.
+- [bigdata_get_watchlist](https://docs.bigdata.com/mcp-reference/tools/bigdata-get-watchlist.md): List the watchlists you own, or fetch one watchlist by ID with its companies and securities.
+- [bigdata_edit_watchlist](https://docs.bigdata.com/mcp-reference/tools/bigdata-edit-watchlist.md): Rename a watchlist, change its description, or add and remove companies and securities.
+- [bigdata_delete_watchlist](https://docs.bigdata.com/mcp-reference/tools/bigdata-delete-watchlist.md): Delete one or more watchlists you own.
+- [bigdata_list_connectors](https://docs.bigdata.com/mcp-reference/tools/bigdata-list-connectors.md): List private content connectors for corpus structure discovery.
+- [bigdata_list_tags](https://docs.bigdata.com/mcp-reference/tools/bigdata-list-tags.md): List tags on private documents with document counts for corpus organisation discovery.
+- [bigdata_list_documents](https://docs.bigdata.com/mcp-reference/tools/bigdata-list-documents.md): Paginated, filterable list of private document metadata for corpus navigation.
+- [bigdata_fetch_document](https://docs.bigdata.com/mcp-reference/tools/bigdata-fetch-document.md): Fetch the full text of a Bigdata.com document by id as markdown.
+- [bigdata_upload_document](https://docs.bigdata.com/mcp-reference/tools/bigdata-upload-document.md): Upload and index UTF-8 text into the private Bigdata.com corpus.
+- [bigdata_computer](https://docs.bigdata.com/mcp-reference/tools/bigdata-computer.md): Run Python in a secure sandbox with authenticated access to Bigdata.com data, and return only the computed insights to the agent.
+- [Docs MCP tool](https://docs.bigdata.com/mcp-reference/code-assistant-tool.md)
+- [Introduction](https://docs.bigdata.com/mcp-reference/tools/internal/internal-tools-introduction.md): Customize Bigdata.com tools to return data from the providers you already subscribe to, such as FactSet, and automate your reporting workflows.
+- [FactSet Tools](https://docs.bigdata.com/mcp-reference/tools/internal/factset-tools.md): Retrieve FactSet data through the official Bigdata.com MCP tools so your agent pulls from the provider you already subscribe to.
+- [Claude MCP Integration](https://docs.bigdata.com/mcp-reference/oauth-integrations/claude-mcp-integration.md)
+- [ChatGPT MCP Integration](https://docs.bigdata.com/mcp-reference/oauth-integrations/chatgpt-mcp-integration.md)
+- [Grok MCP Integration](https://docs.bigdata.com/mcp-reference/oauth-integrations/grok-mcp-integration.md)
+- [Microsoft 365 Copilot MCP Integration](https://docs.bigdata.com/mcp-reference/oauth-integrations/microsoft-365-copilot-mcp-integration.md)
+- [MCP Integration with API Key](https://docs.bigdata.com/mcp-reference/api-integrations/mcp-api-integration.md)
+- [Grounding OpenAI Responses with the Search Service](https://docs.bigdata.com/mcp-reference/openai-bigdata-search.md)
+- [Deep Research models](https://docs.bigdata.com/mcp-reference/api-integrations/mcp-api-deep-research.md)
+- [Claude Code MCP Integration](https://docs.bigdata.com/mcp-reference/api-integrations/claude-code-mcp-integration.md)
+- [Replit MCP Integration](https://docs.bigdata.com/mcp-reference/api-integrations/replit-mcp-integration.md)
+- [Qwen Code MCP Integration](https://docs.bigdata.com/mcp-reference/api-integrations/qwen-mcp-integration.md)
+- [Perplexity MCP Integration](https://docs.bigdata.com/mcp-reference/api-integrations/perplexity-mcp-integration.md)
+- [Bigdata.com Plugin](https://docs.bigdata.com/mcp-reference/plugins/bigdata-com.md): Bring financial research capabilities directly into your agent
+- [Company Brief](https://docs.bigdata.com/mcp-reference/prompt-examples/finance/company-brief.md)
+- [Investment Memo](https://docs.bigdata.com/mcp-reference/prompt-examples/finance/investment-memo.md)
+- [Earnings Preview](https://docs.bigdata.com/mcp-reference/prompt-examples/finance/earnings-call-preview.md)
+- [Earnings Q&A](https://docs.bigdata.com/mcp-reference/prompt-examples/finance/earnings-questions-and-answers.md)
+- [Comparative Evaluations](https://docs.bigdata.com/mcp-reference/evals/comparative-evals.md): Side-by-side evaluations comparing AI-generated financial reports using Bigdata MCP tools versus web search.
+- [Introduction](https://docs.bigdata.com/skills-reference/introduction.md): Enhance your agentic platform with Bigdata.com Skills for financial analysis workflows.
+- [Install Bigdata plugin](https://docs.bigdata.com/skills-reference/install-bigdata-plugin.md): Plugin with Skills for financial research analysts.
+- [Financial Research Analyst Skills](https://docs.bigdata.com/skills-reference/mcp-helpers/financial-research-analyst.md): Create comprehensive financial workflows powered by Bigdata.com MCP tools
+- [Introduction to Bigdata APIs](https://docs.bigdata.com/api-rest/introduction.md)
+- [Domains to whitelist](https://docs.bigdata.com/api-rest/bigdata_domains.md)
+- [Authentication](https://docs.bigdata.com/api-rest/authentication.md)
+- [Resolve companies](https://docs.bigdata.com/api-rest/best-practices/resolve_companies.md)
+- [Company news coverage](https://docs.bigdata.com/api-rest/best-practices/company_news_coverage.md)
+- [Rate limits](https://docs.bigdata.com/api-rest/rate_limits.md)
+- [Bigdata CLI](https://docs.bigdata.com/cli-reference/introduction.md)
+- [Find by details](https://docs.bigdata.com/api-reference/companies/find-by-details.md): Bigdata.com Knowledge Graph tracks over 7 million companies worldwide. Use this endpoint to search by name, website, ticker, or other market identifiers. Refine your results with filters such as company type, country, or sector.
+- [Get by ISIN](https://docs.bigdata.com/api-reference/companies/get-by-isin.md): Locate companies using International Securities Identification Numbers (ISIN), enabling coverage of both equities and fixed income instruments.
+- [Get by CUSIP](https://docs.bigdata.com/api-reference/companies/get-by-cusip.md): Locate companies using Committee on Uniform Securities Identification Procedures (CUSIP) numbers, enabling coverage of both equities and fixed income instruments.
+- [Get by SEDOL](https://docs.bigdata.com/api-reference/companies/get-by-sedol.md): Locate companies using Stock Exchange Daily Official List (SEDOL) numbers.
+- [Get by Listing](https://docs.bigdata.com/api-reference/companies/get-by-listing.md): Locate companies using exchange listing identifiers.
+- [Get sectors](https://docs.bigdata.com/api-reference/companies/get-sectors.md): Retrieve the list of available sectors to be used as filters when searching for companies in the Knowledge Graph.
+- [Get Subsidiaries](https://docs.bigdata.com/api-reference/companies/get-subsidiaries.md): Returns the full subsidiary hierarchy for a given company. For each subsidiary includes: ultimate parent, immediate parent, company name, and hierarchy depth level.
+- [Find by details](https://docs.bigdata.com/api-reference/etfs/find-by-details.md): Find exchange-traded funds through a comprehensive search. Search by name, ticker, or description and filter by country to discover relevant ETFs for your investment research.
+- [Find by details](https://docs.bigdata.com/api-reference/sources/find-by-details.md): Locate and explore data sources and information providers within the knowledge graph. Filter sources by country, rank, and category to find the most relevant information providers.
+- [Find by details](https://docs.bigdata.com/api-reference/organizations/find-by-details.md): Find organizations such as central banks, regulators, government bodies and NGOs. Search by name or description and narrow the results by type, country, ultimate parent or owner.
+- [Find by details](https://docs.bigdata.com/api-reference/people/find-by-details.md): Find people such as executives, politicians and public figures. Search by name or description and narrow the results by position, employer, nationality or gender.
+- [Find by details](https://docs.bigdata.com/api-reference/places/find-by-details.md): Find places such as countries, regions, cities and facilities. Search by name or description and narrow the results by category, type, continent, country or region.
+- [Find by details](https://docs.bigdata.com/api-reference/products/find-by-details.md): Find products and brands. Search by name or description and narrow the results by product type or owner.
+- [Find by details](https://docs.bigdata.com/api-reference/concepts/find-by-details.md): Find concepts such as economic indicators, financial instruments and business terms. Search by name or description and narrow the results by type.
+- [Find by details](https://docs.bigdata.com/api-reference/topics/find-by-details.md): Find topics from the Bigdata.com event taxonomy. Search by name or description and narrow the results by topic, group, type or subtype. Use the returned `id` in a Topic query filter.
+- [Find by details](https://docs.bigdata.com/api-reference/funds/find-by-details.md): Find funds and mutual funds. Search by name or description and narrow the results by type, country and sector.
+- [Find by details](https://docs.bigdata.com/api-reference/positions/find-by-details.md): Find job positions, roles and titles, for example "Chief Executive Officer" or "Data Scientist". Search by name or description.
+- [Get filter values](https://docs.bigdata.com/api-reference/filter-values/get-filter-values.md): Retrieve every value a category filter can take, so a filter can be built without guessing its values. Values are returned in the exact form the corresponding search filter accepts: countries as ISO 3166-1 alpha-2 codes, source ranks as `RANK_1`..`RANK_5`, and so on.
+- [Get Entities by ID](https://docs.bigdata.com/api-reference/entities/get-entities-by-id.md): Retrieve entities by their RavenPack ID, a unique identifier used across the Bigdata.com ecosystem. Users can retrieve up to 100 entities per request.
+- [Search documents](https://docs.bigdata.com/api-reference/search/search-documents.md): Easily find the most relevant information from trusted sources and your own data. Use it to power agents that give accurate, real-time answers.
+- [Search volume](https://docs.bigdata.com/api-reference/search/search-volume.md): Get document and chunk volume statistics over time for a search query, aggregated by date with sentiment analysis.
+- [Search watchlist](https://docs.bigdata.com/api-reference/search/search-watchlist.md): Search an entire watchlist and get results grouped by entity.
+- [Fetch document](https://docs.bigdata.com/api-reference/search/fetch-document.md): Returns a time-limited pre-signed URL for downloading the document in annotated (structured) JSON format. Issuing a GET request to that URL returns the document's content, metadata, and annotations. The URL expires after 24 hours; request a new one when it does.
+- [Create a Batch Job](https://docs.bigdata.com/api-reference/batch-search/create-a-batch-job.md): Process large volumes of requests asynchronously.
+- [Upload Your Input File](https://docs.bigdata.com/api-reference/batch-search/upload-your-input-file.md): Now that you have created your batch job, use the `presigned_url` to upload your `.jsonl` file directly to the designated storage location using the following command:
+- [Get Batch Job Info](https://docs.bigdata.com/api-reference/batch-search/get-batch-job-info.md): Check the status of your batch job and retrieve results when processing is complete.
+- [Connected Entities](https://docs.bigdata.com/api-reference/co-mentions/connected-entities.md): Explore entities associated with your search filters to reveal deeper connections. This endpoint retrieves the top N entities ranked by chunk volume and headline volume, merges the two sets, and returns entities with combined or individual counts. Timestamp ranges are limited to one year; for longer…
+- [Connected Topics](https://docs.bigdata.com/api-reference/co-mentions/connected-topics.md): Explore topics associated with your search filters to reveal deeper connections. This endpoint retrieves the top N topics ranked by chunk volume and headline volume, merges the two sets, and returns topics with combined or individual counts.
+- [Create a monitor](https://docs.bigdata.com/api-reference/monitors/create-a-monitor.md): Create a monitor with an intent and schedule. Optionally customize its name, search, extraction rules, output fields, and entity watchlist. Set `status` to `inactive` while you test the monitor, then change it to `active` when it is ready to run continuously.
+- [List monitors](https://docs.bigdata.com/api-reference/monitors/list-monitors.md): View your monitors. Filter the list by status, name, or the development each monitor is designed to track.
+- [Get monitor details](https://docs.bigdata.com/api-reference/monitors/get-monitor-details.md): View one monitor's search, schedule, extraction rules, output fields, and status.
+- [Update a monitor](https://docs.bigdata.com/api-reference/monitors/update-a-monitor.md): Change a monitor's name, status, search, schedule, extraction rules, output fields, or entity watchlist. Send only the fields you want to change; omitted fields stay unchanged.
+- [Delete a monitor](https://docs.bigdata.com/api-reference/monitors/delete-a-monitor.md): Permanently delete a monitor. To stop new runs without losing the monitor, update its status to `inactive` instead.
+- [Simulate a monitor](https://docs.bigdata.com/api-reference/monitors/simulate-a-monitor.md): Test a monitor against recent historical data without activating it. The test runs in the background. Use the returned `simulation_id` to check its progress and results.
+- [List monitor runs](https://docs.bigdata.com/api-reference/monitors/list-monitor-runs.md): View completed, pending, or failed runs for a monitor. Choose live or simulation runs. Set `include_events=true` to include the events found during each run.
+- [Get run details](https://docs.bigdata.com/api-reference/monitors/get-run-details.md): View one run, including the period it searched, the events it found, links to supporting sources, and API usage.
+- [Workflows API](https://docs.bigdata.com/api-rest/workflows/introduction.md): Build reproducible, templated research workflows for automated analysis
+- [Research Agent](https://docs.bigdata.com/api-reference/research-agent/research-agent.md): Execute a research query with AI-powered analysis and real-time data. Returns a streaming response via Server-Sent Events.
+- [Execute Workflow](https://docs.bigdata.com/api-reference/workflows/execute-workflow.md): Execute a workflow with an inline template definition or a stored template ID. Returns a streaming response via Server-Sent Events.
+- [Submit Workflow](https://docs.bigdata.com/api-reference/workflows/submit-workflow.md): Submit a workflow that runs independently of your connection, and return immediately with its `execution_id`. Use this endpoint for production integrations: the run is unaffected if your client disconnects, and its result is always stored.
+- [Stream Workflow Events](https://docs.bigdata.com/api-reference/workflows/stream-workflow-events.md): Attach to a submitted run and receive its events live over Server-Sent Events. Optional: the run proceeds whether or not anything is attached, and disconnecting never stops it.
+- [Cancel Workflow](https://docs.bigdata.com/api-reference/workflows/cancel-workflow.md): Stop a running workflow. The response reports the run's status once the cancellation was applied, so no follow-up poll is needed. Cancelling a run twice is harmless. A cancelled run keeps whatever it produced and can be continued later by submitting its `execution_id`.
+- [List Executions](https://docs.bigdata.com/api-reference/workflow-executions/list-executions.md): List stored workflow executions owned by the authenticated user, newest first. Every run submitted to the asynchronous endpoint is stored; a run streamed from `POST /v1/workflow/execute` is stored only if it was executed with `persistence_mode=enabled`.
+- [Get Execution](https://docs.bigdata.com/api-reference/workflow-executions/get-execution.md): Retrieve a stored workflow execution by ID, including its status, resource consumption, and the full result stream replayed in order. This is how you read a run's result after the streaming connection has closed.
+- [Delete Execution](https://docs.bigdata.com/api-reference/workflow-executions/delete-execution.md): Permanently delete a stored workflow execution and its result. Use this to manage how long your runs are kept. Deleting a run that is still in progress stops it first. There is no undo.
+- [List Templates](https://docs.bigdata.com/api-reference/workflow-templates/list-templates.md): List all workflow templates owned by the authenticated user.
+- [Create Template](https://docs.bigdata.com/api-reference/workflow-templates/create-template.md): Create a new workflow template.
+- [Get Template](https://docs.bigdata.com/api-reference/workflow-templates/get-template.md): Retrieve a specific workflow template by ID.
+- [Update Template](https://docs.bigdata.com/api-reference/workflow-templates/update-template.md): Update an existing workflow template. Only provided fields are modified.
+- [Delete Template](https://docs.bigdata.com/api-reference/workflow-templates/delete-template.md): Permanently delete a workflow template.
+- [List Community Templates](https://docs.bigdata.com/api-reference/workflow-templates/list-community-templates.md): List publicly available community workflow templates.
+- [Clone Template](https://docs.bigdata.com/api-reference/workflow-templates/clone-template.md): Create a copy of an existing template with optional field overrides.
+- [Introduction](https://docs.bigdata.com/api-rest/content_introduction.md)
+- [Create connector](https://docs.bigdata.com/api-reference/connectors/create-connector.md): We recommend using **[Bigdata Connectors Management](https://platform.bigdata.com/connectors)** on the Developer Platform. You can also call this endpoint to register connectors programmatically.
+- [List connectors](https://docs.bigdata.com/api-reference/connectors/list-connectors.md): Returns all connectors that belong to the authenticated user. Use this to discover connector_id values for filtering documents, for update/delete operations, or to trigger a syncronization job on demand. Connector configuration is included. Sensitive fields are never returned.
+- [Get connector by ID](https://docs.bigdata.com/api-reference/connectors/get-connector-by-id.md): Returns full details for a single connector by its UUID. Use this to inspect connector metadata and configuration. Credentials and secrets are never included in the response.
+- [Update connector by ID](https://docs.bigdata.com/api-reference/connectors/update-connector-by-id.md): Update an existing connector's **label**, **description**, and **share_with_org**. For **email** connectors, you may also update **config** (e.g. `allowed_emails`). For **investment_research** and **sharepoint** connectors, configuration cannot be updated here; to change the rolling history window o…
+- [Trigger connector sync](https://docs.bigdata.com/api-reference/connectors/trigger-connector-sync.md): Queues a new synchronization run for an **investment_research** or **sharepoint** connector. Only content that is not already ingested is synced.
+- [Delete connector by ID](https://docs.bigdata.com/api-reference/connectors/delete-connector-by-id.md): By default, soft-deletes a connector: the connector is marked as archived and will no longer ingest new content; existing documents that were ingested by this connector remain available. The operation is idempotent for an already-archived connector.
+- [Enrich document](https://docs.bigdata.com/api-reference/documents/enrich-document.md): Request a pre-signed URL to upload a document directly to Bigdata.com. The response contains a single-use url and the document id. Send a **PUT request** to that URL with the document file as the body to complete the upload. Bigdata then **enriches** the document (extraction, structure and annotatio…
+- [List documents](https://docs.bigdata.com/api-reference/documents/list-documents.md): Returns a paginated list of documents that the user has uploaded or that have been shared with their organization. Use the query parameters documented below for filtering. Use the returned document id with Get document, Get annotated document, or Get original document to retrieve metadata or file co…
+- [Get document metadata](https://docs.bigdata.com/api-reference/documents/get-document-metadata.md): Returns metadata for a single document by its content ID (the document id returned by List documents). Use this to check status, file_name, connector_id, tags, enrichments_requested, enrichments_applied, usage, and timestamps. To retrieve the actual file content, use Get annotated document (enriched…
+- [Update document metadata](https://docs.bigdata.com/api-reference/documents/update-document-metadata.md): Partially update a document's metadata. Send only the fields you want to change.
+- [Get annotated document](https://docs.bigdata.com/api-reference/documents/get-annotated-document.md): Returns a time-limited pre-signed URL to download **private** document content in annotated (structured) JSON format. Use this only for documents you ingested via the Content API (connectors or direct upload). When you GET the URL, the response contains document content, metadata and annotations. Th…
+- [Get original document](https://docs.bigdata.com/api-reference/documents/get-original-document.md): Returns a time-limited pre-signed URL to download the **private** document's original file as uploaded (e.g. .eml, .pdf). When you GET the URL, the response is the raw file with appropriate Content-Type and Content-Disposition. Use this when you need the native format rather than the annotated JSON.…
+- [Delete document](https://docs.bigdata.com/api-reference/documents/delete-document.md): Deletes a target document from the platform. It removes everything: original document, annotated version, and chunks from the vector database.
+- [List tags](https://docs.bigdata.com/api-reference/tags/list-tags.md): Returns all tags visible to the user's organization, with the number of documents associated with each tag. Use the optional `prefix` query parameter to return only tags whose names start with that string (for example `broker:`, `label:`,`from:`, or `to:`). Use the optional `contains` query paramete…
+- [Create tag](https://docs.bigdata.com/api-reference/tags/create-tag.md): Creates a custom tag in your organization. Use the returned `id` when assigning tags to a document via **PATCH** `/contents/v1/documents/{content_id}` (pass tag IDs in the `tags` array, not names). Tag names supplied at upload time via **POST** `/contents/v1/documents` are resolved by name; for post…
+- [Delete tag](https://docs.bigdata.com/api-reference/tags/delete-tag.md): Deletes a custom tag by ID. Any documents linked with this tag will have the association removed.
+- [Introduction](https://docs.bigdata.com/structured-data/introduction.md)
+- [Daily Prices](https://docs.bigdata.com/api-reference/market-data/daily-prices.md): Returns daily historical price and volume data for a given symbol. Supports stocks, ETFs, indexes, cryptocurrencies, commodities (continuous futures) and forex pairs. Each data point includes date, open, high, low, close, volume, change, change percentage, and volume-weighted average price (VWAP). I…
+- [Intraday Prices](https://docs.bigdata.com/api-reference/market-data/intraday-prices.md): Returns intraday historical price and volume data for a given symbol at specified intervals (e.g. 1min, 5min, 15min, 30min, 1hour). Supports stocks, ETFs, commodities (continuous futures), indexes, cryptocurrencies, and forex pairs. Each data point includes timestamp, open, high, low, close, and vol…
+- [Aftermarket Prices](https://docs.bigdata.com/api-reference/market-data/aftermarket-prices.md): Returns the latest extended-hours (aftermarket) trade and quote for one or more companies. Each record includes the last aftermarket trade (price, size, timestamp) and quote (best bid/ask price and size, cumulative volume, timestamp).
+- [Dividends](https://docs.bigdata.com/api-reference/market-data/dividends.md): Returns historical and upcoming dividend data for companies. Supports stocks and ETFs. Each dividend record includes ex-dividend date, record date, payment date, declaration date, dividend amount, adjusted dividend, yield, and frequency.
+- [Price Changes](https://docs.bigdata.com/api-reference/market-data/price-changes.md): This endpoint track price fluctuations in real-time with the Price Changes API. Monitor percentage changes over various time periods, including daily (1D), monthly (1M), yearly (1Y) and long-term (max).
+- [Quote](https://docs.bigdata.com/api-reference/market-data/quote.md): This endpoint provides real-time asset quotes with the Quote API. Access up-to-the-minute prices, price changes, and trading volume for individual assets, ensuring you stay on top of market movements. Assets covered include stocks, cryptocurrencies, commodities, and ETFs.
+- [Entity Sentiment](https://docs.bigdata.com/api-reference/market-data/entity-sentiment.md): Returns a time series of daily sentiment metrics for a single entity over a specified date range. Sentiment is a quantified signal derived from unstructured text using rule-based and machine-learning methods, indicating likely positive or negative market impact. The response includes daily_sentiment…
+- [Analyst Estimates](https://docs.bigdata.com/api-reference/analyst-estimates/analyst-estimates.md): Retrieves analyst financial estimates for a given symbol, including projected revenue, earnings per share (EPS), and other key metrics, as forecasted by industry analysts.
+- [Analyst Ratings](https://docs.bigdata.com/api-reference/analyst-estimates/analyst-ratings.md): Retrieves analyst ratings and recommendations for a given symbol, including buy/hold/sell counts and the consensus recommendations.
+- [Earnings Surprises](https://docs.bigdata.com/api-reference/analyst-estimates/earnings-surprises.md): The Earnings Surprises API allows users to retrieve the most recent quarterly earnings surprise data for a specific company. This endpoint provides actual versus estimated earnings per share (EPS) and revenue (sales), highlighting whether the company has beaten, missed, or met expectations.
+- [Target Price](https://docs.bigdata.com/api-reference/analyst-estimates/target-price.md): This endpoint retrieves target price for a company, including target high, target low, target consensus, and target median.
+- [Balance Sheet](https://docs.bigdata.com/api-reference/financials-&-ratios/balance-sheet.md): This endpoint retrieves fundamental balance sheet measures for a company, including assets, liabilities, and equity across reporting periods.
+- [Cash Flow Statement](https://docs.bigdata.com/api-reference/financials-&-ratios/cash-flow-statement.md): This endpoint retrieves fundamental cash flow statement measures for a company, including operating, investing, and financing cash flows across reporting periods.
+- [Company Ratios TTM](https://docs.bigdata.com/api-reference/financials-&-ratios/company-ratios-ttm.md): Retrieves fundamental company ratios for a company, including revenue, expenses, and profitability metrics across reporting periods.
+- [Income Statement](https://docs.bigdata.com/api-reference/financials-&-ratios/income-statement.md): This endpoint retrieves fundamental income statement measures for a company, including revenue, expenses, and profitability metrics across reporting periods.
+- [Key Metrics TTM](https://docs.bigdata.com/api-reference/financials-&-ratios/key-metrics-ttm.md): The Key Metrics TTM API provides seamless access to a comprehensive set of trailing twelve-month (TTM) performance indicators. It delivers insights into a company's profitability, capital efficiency, and liquidity, enabling in-depth evaluation of financial health and operational performance over the…
+- [Revenue Geographic Segments](https://docs.bigdata.com/api-reference/financials-&-ratios/revenue-geographic-segments.md): The Revenue Geographic Segments API allows users to retrieve revenue data segmented by geographical regions, helping investors and analysts understand the performance of a company in different markets.
+- [Revenue Product Segments](https://docs.bigdata.com/api-reference/financials-&-ratios/revenue-product-segments.md): The Revenue Product Segments API provides access to detailed revenue data broken down by individual products. This enables investors and analysts to gain deeper insights into a company’s performance across its product portfolio.
+- [Company Profile](https://docs.bigdata.com/api-reference/company-&-events/company-profile.md): This endpoint retrieves comprehensive company profile data including company name, sector, industry, CEO, market cap, and other key business information.
+- [Stocks & Funds Screener](https://docs.bigdata.com/api-reference/company-&-events/stocks-&-funds-screener.md): The Company Screener API enables advanced filtering and discovery of companies based on comprehensive financial and descriptive criteria.
+- [Events Calendar](https://docs.bigdata.com/api-reference/company-&-events/events-calendar.md): A financial data API that returns details of key corporate events, such as earnings calls, conference calls, US IPO listings, and US delistings. Query by a specific list of companies, by date range alone, or both, allowing investors and analysts to track upcoming and historical company announcements…
+- [ESG Scores](https://docs.bigdata.com/api-reference/company-&-events/esg-scores.md): The ESG Performance Score API provides a comprehensive evaluation of a company's environmental, social, and governance (ESG) practices. It aggregates various ESG metrics into a single performance score, allowing investors and stakeholders to assess the company's commitment to sustainable and respons…
+- [Economic Calendar](https://docs.bigdata.com/api-reference/company-&-events/economic-calendar.md): Returns the macroeconomic releases scheduled in a window: inflation, growth, employment, central bank decisions and the rest of the economic calendar, for the countries requested. Each release carries the figure published, the market consensus and the prior period, so a caller can see both what was…
+- [Fund Holdings](https://docs.bigdata.com/api-reference/fund-holdings/fund-holdings.md): Retrieve portfolio holdings disclosed by institutional funds in their SEC 13F filings. This dataset provides an overview of a fund’s positions, including the total number of holdings, overall portfolio size, and high-level summaries such as top holdings and allocation trends. It also allows retrieva…
+- [Stock Fund Holdings](https://docs.bigdata.com/api-reference/fund-holdings/stock-fund-holdings.md): Retrieve institutional fund holdings for a specified stock, based on the latest SEC 13F filings. The endpoint returns top holders with their current market value, share count, quarterly change, and estimated capital flow. This allows users to identify leading institutional investors, track changes i…
+- [Fund Position Signals](https://docs.bigdata.com/api-reference/fund-holdings/fund-position-signals.md): Retrieve a strategic overview of top stocks based on aggregated position changes by hedge funds, utilizing data from the most recent SEC 13F filings. This endpoint provides a detailed overview of fund activities, capturing changes across calls, puts, new positions, closures, and net adjustments. It…
+- [Private Company Overview](https://docs.bigdata.com/api-reference/private-markets/private-company-overview.md): Returns an overview of a private company: what it does, where it is headquartered, how much it has raised and what it was last valued at, along with how active it is.
+- [Private Company Funding Rounds](https://docs.bigdata.com/api-reference/private-markets/private-company-funding-rounds.md): Returns the funding rounds one private company has raised: when each was announced and closed, what kind of round it was, how much it raised, what the company was valued at before and after, and who invested.
+- [Private Company People](https://docs.bigdata.com/api-reference/private-markets/private-company-people.md): Returns the people who hold or held a position at one private company: who they are, their title, what kind of position it is, whether they still hold it, and when it started and ended.
+- [Bonds by Issuer](https://docs.bigdata.com/api-reference/fixed-income/bonds-by-issuer.md): <Warning> This endpoint is in **Beta**. Access must be requested before you can use it: contact [support@bigdata.com](mailto:support@bigdata.com) to join the Beta program. </Warning>
+- [Bonds by ISIN](https://docs.bigdata.com/api-reference/fixed-income/bonds-by-isin.md): <Warning> This endpoint is in **Beta**. Access must be requested before you can use it: contact [support@bigdata.com](mailto:support@bigdata.com) to join the Beta program. </Warning>
+- [Get Subscription Quotas](https://docs.bigdata.com/api-reference/quotas/get-subscription-quotas.md): Returns the current subscription quotas and usage for the organization. For examples, see the [Monitor usage](/how-to-guides/monitor_usage) how-to guide.
+- [Widgets](https://docs.bigdata.com/widgets/introduction.md): Embed Bigdata research and document experiences in your own sites and applications.
+- [Embed the chat widget](https://docs.bigdata.com/widgets/chatbox-widget.md): Add the Bigdata research chat to your website with a script tag, a backend proxy for your API key, with optional theming.
+- [Embed the document viewer widget](https://docs.bigdata.com/widgets/document-viewer-widget.md): Add the Bigdata document viewer widget to your website with a script tag, a backend proxy for your API key, and optional theming. Load public or private documents in the viewer.
+- [Connect chat and document viewer on one page](https://docs.bigdata.com/widgets/connecting-widgets.md): Use a single BigdataWidgetManager so the chat and document viewer share a theme, coordinate on opendocument events, and open citations in the viewer without your own bus.
+- [Bigdata Assistant](https://docs.bigdata.com/app/introduction.md)
+- [How Bigdata generates your answers](https://docs.bigdata.com/app/getting-started/how_generates_answers.md)
+- [Chatting with your files](https://docs.bigdata.com/app/getting-started/chat_with_your_files.md)
+- [Working with Earnings Transcripts](https://docs.bigdata.com/app/use-cases/portfolio-management/working_with_earnings_transcripts.md)
+- [Negative News Screening](https://docs.bigdata.com/app/use-cases/portfolio-management/negative_news_screening.md)
+- [Tracking Investment Trends](https://docs.bigdata.com/app/use-cases/equity-research/tracking_investment_trends.md)
+- [Building investment cases](https://docs.bigdata.com/app/use-cases/equity-research/building_investment_cases.md)
+- [Assessing supply chain disruptions](https://docs.bigdata.com/app/use-cases/risk-analysis/assessing_supply_chain_disruptions.md)
+- [Introduction](https://docs.bigdata.com/partner-content-upload/introduction.md)
+- [Why Upload Your Content?](https://docs.bigdata.com/partner-content-upload/why-upload-your-content.md)
+- [Onboarding Overview](https://docs.bigdata.com/partner-content-upload/getting-started/onboarding-overview.md)
+- [Quick Start Guide](https://docs.bigdata.com/partner-content-upload/getting-started/quick-start-guide.md)
+- [Bigdata Document Format](https://docs.bigdata.com/partner-content-upload/format-requirements/bigdata-document-format.md)
+- [Validation Steps](https://docs.bigdata.com/partner-content-upload/format-requirements/validation-steps.md)
+- [SFTP](https://docs.bigdata.com/partner-content-upload/upload-mechanisms/sftp.md)
+- [Resource Hub](https://docs.bigdata.com/partner-content-upload/developer-resources/resource-hub.md)
+- [API updates](https://docs.bigdata.com/release-notes/api_changelog.md): API updates and announcements
+- [Bigdata CLI updates](https://docs.bigdata.com/release-notes/cli_changelog.md): Bigdata CLI updates and announcements
+- [MCP updates](https://docs.bigdata.com/release-notes/mcp_changelog.md): MCP updates and announcements
+- [Skills updates](https://docs.bigdata.com/release-notes/skills_changelog.md): Skills updates and announcements
+- [bigdata-client Changelog](https://docs.bigdata.com/release-notes/bigdata_client_changelog.md)
+- [bigdata-research-tools Changelog](https://docs.bigdata.com/release-notes/bigdata_research_tools_changelog.md)
+- [Support](https://docs.bigdata.com/support.md)
+- [Bigdata developers blog](https://docs.bigdata.com/blog/introduction.md): Insights on AI, research, engineering, and the future of financial intelligence.
+- [Inside Workflows: keeping agent research reproducible](https://docs.bigdata.com/blog/workflows/inside-workflows.md): Agents are good at deciding what to look at next. Financial research has to be repeatable and checkable. Those sound like opposing requirements, and most of our architecture comes from finding out that they are not.
+- [Baking Behavior into Weights: Fine-Tuning a Language Model for Financial Search](https://docs.bigdata.com/blog/search/baking-behavior-into-weights.md): How we turned the query-planning layer behind Bigdata.com Search Smart Mode into a fast, controlled specialist, without teaching the model facts it should retrieve.
+- [Sentiment in Bigdata.com: The Trend and the Story](https://docs.bigdata.com/blog/market-data/entity-sentiment-signals.md)
+- [How We Rebuilt Bigdata Briefs](https://docs.bigdata.com/blog/workflows/bigdata-briefs-automated-pipeline.md)
+- [From API key to production AI research assistant - in a single afternoon](https://docs.bigdata.com/blog/widgets/widgets_release.md)
+- [Quantum Computing Is Hitting Its Commercial Inflection Point](https://docs.bigdata.com/blog/mcp/quantum_thematic_report.md)
+- [Unifying Web Search within the Bigdata.com Search API](https://docs.bigdata.com/blog/search/introducing-web-search.md)
+- [Smart Batching: plan-then-execute search for universe-scale screening](https://docs.bigdata.com/blog/search/smart-batching-universe-scale-screening.md)
+- [Turn a fresh laptop into a financial-intelligence agent you chat with on Telegram](https://docs.bigdata.com/blog/nemoclaw/nemoclaw-bigdata-telegram.md)
+- [Turn Buyback Signals into Alpha with Claude, Bigdata MCP, and Skills](https://docs.bigdata.com/blog/search/share-buyback-financial-research.md)
+- [How to Use Your Indexed Email Archive as a Search Grounding Layer](https://docs.bigdata.com/blog/proprietary-content/private-newsletters-grounded-reports.md)
+- [The Workflows API: turning an analyst's research process into an API call](https://docs.bigdata.com/blog/workflows/automate-your-research-process.md)
+- [Introducing Diversified Search for AI Agents](https://docs.bigdata.com/blog/search/diversified-search.md)
+- [How to Automate Portfolio Research with Claude Cowork and Bigdata](https://docs.bigdata.com/blog/mcp/claude_cowork_with_bigdata.md)
+- [Professional-Grade Financial Reports with Claude, Bigdata MCP, and Skills](https://docs.bigdata.com/blog/mcp/claude_with_bigdata.md)
+
+## OpenAPI Specs
+
+- [openapi_content_data](/api-rest/openapi/openapi_content_data.json)
+- [openapi_knowledge_graph](/api-rest/openapi/openapi_knowledge_graph.json)
+- [openapi_research_agent](/api-rest/openapi/openapi_research_agent.json)
+- [openapi_search_monitoring](/api-rest/openapi/openapi_search_monitoring.json)
+- [openapi_search_service](/api-rest/openapi/openapi_search_service.json)
+- [openapi_structured_data](/api-rest/openapi/openapi_structured_data.json)
+- [openapi_subscription](/api-rest/openapi/openapi_subscription.json)
+- [openapi_workflows](/api-rest/openapi/openapi_workflows.json)
+
+## Optional
+
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Bigdata.com](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+- [Developer Platform](https://platform.bigdata.com/)
+- [Bigdata Assistant](https://bigdata.com)
+- [Support](https://docs.bigdata.com/support)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

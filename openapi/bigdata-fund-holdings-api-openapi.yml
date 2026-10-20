@@ -1,0 +1,1645 @@
+openapi: 3.2.0
+info:
+  title: Bigdata Structured Data Fund Holdings API
+  description: Bigdata API documentation
+  version: 1.0.0
+servers:
+- url: https://api.bigdata.com/
+security:
+- ApiKeyAuth: []
+tags:
+- name: Fund Holdings
+  description: Institutional fund holdings from SEC 13F filings including fund holdings and stock fund holdings
+paths:
+  /v1/holdings/funds/stocks/:
+    post:
+      tags:
+      - Fund Holdings
+      summary: Fund Holdings
+      description: Retrieve portfolio holdings disclosed by institutional funds in their SEC 13F filings. This dataset provides an overview of a fund’s positions, including the total number of holdings, overall portfolio size, and high-level summaries such as top holdings and allocation trends. It also allows retrieval of the top buys and sells for a fund or fund manager, either for the latest portfolio or for historical quarters. Sector composition of the fund’s portfolio can also be accessed.
+      operationId: Holdings_v1_holdings_funds_stocks_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicGetHoldingsOverviewQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicGetHoldingsOverviewResponse'
+  /v1/holdings/stocks/funds:
+    post:
+      tags:
+      - Fund Holdings
+      summary: Stock Fund Holdings
+      description: Retrieve institutional fund holdings for a specified stock, based on the latest SEC 13F filings. The endpoint returns top holders with their current market value, share count, quarterly change, and estimated capital flow. This allows users to identify leading institutional investors, track changes in ownership, and analyze fund activity trends such as increases or reductions in positions.
+      operationId: Stock_Funds_Holdings_v1_holdings_stocks_funds_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicGetCompanyFundsHoldingsQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicGetCompanyFundsHoldingsResponse'
+  /v1/holdings/funds/trends/:
+    post:
+      tags:
+      - Fund Holdings
+      summary: Fund Position Signals
+      description: Retrieve a strategic overview of top stocks based on aggregated position changes by hedge funds, utilizing data from the most recent SEC 13F filings. This endpoint provides a detailed overview of fund activities, capturing changes across calls, puts, new positions, closures, and net adjustments. It highlights where hedge funds are intensifying their focus, reducing exposure, or completely shifting their investment strategies, helping users identify trends and strategic moves in the market.
+      operationId: Fund_Position_Signals_v1_holdings_funds_trends__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicGetFundTrendsQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicFundTrendsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+components:
+  schemas:
+    CompanyFundHoldingsResults:
+      properties:
+        funds:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CompanyFundHoldingsRow'
+            type: array
+          - type: 'null'
+          title: Funds
+          description: List of company fund holdings.
+      type: object
+      required:
+      - funds
+      title: CompanyFundHoldingsResults
+    CompanyFundsHoldingsFilters:
+      properties:
+        year:
+          type: integer
+          title: Year
+          description: Fiscal year for the holdings data
+          examples:
+          - 2025
+        quarter:
+          $ref: '#/components/schemas/Quarters'
+          description: Fiscal quarter for the holdings data
+      type: object
+      title: CompanyFundsHoldingsFilters
+      description: Extended filters for stock funds holdings.
+    HoldingsMapping:
+      properties:
+        fund:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Fund
+          default: {}
+          examples:
+          - Q1GA4E: stillwater-wealth-management-group
+        stock:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Stock
+          default: {}
+          examples:
+          - 4A6F00: GOOGL
+      type: object
+      title: HoldingsMapping
+      description: Mapping of RP entity IDs to Wall St Rank symbols used.
+    PublicGetCompanyFundsHoldingsQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the funds that hold the company's stock. You must supply one type and its corresponding value.
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyFundsHoldingsFilters'
+          - type: 'null'
+          description: Object specifying the filters to apply to the request.
+          examples:
+          - quarter: 2
+            year: 2023
+      type: object
+      required:
+      - identifier
+      title: PublicGetCompanyFundsHoldingsQuery
+      description: Schema for the request to the public API.
+    PublicFundTrendsResponse:
+      properties:
+        results:
+          $ref: '#/components/schemas/PublicFundTrendsResults'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicFundTrendsMetadata'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicFundTrendsResponse
+      description: Main response for fund trends aggregated endpoint.
+    PublicNetCallsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_calls:
+          type: integer
+          title: Net Calls
+          description: Net calls amount
+          examples:
+          - 5000
+        calls:
+          type: integer
+          title: Calls
+          description: Total calls amount
+          examples:
+          - 10000
+        puts:
+          type: integer
+          title: Puts
+          description: Total puts amount
+          examples:
+          - 5000
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_calls
+      - calls
+      - puts
+      title: PublicNetCallsItem
+      description: Item for net calls trend.
+    PublicCompanyFundsHoldingsRequestMetadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+          examples:
+          - 123e4567-e89b-12d3-a456-426614174000
+        timestamp:
+          type: string
+          title: Timestamp
+          examples:
+          - '2025-09-08T10:52:33.453834+00:00'
+        rp_entity_id:
+          anyOf:
+          - type: string
+            maxLength: 6
+            minLength: 6
+            description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+            examples:
+            - 4A6F00
+          - type: 'null'
+          title: Rp Entity Id
+          examples:
+          - D8442A
+        stock_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stock Name
+          examples:
+          - Apple
+        year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Year
+          examples:
+          - 2025
+        quarter:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Quarter
+          examples:
+          - 1
+      type: object
+      required:
+      - request_id
+      title: PublicCompanyFundsHoldingsRequestMetadata
+      description: Metadata for the request. Includes the backend request.
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    PublicGetHoldingsOverviewResult:
+      properties:
+        holdings:
+          items:
+            $ref: '#/components/schemas/PublicHolding'
+          type: array
+          title: Holdings
+          description: List of holdings in the portfolio.
+        quarter_return:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Quarter Return
+          description: The quarter return percentage.
+        aum:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Aum
+          description: Assets under management.
+        aum_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Aum Last
+          description: Assets under management in the last period.
+        aum_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Aum Change
+          description: Change in assets under management.
+        aum_change_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Aum Change Percent
+          description: Percentage change in assets under management.
+        aum_top_10:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Aum Top 10
+          description: Assets under management in top 10 holdings.
+        aum_top_10_as_percent_of_aum:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Aum Top 10 As Percent Of Aum
+          description: Top 10 holdings as percentage of total AUM.
+        capital_flow:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Capital Flow
+          description: Capital flow amount.
+        capital_flow_as_percent_of_aum:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Capital Flow As Percent Of Aum
+          description: Capital flow as percentage of AUM.
+        etfs_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Etfs Percent
+          description: Percentage of portfolio in ETFs.
+        turnover_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Turnover Percent
+          description: Portfolio turnover percentage.
+        holdings_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Holdings Count
+          description: Number of holdings.
+        holdings_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Holdings Last
+          description: Number of holdings in the last period.
+        holdings_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Holdings Change
+          description: Change in number of holdings.
+        new_positions:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: New Positions
+          description: Number of new positions.
+        new_positions_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: New Positions Last
+          description: Number of new positions in the last period.
+        new_positions_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: New Positions Change
+          description: Change in number of new positions.
+        closed_positions:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Closed Positions
+          description: Number of closed positions.
+        closed_positions_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Closed Positions Last
+          description: Number of closed positions in the last period.
+        closed_positions_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Closed Positions Change
+          description: Change in number of closed positions.
+        increased_positions:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Increased Positions
+          description: Number of increased positions.
+        increased_positions_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Increased Positions Last
+          description: Number of increased positions in the last period.
+        increased_positions_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Increased Positions Change
+          description: Change in number of increased positions.
+        reduced_positions:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reduced Positions
+          description: Number of reduced positions.
+        reduced_positions_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reduced Positions Last
+          description: Number of reduced positions in the last period.
+        reduced_positions_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reduced Positions Change
+          description: Change in number of reduced positions.
+        sector_composition:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PublicSectorComposition'
+            type: array
+          - type: 'null'
+          title: Sector Composition
+          description: Sector composition breakdown of the portfolio.
+        top_transactions:
+          anyOf:
+          - $ref: '#/components/schemas/PublicTopTransactions'
+          - type: 'null'
+          description: Top buys and sells transactions for the portfolio.
+      type: object
+      required:
+      - holdings
+      title: PublicGetHoldingsOverviewResult
+      description: Result object containing holdings list and portfolio summary data.
+    Quarters:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      title: Quarters
+      description: Enum for quarters values.
+    PublicSectorComposition:
+      properties:
+        sector:
+          additionalProperties:
+            type: string
+          type: object
+          title: Sector
+          examples:
+          - id: technology
+            name: Technology
+        percent:
+          type: number
+          title: Percent
+          examples:
+          - 22.92
+      type: object
+      required:
+      - sector
+      - percent
+      title: PublicSectorComposition
+    PublicFundTrendsResults:
+      properties:
+        calls:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Calls
+          description: Calls trend data
+        puts:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Puts
+          description: Puts trend data
+        new_positions:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: New Positions
+          description: New positions trend data
+        closed_positions:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Closed Positions
+          description: Closed positions trend data
+        increased_positions:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Increased Positions
+          description: Increased positions trend data
+        reduced_positions:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Reduced Positions
+          description: Reduced positions trend data
+        holding_in_top:
+          items:
+            $ref: '#/components/schemas/PublicPositionChangeItem'
+          type: array
+          title: Holding In Top
+          description: Holding in top 10 trend data
+        net_calls:
+          items:
+            $ref: '#/components/schemas/PublicNetCallsItem'
+          type: array
+          title: Net Calls
+          description: Net calls trend data
+        net_puts:
+          items:
+            $ref: '#/components/schemas/PublicNetPutsItem'
+          type: array
+          title: Net Puts
+          description: Net puts trend data
+        net_new_positions:
+          items:
+            $ref: '#/components/schemas/PublicNetNewPositionsItem'
+          type: array
+          title: Net New Positions
+          description: Net new positions trend data
+        net_closed_positions:
+          items:
+            $ref: '#/components/schemas/PublicNetClosedPositionsItem'
+          type: array
+          title: Net Closed Positions
+          description: Net closed positions trend data
+        net_increased_positions:
+          items:
+            $ref: '#/components/schemas/PublicNetIncreasedPositionsItem'
+          type: array
+          title: Net Increased Positions
+          description: Net increased positions trend data
+        net_reduced_positions:
+          items:
+            $ref: '#/components/schemas/PublicNetReducedPositionsItem'
+          type: array
+          title: Net Reduced Positions
+          description: Net reduced positions trend data
+      type: object
+      title: PublicFundTrendsResults
+      description: Container with all fund trends data.
+    HoldingsOverviewFilters:
+      properties:
+        year:
+          type: integer
+          title: Year
+          description: Fiscal year for the holdings data
+          examples:
+          - 2025
+        quarter:
+          $ref: '#/components/schemas/Quarters'
+          description: Fiscal quarter for the holdings data
+          examples:
+          - 1
+      type: object
+      required:
+      - year
+      - quarter
+      title: HoldingsOverviewFilters
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    InternalServerError:
+      properties:
+        statusCode:
+          type: integer
+          const: 500
+          title: Statuscode
+          default: 500
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: InternalServerError
+      description: Internal Server Error
+      example:
+        message: Internal Server Error
+        statusCode: 500
+    HoldingStatus:
+      type: string
+      enum:
+      - new
+      - increased
+      - maintained
+      - reduced
+      - closed
+      title: HoldingStatus
+    PublicFundTrendsMetadata:
+      properties:
+        reporting_year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reporting Year
+          description: Reporting year
+          examples:
+          - 2025
+        reporting_quarter:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reporting Quarter
+          description: Reporting quarter
+          examples:
+          - 1
+        filters_applied:
+          additionalProperties: true
+          type: object
+          title: Filters Applied
+          description: Applied filters
+        sort_dir:
+          type: string
+          title: Sort Dir
+          description: Sort direction used
+          examples:
+          - desc
+        mapping:
+          anyOf:
+          - $ref: '#/components/schemas/HoldingsMapping'
+          - type: 'null'
+          description: RP entity ID to ticker mapping
+          examples:
+          - stock:
+              4A6F00: GOOGL
+              D8442A: AAPL
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - sort_dir
+      title: PublicFundTrendsMetadata
+      description: Metadata for fund trends response.
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    PublicHoldingsRequestMetadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+        rp_entity_id:
+          anyOf:
+          - type: string
+            maxLength: 6
+            minLength: 6
+            description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+            examples:
+            - 4A6F00
+          - type: 'null'
+          title: Rp Entity Id
+          examples:
+          - 4A6F00
+        fund_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fund Name
+          examples:
+          - stillwater-wealth-management-group
+        fiscal_year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Fiscal Year
+          examples:
+          - 2025
+        fiscal_quarter:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Fiscal Quarter
+          examples:
+          - 1
+      type: object
+      required:
+      - request_id
+      title: PublicHoldingsRequestMetadata
+      description: Metadata for the request. Includes the backend request.
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    EmptyResponse:
+      properties: {}
+      type: object
+      title: EmptyResponse
+    TooManyRequestsError:
+      properties:
+        statusCode:
+          type: integer
+          const: 429
+          title: Statuscode
+          default: 429
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: TooManyRequestsError
+      description: Too many requests. Please try again later.
+      example:
+        message: Too many requests. Please try again later.
+        statusCode: 429
+    PublicPositionChangeItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        current:
+          type: integer
+          title: Current
+          description: Current number of funds
+          examples:
+          - 150
+        previous:
+          type: integer
+          title: Previous
+          description: Previous number of funds
+          examples:
+          - 120
+        change:
+          type: integer
+          title: Change
+          description: Change in number of funds
+          examples:
+          - 30
+        change_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Change Percent
+          description: Percentage change
+          examples:
+          - 25.0
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - current
+      - previous
+      - change
+      title: PublicPositionChangeItem
+      description: Item for position change trends (calls, puts, new_positions, etc.).
+    PublicTopTransactions:
+      properties:
+        buys:
+          items:
+            $ref: '#/components/schemas/PublicHolding'
+          type: array
+          title: Buys
+          description: List of top buys.
+        sells:
+          items:
+            $ref: '#/components/schemas/PublicHolding'
+          type: array
+          title: Sells
+          description: List of top sells.
+      type: object
+      required:
+      - buys
+      - sells
+      title: PublicTopTransactions
+      description: Model for top buys and sells transactions.
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
+    PublicNetReducedPositionsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_reduced_positions:
+          type: integer
+          title: Net Reduced Positions
+          description: Net reduced positions count
+          examples:
+          - 30
+        increased_positions:
+          type: integer
+          title: Increased Positions
+          description: Number of increased positions
+          examples:
+          - 40
+        reduced_positions:
+          type: integer
+          title: Reduced Positions
+          description: Number of reduced positions
+          examples:
+          - 70
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_reduced_positions
+      - increased_positions
+      - reduced_positions
+      title: PublicNetReducedPositionsItem
+      description: Item for net reduced positions trend.
+    PublicNetClosedPositionsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_closed_positions:
+          type: integer
+          title: Net Closed Positions
+          description: Net closed positions count
+          examples:
+          - 15
+        new_positions:
+          type: integer
+          title: New Positions
+          description: Number of new positions
+          examples:
+          - 20
+        closed_positions:
+          type: integer
+          title: Closed Positions
+          description: Number of closed positions
+          examples:
+          - 35
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_closed_positions
+      - new_positions
+      - closed_positions
+      title: PublicNetClosedPositionsItem
+      description: Item for net closed positions trend.
+    PublicGetCompanyFundsHoldingsResponse:
+      properties:
+        results:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyFundHoldingsResults'
+          - $ref: '#/components/schemas/EmptyResponse'
+          title: Results
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/PublicCompanyFundsHoldingsRequestMetadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicGetCompanyFundsHoldingsResponse
+    PublicGetHoldingsOverviewResponse:
+      properties:
+        results:
+          anyOf:
+          - $ref: '#/components/schemas/PublicGetHoldingsOverviewResult'
+          - $ref: '#/components/schemas/EmptyResponse'
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicHoldingsRequestMetadata'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicGetHoldingsOverviewResponse
+      examples:
+      - metadata:
+          fiscal_quarter: 1
+          fiscal_year: 2025
+          fund_name: blackrock
+          request_id: 123e4567-e89b-12d3-a456-426614174000
+          rp_entity_id: HJ95FV
+          timestamp: '2025-09-08T10:52:33.453834+00:00'
+        result:
+          aum: 258701144516
+          aum_change: -8474329733
+          aum_change_percent: -3.17
+          aum_last: 267175474249
+          aum_top_10: 230290501421
+          aum_top_10_as_percent_of_aum: 89.02
+          capital_flow: -2425356131
+          capital_flow_as_percent_of_aum: -0.94
+          closed_positions: 2
+          closed_positions_change: -1
+          closed_positions_last: 3
+          etfs_percent: 0.0
+          holdings:
+          - active: true
+            capital_flow: -438699
+            market_value: 5611125.0
+            name: Apple
+            portfolio_weight: 4.8588
+            rank: 1
+            rp_entity_id: D8442A
+            shares: 25261
+            shares_change: -1975
+            shares_change_percent: -7.25
+            shares_last: 27236
+            status: reduced
+            ticker: AAPL
+          holdings_change: -3
+          holdings_count: 38
+          holdings_last: 41
+          increased_positions: 7
+          increased_positions_change: 2
+          increased_positions_last: 5
+          new_positions: 0
+          new_positions_change: -1
+          new_positions_last: 1
+          quarter_return: -1.28
+          reduced_positions: 6
+          reduced_positions_change: -2
+          reduced_positions_last: 8
+          sector_composition:
+          - percent: 22.92
+            sector:
+              id: technology
+              name: Technology
+          - percent: 13.96
+            sector:
+              id: healthcare
+              name: Healthcare
+          - percent: 12.19
+            sector:
+              id: financials
+              name: Financials
+          top_transactions:
+            buys:
+            - active: true
+              capital_flow: 4837420529
+              market_value: 10840506706
+              name: Capital One
+              portfolio_weight: 0.2064
+              rank: 1
+              rp_entity_id: 055018
+              shares: 50951808
+              shares_change: 22736513
+              shares_change_percent: 80.58
+              shares_last: 28215295
+              status: increased
+              ticker: COF
+            sells:
+            - active: false
+              capital_flow: -3514847631
+              market_value: 0
+              name: Discover Financial Services
+              portfolio_weight: 0.0
+              rank: 1
+              rp_entity_id: A8CBDA
+              shares: 0
+              shares_change: -20590789
+              shares_change_percent: -100.0
+              shares_last: 20590789
+              status: closed
+              ticker: DFS
+          turnover_percent: 5.26
+    PublicNetPutsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_puts:
+          type: integer
+          title: Net Puts
+          description: Net puts amount
+          examples:
+          - 3000
+        calls:
+          type: integer
+          title: Calls
+          description: Total calls amount
+          examples:
+          - 5000
+        puts:
+          type: integer
+          title: Puts
+          description: Total puts amount
+          examples:
+          - 8000
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_puts
+      - calls
+      - puts
+      title: PublicNetPutsItem
+      description: Item for net puts trend.
+    PublicGetFundTrendsQuery:
+      properties:
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/SecurityType'
+          - type: 'null'
+          description: The type of securities to retrieve. One of 'stock' or 'etf'. Returns all types if not specified.
+          examples:
+          - stock
+        market_cap:
+          anyOf:
+          - $ref: '#/components/schemas/MarketCap'
+          - type: 'null'
+          description: The market cap of securities to retrieve. Returns all market caps if not specified.
+          examples:
+          - large_cap
+        sort_dir:
+          $ref: '#/components/schemas/SortDirection'
+          description: The order to sort the results by.
+          default: desc
+          examples:
+          - desc
+      additionalProperties: false
+      type: object
+      title: PublicGetFundTrendsQuery
+      description: Schema for the request to the fund trends public API.
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
+    PublicGetHoldingsOverviewQuery:
+      properties:
+        identifier:
+          type: object
+          required:
+          - type
+          - value
+          properties:
+            type:
+              $ref: '#/components/schemas/IdentifierType'
+              description: Object specifying which identifier you are using to request the fund holdings. You must supply one type and its corresponding value.
+              examples:
+              - rp_entity_id
+            value:
+              type: string
+              title: Value
+              description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as asset managers and funds. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: BlackRock Inc. (`HJ95FV`)'
+              examples:
+              - HJ95FV
+          description: Object specifying which identifier you are using to request the fund holdings. You must supply one type and its corresponding value.
+          examples:
+          - type: rp_entity_id
+            value: HJ95FV
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/HoldingsOverviewFilters'
+          - type: 'null'
+          description: Filters specifying fiscal year and quarter
+          examples:
+          - quarter: 1
+            year: 2025
+      type: object
+      required:
+      - identifier
+      title: PublicGetHoldingsOverviewQuery
+    PublicNetIncreasedPositionsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_increased_positions:
+          type: integer
+          title: Net Increased Positions
+          description: Net increased positions count
+          examples:
+          - 40
+        increased_positions:
+          type: integer
+          title: Increased Positions
+          description: Number of increased positions
+          examples:
+          - 60
+        reduced_positions:
+          type: integer
+          title: Reduced Positions
+          description: Number of reduced positions
+          examples:
+          - 20
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_increased_positions
+      - increased_positions
+      - reduced_positions
+      title: PublicNetIncreasedPositionsItem
+      description: Item for net increased positions trend.
+    PublicHolding:
+      properties:
+        rank:
+          type: integer
+          title: Rank
+          description: The rank of the holding in the portfolio.
+        rp_entity_id:
+          anyOf:
+          - type: string
+            maxLength: 6
+            minLength: 6
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack's internal entity identifier for the stock.
+          examples:
+          - 4A6F00
+          - D8442A
+        ticker:
+          type: string
+          title: Ticker
+          description: The ticker symbol of the stock.
+        name:
+          type: string
+          title: Name
+          description: The name of the stock.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the stock is active.
+        market_value:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Market Value
+          description: The market value of the holding.
+        status:
+          $ref: '#/components/schemas/HoldingStatus'
+          description: The status of the holding.
+        portfolio_weight:
+          type: number
+          title: Portfolio Weight
+          description: The portfolio weight of the holding.
+          default: 0
+        shares:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Shares
+          description: The number of shares held.
+        shares_last:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Shares Last
+          description: The number of shares held in the last period.
+        shares_change:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Shares Change
+          description: The change in the number of shares held.
+        shares_change_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Shares Change Percent
+          description: The percentage change in the number of shares held.
+        capital_flow:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Capital Flow
+          description: The capital flow of the holding.
+      type: object
+      required:
+      - rank
+      - rp_entity_id
+      - ticker
+      - name
+      - active
+      - status
+      title: PublicHolding
+      description: Model for a single holding in the portfolio.
+    PublicNetNewPositionsItem:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity ID
+          examples:
+          - D8442A
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: Ticker symbol
+          examples:
+          - AAPL
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Apple Inc.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the company is active
+          examples:
+          - true
+        net_new_positions:
+          type: integer
+          title: Net New Positions
+          description: Net new positions count
+          examples:
+          - 25
+        new_positions:
+          type: integer
+          title: New Positions
+          description: Number of new positions
+          examples:
+          - 50
+        closed_positions:
+          type: integer
+          title: Closed Positions
+          description: Number of closed positions
+          examples:
+          - 25
+      type: object
+      required:
+      - target_identifier_id
+      - name
+      - active
+      - net_new_positions
+      - new_positions
+      - closed_positions
+      title: PublicNetNewPositionsItem
+      description: Item for net new positions trend.
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+      description: Enum for sort direction values.
+    BadRequestError:
+      properties:
+        statusCode:
+          type: integer
+          const: 400
+          title: Statuscode
+          default: 400
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: BadRequestError
+      description: Bad Request Error
+      example:
+        message: Bad Request Error
+        statusCode: 400
+    CompanyFundHoldingsRow:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+            maxLength: 6
+            minLength: 6
+            description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+            examples:
+            - 4A6F00
+          - type: 'null'
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the holding.
+          examples:
+          - HJ95FV
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the holding.
+          examples:
+          - Blackrock
+        rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Rank
+          description: The rank of the holding in the portfolio.
+          examples:
+          - 1
+        market_value:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Market Value
+          description: The market value of the holding.
+          examples:
+          - 253273263449
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+          description: The status of the holding (e.g., increased, decreased).
+          examples:
+          - increased
+        shares:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Shares
+          description: The number of shares held.
+          examples:
+          - 1140202870
+        shares_last:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Shares Last
+          description: The number of shares held in the last reporting period.
+          examples:
+          - 1123417607
+        shares_change:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Shares Change
+          description: The change in the number of shares held since the last reporting period.
+          examples:
+          - 16785263
+        shares_change_percent:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Shares Change Percent
+          description: The percentage change in the number of shares held since the last reporting period.
+          examples:
+          - 1.49
+        capital_flow:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Capital Flow
+          description: The capital flow associated with the holding.
+          examples:
+          - 3728510470
+      type: object
+      required:
+      - rp_entity_id
+      - name
+      - rank
+      - market_value
+      - status
+      - shares
+      - shares_last
+      - shares_change
+      - shares_change_percent
+      - capital_flow
+      title: CompanyFundHoldingsRow
+    SecurityType:
+      type: string
+      enum:
+      - stock
+      - etf
+      title: SecurityType
+      description: Enum for security type values.
+    MarketCap:
+      type: string
+      enum:
+      - mega_cap
+      - large_cap
+      - mid_cap
+      - small_cap
+      - micro_cap
+      title: MarketCap
+      description: Enum for market capitalization values.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

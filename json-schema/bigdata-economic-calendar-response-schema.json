@@ -1,0 +1,425 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-economic-calendar-response-schema.json",
+  "title": "EconomicCalendarResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/EconomicCalendarResponse",
+  "properties": {
+    "results": {
+      "items": {
+        "$ref": "#/$defs/EconomicEvent"
+      },
+      "type": "array",
+      "title": "Results",
+      "description": "The releases in the requested window, ordered by date then country. There is no pagination: the provider serves no cursor, so there is nothing to resume from. A response is capped at 2000 releases and the earliest are kept, so a window that comes back with exactly 2000 may have more that were not returned. An unfiltered window reaches that inside a couple of months, since every country together runs to tens of releases a day once the low-impact ones are counted. Narrow the date range, the countries or the impact levels to stay under it."
+    },
+    "errors": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Errors"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Metadata"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed."
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Usage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Tokens the request consumed, per content tier. Present only for API keys billed in tokens."
+    }
+  },
+  "type": "object",
+  "required": [
+    "results"
+  ],
+  "$defs": {
+    "CommunicationType": {
+      "type": "string",
+      "enum": [
+        "REPORT",
+        "SPEECH"
+      ],
+      "title": "CommunicationType",
+      "description": "A form an entry takes when it is prose rather than a figure.\n\nThe provider flags the two independently and may set both, so a row carries them as\na list rather than choosing between them."
+    },
+    "EconomicCategory": {
+      "type": "string",
+      "enum": [
+        "bond-auctions",
+        "capital-flows",
+        "central-banks",
+        "consumption",
+        "economic-activity",
+        "energy",
+        "holidays",
+        "housing-market",
+        "inflation",
+        "interest-rates",
+        "labor-market",
+        "politics"
+      ],
+      "title": "EconomicCategory"
+    },
+    "EconomicEvent": {
+      "properties": {
+        "event_datetime": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Event Datetime",
+          "description": "When the figure is released, in ISO 8601 format (UTC)."
+        },
+        "country": {
+          "type": "string",
+          "title": "Country",
+          "description": "Country the release covers. Every value is an ISO 3166-1 alpha-2 code except one: 'EMU', the euro area, which has no ISO code of its own."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Name of the economic indicator."
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ImpactLevel"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Expected market impact: NONE, LOW, MEDIUM or HIGH."
+        },
+        "period_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Period Date",
+          "description": "The period the figure describes, as 'YYYY-MM-DD', which is not when it was released: a December CPI published in January describes December. Read it with 'period_type', which says whether the period is that day, its month or its quarter. Absent on an event with no period, such as a central bank speech."
+        },
+        "period_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Granularity of the period: DAY, MONTH or QUARTER. 'NONE' on a release that has no period behind it, such as a central bank speech, where 'period_date' is absent too."
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actual",
+          "description": "The released figure, in full units. Absent until the release happens, which is the usual state for a forward-looking window."
+        },
+        "consensus": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Consensus",
+          "description": "Market expectation, in full units."
+        },
+        "previous": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous",
+          "description": "The prior period's figure, in full units."
+        },
+        "revised": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Revised",
+          "description": "The prior period restated, in full units. When present, 'previous' is the figure as first published and this is the corrected one."
+        },
+        "ratio_deviation": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ratio Deviation",
+          "description": "The provider's own measure of how far the released figure fell from consensus, as a ratio. Published by FXStreet alongside the figures; 'surprise' is the same idea expressed as a signed percentage."
+        },
+        "surprise": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Surprise",
+          "description": "How far the released figure fell from the consensus, signed. Read it with 'surprise_unit', which says which of two comparisons produced it: an indicator already published as a percentage is compared by subtraction, in percentage points, and every other indicator relatively, as a percentage of the consensus. Absent when either figure is, and for the relative comparison when the consensus is zero."
+        },
+        "surprise_unit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SurpriseUnit"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "What 'surprise' is measured in: 'pp' for percentage points, on an indicator already published as a percentage such as a CPI rate, and '%' for a percentage of the consensus on every other indicator, such as a payroll count. Absent exactly when 'surprise' is. Two surprises cannot be compared without it: -0.2pp and -6.25% describe the same release."
+        },
+        "is_better_than_expected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Better Than Expected",
+          "description": "Whether the result is good for the economy, as judged by the provider. Direction-aware, unlike 'surprise': a lower unemployment print is a negative surprise and better than expected."
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit",
+          "description": "What the figures are measured in: '%' for a rate, '$' for a monetary value, absent for a count such as jobs."
+        },
+        "category": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EconomicCategory"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The category this indicator is filed under, named the same way the 'categories' filter names one. Absent when the provider filed the event under no category."
+        },
+        "communication_types": {
+          "items": {
+            "$ref": "#/$defs/CommunicationType"
+          },
+          "type": "array",
+          "title": "Communication Types",
+          "description": "The prose forms this entry takes: 'REPORT' for a published document, 'SPEECH' for spoken remarks, and both when it is both. Empty on an ordinary data release, which is most of a calendar."
+        },
+        "is_all_day": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is All Day",
+          "description": "Whether the event covers the whole day rather than a moment in it. When true, the time of day carried by 'event_datetime' is a convention and not a release time."
+        },
+        "is_tentative": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Tentative",
+          "description": "Whether the timing is provisional. When true, 'event_datetime' is the provider's best estimate of when the figure lands rather than a scheduled time, so do not rely on it to the minute."
+        },
+        "actual_is_preliminary": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actual Is Preliminary",
+          "description": "Whether 'actual' is a first estimate. A preliminary figure is normally restated in a later release."
+        },
+        "previous_is_preliminary": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Is Preliminary",
+          "description": "Whether 'previous' is a first estimate rather than a settled figure. This is what a value in 'revised' corrects."
+        }
+      },
+      "type": "object",
+      "required": [
+        "event_datetime",
+        "country",
+        "name"
+      ],
+      "title": "EconomicEvent"
+    },
+    "ErrorDetail": {
+      "properties": {
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Message"
+        }
+      },
+      "type": "object",
+      "title": "ErrorDetail"
+    },
+    "ImpactLevel": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "title": "ImpactLevel",
+      "description": "How much market movement a release is expected to cause.\n\nThe 'impacts' filter takes these names, and each release answers the one it carries.\nCase does not matter."
+    },
+    "Metadata": {
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "title": "Request Id"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "Timestamp"
+        }
+      },
+      "type": "object",
+      "required": [
+        "request_id"
+      ],
+      "title": "Metadata"
+    },
+    "PeriodType": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "DAY",
+        "MONTH",
+        "QUARTER"
+      ],
+      "title": "PeriodType",
+      "description": "The granularity of the period a figure describes.\n\n``NONE`` is how a release with no period behind it is reported, such as a central\nbank speech. It arrives as this name rather than as null, and those releases carry no\n``period_date`` either."
+    },
+    "Source": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "Content catalog identifier of the source."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Catalog name of the dataset the data came from."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Source",
+      "description": "A content catalog source that contributed data to a structured-data response."
+    },
+    "SurpriseUnit": {
+      "type": "string",
+      "enum": [
+        "%",
+        "pp"
+      ],
+      "title": "SurpriseUnit",
+      "description": "What a surprise figure is measured in.\n\nAn indicator already published as a percentage is compared by subtraction, so its\nsurprise is a number of percentage points; every other indicator is compared\nrelatively, so its surprise is a percentage of the consensus. Both are\npercent-shaped numbers and they are not the same measurement, which is why a row\ncarries this alongside the figure."
+    },
+    "Usage": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object",
+      "title": "Usage",
+      "description": "Public structured-data usage for a request, aggregated per content tier.\n\nA flat object keyed per content tier, where each key is derived from the\ncontent tier identifier by dropping the ``content-`` prefix and appending\n``_tokens`` (e.g. ``corporate-fundamentals`` ->\n``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero\ntokens appear, and an absent key means zero tokens for that tier."
+    }
+  }
+}

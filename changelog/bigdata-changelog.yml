@@ -1,0 +1,65 @@
+generated: '2026-10-19'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.bigdata.com/release-notes/api_changelog.md
+sources:
+- https://docs.bigdata.com/release-notes/api_changelog.md
+- https://docs.bigdata.com/release-notes/cli_changelog.md
+- https://docs.bigdata.com/release-notes/mcp_changelog.md
+- https://docs.bigdata.com/release-notes/skills_changelog.md
+entries:
+- breaking: false
+  highlights:
+  - Fast-mode `bigdata_search` now accepts `query.filters.original_language`.
+  - '`mode`: `INCLUDE` keeps only those languages. `EXCLUDE` drops them.'
+  - '`values`: 1–500 codes, each 2–16 characters. Lowercase ISO 639-1 codes such as `en`, `de` or `ja`, plus `zh-Hans` and `zh-Hant`.'
+  date: '2026-10-02'
+- breaking: false
+  highlights:
+  - New SEC Form 424B2 filing subtype added to Search API.
+  - '`document_type` filter now supports `SEC_424B2` for `FILING` queries.'
+  date: '2026-09-28'
+- breaking: false
+  highlights:
+  - '`bigdata_events_calendar` now supports a second calendar of macroeconomic releases.'
+  - New `calendar_type` filter with values `corporate_calendar` and `economic_calendar`.
+  date: '2026-09-21'
+- breaking: true
+  highlights:
+  - Economic calendar categories renamed to lower‑case hyphenated forms (e.g., `labor-market`).
+  - Requests using old display spellings are refused with a 422 error.
+  - Releases now return the new category names.
+  date: '2026-09-18'
+- breaking: false
+  highlights:
+  - Surprise on percentage indicators is now expressed in percentage points.
+  - New `surprise_unit` field indicates `pp` or `%`.
+  - Fields `ratio_deviation` and `is_better_than_expected` remain unchanged.
+  date: '2026-09-18'
+- breaking: false
+  highlights:
+  - Knowledge Graph API adds `funds` and `positions` entity categories.
+  - '`POST /v1/knowledge-graph/funds` and `/positions` endpoints introduced.'
+  date: '2026-09-18'
+- breaking: false
+  highlights:
+  - Search API now supports `sections` filter for transcript parts.
+  - 'Accepted values: `MANAGEMENT-DISCUSSION` and `QUESTION-ANSWER`.'
+  date: '2026-09-17'
+- breaking: false
+  highlights:
+  - '`POST /v1/search/watchlist` runs a single query across a list of entities.'
+  - Results are grouped per entity, enabling portfolio‑wide searches.
+  date: '2026-09-17'
+- breaking: false
+  highlights:
+  - '`bigdata_events_calendar` now covers both corporate and economic calendars.'
+  - New `calendar_type` filter selects which calendar to query.
+  date: '2026-09-16'
+- breaking: false
+  highlights:
+  - Bigdata plugin is now available natively in ChatGPT.
+  - Financial Research Analyst skill broken into granular single‑purpose skills.
+  date: '2026-08-05'
+note: Versioning scheme not specified in the provided pages.
+docs: https://docs.bigdata.com/release-notes/api_changelog.md

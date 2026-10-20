@@ -1,0 +1,15 @@
+generated: '2026-10-19'
+method: derived
+source: openapi/bigdata-structured_data.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-API-KEY
+  sources:
+  - openapi/bigdata-structured_data.json

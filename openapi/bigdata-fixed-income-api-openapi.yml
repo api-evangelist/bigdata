@@ -1,0 +1,782 @@
+openapi: 3.2.0
+info:
+  title: Bigdata Structured Data Fixed Income API
+  description: Bigdata API documentation
+  version: 1.0.0
+servers:
+- url: https://api.bigdata.com/
+security:
+- ApiKeyAuth: []
+tags:
+- name: Fixed Income
+  description: 'Bond reference data: the bonds a company has issued and their terms'
+paths:
+  /v1/fixed-income/corporate/issuer/query:
+    post:
+      tags:
+      - Fixed Income
+      summary: Bonds by Issuer
+      description: 'This endpoint is in **Beta**. Access must be requested before you can use it: contact support@bigdata.com to join the Beta program.
+
+
+        Returns the bonds a company has issued, with their terms: ISIN, description, issue
+
+        and maturity dates, coupon and payment frequency, currency, issued and outstanding
+
+        amounts, seniority (rank), status and structural features. Only active bonds are returned
+
+        unless `status` asks for inactive or defaulted ones, or is null for every status.
+
+        Results are paged: send back `pagination.cursor` to get the next page. A page can
+
+        hold fewer bonds than the next one, or none, while `has_cursor` is still true.'
+      operationId: query_bonds_by_issuer_v1_fixed_income_corporate_issuer_query__post
+      x-mint:
+        metadata:
+          tag: Beta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BondsByIssuerQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BondsByIssuerResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+  /v1/fixed-income/corporate/isin/query:
+    post:
+      tags:
+      - Fixed Income
+      summary: Bonds by ISIN
+      description: 'This endpoint is in **Beta**. Access must be requested before you can use it: contact support@bigdata.com to join the Beta program.
+
+
+        Returns bonds and their terms by the bonds'' ISINs, one or up to 50 per request:
+
+        description, issuer, issue and maturity dates, coupon and payment frequency,
+
+        currency, issued and outstanding amounts, seniority, status and structural features.
+
+        `results` is keyed by ISIN, one key per distinct ISIN sent in the order sent, and an
+
+        ISIN with no bond available is keyed to `null`. The issuer''s RavenPack entity
+
+        identifier is absent when the issuer has none.'
+      operationId: query_bond_by_isin_v1_fixed_income_corporate_isin_query__post
+      x-mint:
+        metadata:
+          tag: Beta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BondByIsinQuery'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BondByIsinResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+components:
+  schemas:
+    IsinIdentifierTypeEnum:
+      type: string
+      enum:
+      - isin
+      title: IsinIdentifierTypeEnum
+    BondsByIssuerResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Bond'
+          type: array
+          title: Results
+          description: 'The company''s bonds on this page. A page can hold fewer bonds than others, or none at all, while more remain: keep requesting the next page with ''cursor'' until ''pagination.has_cursor'' is false.'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: BondsByIssuerResponse
+    Bond:
+      properties:
+        isin:
+          type: string
+          title: Isin
+          description: ISIN of the bond.
+          examples:
+          - US037833EQ92
+        issuer_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Issuer Name
+          description: Name of the entity that issued the bond.
+          examples:
+          - Apple Inc
+        issuer_rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Issuer Rp Entity Id
+          description: RavenPack entity identifier of the company the bond belongs to.
+          examples:
+          - D8442A
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The provider's short description of the bond. For display only; do not parse it.
+          examples:
+          - 3.95% NT REDEEM 08/08/2052 USD 2000
+        issue_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Issue Date
+          description: Date the bond was issued.
+          examples:
+          - '2022-08-08'
+        maturity_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Maturity Date
+          description: Date the bond matures. Absent for a perpetual bond.
+          examples:
+          - '2052-08-08'
+        coupon:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coupon
+          description: Annual interest rate in percent (3.5 means 3.50%). Absent for a zero-coupon or floating-rate bond, or when the rate is not available.
+          examples:
+          - 3.95
+        interest_payment_frequency:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentFrequency'
+          - type: 'null'
+          description: How often the bond pays interest.
+          examples:
+          - semi-annual
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: ISO 4217 code of the currency the bond is issued in, which is also the currency of the amounts.
+          examples:
+          - USD
+        issue_amount_mm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Issue Amount Mm
+          description: Amount issued, in millions of 'currency'.
+          examples:
+          - 1750
+        outstanding_amount_mm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outstanding Amount Mm
+          description: Amount still outstanding, in millions of 'currency'.
+          examples:
+          - 1750
+        rank:
+          anyOf:
+          - $ref: '#/components/schemas/BondRank'
+          - type: 'null'
+          description: Where the bond ranks for repayment. Seniority only; whether it is backed by collateral is 'is_secured'.
+          examples:
+          - senior
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/BondStatus'
+          - type: 'null'
+          description: 'Where the bond stands: ''active'' (outstanding and before its maturity date), ''inactive'' (on or after its maturity date, or redeemed) or ''defaulted''.'
+          examples:
+          - active
+        bond_type:
+          anyOf:
+          - $ref: '#/components/schemas/BondType'
+          - type: 'null'
+          description: The kind of instrument.
+          examples:
+          - note
+        is_callable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Callable
+          description: Whether the issuer can redeem the bond before maturity. Absent when the source does not say.
+          examples:
+          - true
+        is_secured:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Secured
+          description: Whether the bond is backed by specific collateral. Absent when the source does not say.
+          examples:
+          - false
+        is_guaranteed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Guaranteed
+          description: Whether a third party guarantees the payments. Absent when the source does not say.
+          examples:
+          - true
+      type: object
+      required:
+      - isin
+      - issuer_rp_entity_id
+      title: Bond
+      description: One bond and its terms.
+    BondType:
+      type: string
+      enum:
+      - bond
+      - note
+      - medium-term-note
+      - debenture
+      - covered-bond
+      - certificate-of-deposit
+      - commercial-paper
+      - certificate
+      - structured-product
+      title: BondType
+      description: The kind of debt instrument.
+    IsinIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IsinIdentifierTypeEnum'
+          description: The identifier the bonds are named by. Only `isin` is accepted.
+          examples:
+          - isin
+        value:
+          anyOf:
+          - type: string
+            description: 'ISIN (International Securities Identification Number) of the bond: two letters, nine letters or digits and a check digit. Case and surrounding spaces are ignored. Example: `US037833EQ92`'
+            examples:
+            - US037833EQ92
+          - items:
+              type: string
+              description: 'ISIN (International Securities Identification Number) of the bond: two letters, nine letters or digits and a check digit. Case and surrounding spaces are ignored. Example: `US037833EQ92`'
+              examples:
+              - US037833EQ92
+            type: array
+          title: Value
+          description: One ISIN, or a list of 1 to 50. An ISIN sent twice is answered once.
+      type: object
+      required:
+      - type
+      - value
+      title: IsinIdentifier
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    BondByIsin:
+      properties:
+        issuer_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Issuer Name
+          description: Name of the entity that issued the bond.
+          examples:
+          - Apple Inc
+        issuer_rp_entity_id:
+          anyOf:
+          - type: string
+            maxLength: 6
+            minLength: 6
+            description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+            examples:
+            - 4A6F00
+          - type: 'null'
+          title: Issuer Rp Entity Id
+          description: RavenPack entity identifier of the company the bond belongs to. Absent when the issuer has no RavenPack entity identifier.
+          examples:
+          - D8442A
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The provider's short description of the bond. For display only; do not parse it.
+          examples:
+          - 3.95% NT REDEEM 08/08/2052 USD 2000
+        issue_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Issue Date
+          description: Date the bond was issued.
+          examples:
+          - '2022-08-08'
+        maturity_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Maturity Date
+          description: Date the bond matures. Absent for a perpetual bond.
+          examples:
+          - '2052-08-08'
+        coupon:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coupon
+          description: Annual interest rate in percent (3.5 means 3.50%). Absent for a zero-coupon or floating-rate bond, or when the rate is not available.
+          examples:
+          - 3.95
+        interest_payment_frequency:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentFrequency'
+          - type: 'null'
+          description: How often the bond pays interest.
+          examples:
+          - semi-annual
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: ISO 4217 code of the currency the bond is issued in, which is also the currency of the amounts.
+          examples:
+          - USD
+        issue_amount_mm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Issue Amount Mm
+          description: Amount issued, in millions of 'currency'.
+          examples:
+          - 1750
+        outstanding_amount_mm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Outstanding Amount Mm
+          description: Amount still outstanding, in millions of 'currency'.
+          examples:
+          - 1750
+        rank:
+          anyOf:
+          - $ref: '#/components/schemas/BondRank'
+          - type: 'null'
+          description: Where the bond ranks for repayment. Seniority only; whether it is backed by collateral is 'is_secured'.
+          examples:
+          - senior
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/BondStatus'
+          - type: 'null'
+          description: 'Where the bond stands: ''active'' (outstanding and before its maturity date), ''inactive'' (on or after its maturity date, or redeemed) or ''defaulted''.'
+          examples:
+          - active
+        bond_type:
+          anyOf:
+          - $ref: '#/components/schemas/BondType'
+          - type: 'null'
+          description: The kind of instrument.
+          examples:
+          - note
+        is_callable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Callable
+          description: Whether the issuer can redeem the bond before maturity. Absent when the source does not say.
+        is_secured:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Secured
+          description: Whether the bond is backed by specific collateral. Absent when the source does not say.
+        is_guaranteed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Guaranteed
+          description: Whether a third party guarantees the payments. Absent when the source does not say.
+      type: object
+      title: BondByIsin
+      description: One bond and its terms, looked up by ISIN, so its issuer may be unmapped.
+    InternalServerError:
+      properties:
+        statusCode:
+          type: integer
+          const: 500
+          title: Statuscode
+          default: 500
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: InternalServerError
+      description: Internal Server Error
+      example:
+        message: Internal Server Error
+        statusCode: 500
+    BondsByIssuerQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the bonds the company has issued. You must supply one type and its corresponding value.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/BondStatus'
+          - type: 'null'
+          description: 'Only return bonds in this status: ''active'', ''inactive'' or ''defaulted''. Defaults to ''active''; send null to return bonds in every status.'
+          default: active
+          examples:
+          - active
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Token for the next page. Send back 'pagination.cursor' from the previous response, with the same identifier and status. Omit it for the first page.
+      additionalProperties: false
+      type: object
+      required:
+      - identifier
+      title: BondsByIssuerQuery
+      example:
+        identifier:
+          type: rp_entity_id
+          value: D8442A
+        status: active
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    BondRank:
+      type: string
+      enum:
+      - senior
+      - junior-subordinated
+      title: BondRank
+      description: Where a bond ranks for repayment if the issuer cannot pay.
+    StructuredDataMetadata:
+      properties:
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      title: StructuredDataMetadata
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    Pagination:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Next page token or URL to retrieve the next page of results.
+          examples:
+          - 00000DexaRK4NT6t
+        has_cursor:
+          type: boolean
+          title: Has Cursor
+          description: Whether there are more pages available after this one.
+          default: false
+          examples:
+          - true
+      type: object
+      title: Pagination
+      description: Common pagination response for endpoints that support pagination.
+    TooManyRequestsError:
+      properties:
+        statusCode:
+          type: integer
+          const: 429
+          title: Statuscode
+          default: 429
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: TooManyRequestsError
+      description: Too many requests. Please try again later.
+      example:
+        message: Too many requests. Please try again later.
+        statusCode: 429
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
+    PaymentFrequency:
+      type: string
+      enum:
+      - annual
+      - semi-annual
+      - quarterly
+      - monthly
+      - at-maturity
+      - irregular
+      title: PaymentFrequency
+      description: How often a bond pays interest.
+    Metadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - request_id
+      title: Metadata
+    BondByIsinResponse:
+      properties:
+        results:
+          additionalProperties:
+            anyOf:
+            - $ref: '#/components/schemas/BondByIsin'
+            - type: 'null'
+          type: object
+          title: Results
+          description: 'The bonds keyed by ISIN: one key per distinct ISIN sent, upper-cased, in the order they were sent. The value is null when no bond is available for that ISIN.'
+          examples:
+          - US037833EQ92:
+              issuer_name: Apple Inc
+              issuer_rp_entity_id: D8442A
+              description: 3.95% NT REDEEM 08/08/2052 USD 2000
+              issue_date: '2022-08-08'
+              maturity_date: '2052-08-08'
+              coupon: 3.95
+              interest_payment_frequency: semi-annual
+              currency: USD
+              issue_amount_mm: 1750.0
+              outstanding_amount_mm: 1750.0
+              rank: senior
+              status: active
+              bond_type: note
+              is_callable: true
+              is_secured: false
+              is_guaranteed: true
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/StructuredDataMetadata'
+          - type: 'null'
+        sources:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Source'
+            type: array
+          - type: 'null'
+          title: Sources
+          description: Structured-data sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Returned only to callers billed in tokens.
+      type: object
+      required:
+      - results
+      title: BondByIsinResponse
+    BadRequestError:
+      properties:
+        statusCode:
+          type: integer
+          const: 400
+          title: Statuscode
+          default: 400
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: BadRequestError
+      description: Bad Request Error
+      example:
+        message: Bad Request Error
+        statusCode: 400
+    BondByIsinQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/IsinIdentifier'
+          description: The bonds to return, named by their ISINs.
+      additionalProperties: false
+      type: object
+      required:
+      - identifier
+      title: BondByIsinQuery
+      example:
+        identifier:
+          type: isin
+          value:
+          - US037833EQ92
+          - US404280DT33
+    BondStatus:
+      type: string
+      enum:
+      - active
+      - inactive
+      - defaulted
+      title: BondStatus
+      description: 'Where a bond stands in its life.
+
+
+        ''active'' bonds are outstanding and have not reached their maturity date, ''inactive''
+
+        bonds have reached it or been redeemed, and ''defaulted'' bonds are in default.'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

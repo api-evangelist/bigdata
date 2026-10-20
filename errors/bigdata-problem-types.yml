@@ -1,0 +1,34 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/bigdata-structured_data.json
+format: custom
+envelope:
+  media_type: application/json
+  schema: BadRequestError
+coverage:
+  operations: 31
+  statuses_declared: 3
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 9
+  media_types:
+  - application/json
+  schema: BadRequestError
+- status: 429
+  title: Too Many Requests
+  description: Too Many Requests
+  operations: 9
+  media_types:
+  - application/json
+  schema: TooManyRequestsError
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  operations: 9
+  media_types:
+  - application/json
+  schema: InternalServerError

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bigdata/main/json-schema/bigdata-events-calendar-query-schema.json",
+  "title": "EventsCalendarQuery",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/bigdata-structured_data.json#/components/schemas/EventsCalendarQuery",
+  "properties": {
+    "rp_entity_id": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rp Entity Id",
+      "description": "A list of RavenPack internal entity identifiers. Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (4A6F00)"
+    },
+    "start_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Start Date",
+      "description": "The start date of the time range for retrieving events. Only events occurring on or after this date will be included. The expected date format is 'YYYY-MM-DD'."
+    },
+    "end_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "End Date",
+      "description": "The end date of the time range for retrieving events. Only events occurring on or before this date will be included. The expected date format is 'YYYY-MM-DD'."
+    },
+    "countries": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Countries",
+      "description": "A list of country codes (ISO 3166-1 alpha-2) to filter events by country. If omitted, events from all countries will be returned. The IPO and delisted calendars cover US companies only, so 'ipos-calendar' and 'delisted-company' events are included when the country list is omitted or empty, or when 'US' is included in the list."
+    },
+    "exchanges": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Exchanges",
+      "description": "Exchange code(s) to filter events by. Accepts MIC codes (ISO 10383, e.g. 'XNYS', 'XNGS'). Accepts a single exchange or a list. Setting this filter excludes 'ipos-calendar' and 'delisted-company' events from the response entirely - both report exchanges as free text rather than MIC codes, so neither can honour the filter."
+    },
+    "categories": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/AllowedCategories"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Categories",
+      "description": "A list of event categories to filter by. Events covered: 'earnings-call', 'conference-call', 'ipos-calendar', 'delisted-company'. IPO listings and delistings are US-only, and the 'cursor' and 'exchanges' filters do not apply to either. If omitted, every category your organization has access to is returned. Note that every delisting is in the past, so a forward-looking window matches none of them. 'delisted-company' covers delistings from 2025-01-01 onwards; naming it with an 'end_date' before that returns 422 rather than an empty calendar, and naming it without a 'start_date' returns every delisting from 2025-01-01 to your 'end_date'. Set 'start_date' to narrow that. Access to 'ipos-calendar' and 'delisted-company' is enabled per organization. A category your organization does not have is left out of the response and the rest of the request is served; a request left with no category to serve returns 403."
+    },
+    "cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cursor",
+      "description": "The cursor for pagination. Use the 'cursor' value from the previous response's pagination to get the next set of results."
+    },
+    "limit": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "maximum": 1000.0,
+          "minimum": 1.0
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Limit",
+      "description": "The number of results to return per page. Must be between 1 and 1000, both inclusive. It bounds the transcript events a page pages through; IPO listings are returned alongside them, so a page can carry more events than the limit."
+    }
+  },
+  "type": "object",
+  "$defs": {
+    "AllowedCategories": {
+      "type": "string",
+      "enum": [
+        "earnings-call",
+        "conference-call",
+        "ipos-calendar",
+        "delisted-company"
+      ],
+      "title": "AllowedCategories"
+    }
+  }
+}

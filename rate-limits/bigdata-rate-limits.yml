@@ -1,0 +1,18 @@
+generated: '2026-10-19'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.bigdata.com/api-rest/rate_limits.md
+sources:
+- https://docs.bigdata.com/api-rest/rate_limits.md
+- https://docs.bigdata.com/api-reference/quotas/get-subscription-quotas.md
+name: RavenPack rate limits
+limits:
+- name: Per API key
+  limit_text: 500 requests per minute
+  max: 500
+  window: minute
+- name: Per IP address
+  limit_text: 1,500 requests per minute
+  max: 1500
+  window: minute
+docs: https://docs.bigdata.com/api-rest/rate_limits.md
