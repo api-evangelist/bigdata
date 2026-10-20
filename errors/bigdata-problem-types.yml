@@ -2,7 +2,13 @@ generated: '2026-10-20'
 method: derived
 generator: derive-problem-types.py
 source:
-- openapi/bigdata-structured_data.json
+- openapi/bigdata-analyst-estimates-api-openapi.yml
+- openapi/bigdata-company-events-api-openapi.yml
+- openapi/bigdata-financials-ratios-api-openapi.yml
+- openapi/bigdata-fixed-income-api-openapi.yml
+- openapi/bigdata-fund-holdings-api-openapi.yml
+- openapi/bigdata-market-data-api-openapi.yml
+- openapi/bigdata-private-markets-api-openapi.yml
 format: custom
 envelope:
   media_type: application/json

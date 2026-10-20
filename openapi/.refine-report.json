@@ -1,7 +1,7 @@
 {
   "provider": "bigdata",
   "sources": [
-    "bigdata-structured_data.json"
+    "_original/bigdata-structured_data.json"
   ],
   "outputs": [
     "bigdata-analyst-estimates-api-openapi.yml",
@@ -12,14 +12,21 @@
     "bigdata-market-data-api-openapi.yml",
     "bigdata-private-markets-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/bigdata-structured_data.json"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "bigdata-structured_data.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+7 apis, 7 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "bigdata-analyst-estimates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-company-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-financials-ratios-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-fixed-income-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-fund-holdings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bigdata-private-markets-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

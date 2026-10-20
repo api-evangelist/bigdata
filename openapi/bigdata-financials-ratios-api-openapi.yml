@@ -192,346 +192,29 @@ components:
       required:
       - results
       title: CompanyRatiosTTMResponse
-    IncomeStatement:
+    Identifier:
       properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company.
+        type:
+          $ref: '#/components/schemas/IdentifierType'
+          description: The identifier namespace. Currently only `rp_entity_id` is supported.
+          default: rp_entity_id
+          examples:
+          - rp_entity_id
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
           examples:
           - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier ID of the company.
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-            enum:
-            - FISCAL_PERIOD_END_DATE
-            - REPORTED_CURRENCY
-            - CIK
-            - FILING_DATE
-            - ACCEPTED_DATE
-            - FISCAL_YEAR
-            - PERIOD
-            - REVENUE
-            - COST_OF_REVENUE
-            - GROSS_PROFIT
-            - RESEARCH_AND_DEVELOPMENT_EXPENSES
-            - GENERAL_AND_ADMINISTRATIVE_EXPENSES
-            - SELLING_AND_MARKETING_EXPENSES
-            - SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES
-            - OTHER_EXPENSES
-            - OPERATING_EXPENSES
-            - COST_AND_EXPENSES
-            - NET_INTEREST_INCOME
-            - INTEREST_INCOME
-            - INTEREST_EXPENSE
-            - DEPRECIATION_AND_AMORTIZATION
-            - EBITDA
-            - EBIT
-            - NON_OPERATING_INCOME_EXCLUDING_INTEREST
-            - OPERATING_INCOME
-            - TOTAL_OTHER_INCOME_EXPENSES_NET
-            - INCOME_BEFORE_TAX
-            - INCOME_TAX_EXPENSE
-            - NET_INCOME_FROM_CONTINUING_OPERATIONS
-            - NET_INCOME_FROM_DISCONTINUED_OPERATIONS
-            - OTHER_ADJUSTMENTS_TO_NET_INCOME
-            - NET_INCOME
-            - NET_INCOME_DEDUCTIONS
-            - BOTTOM_LINE_NET_INCOME
-            - EPS
-            - EPS_DILUTED
-            - WEIGHTED_AVERAGE_SHS_OUT
-            - WEIGHTED_AVERAGE_SHS_OUT_DIL
-          type: array
-          title: Fields
-          description: The fields of the income statement (fixed list).
-          examples:
-          - - FISCAL_PERIOD_END_DATE
-            - REPORTED_CURRENCY
-            - CIK
-            - FILING_DATE
-            - ACCEPTED_DATE
-            - FISCAL_YEAR
-            - PERIOD
-            - REVENUE
-            - COST_OF_REVENUE
-            - GROSS_PROFIT
-            - RESEARCH_AND_DEVELOPMENT_EXPENSES
-            - GENERAL_AND_ADMINISTRATIVE_EXPENSES
-            - SELLING_AND_MARKETING_EXPENSES
-            - SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES
-            - OTHER_EXPENSES
-            - OPERATING_EXPENSES
-            - COST_AND_EXPENSES
-            - NET_INTEREST_INCOME
-            - INTEREST_INCOME
-            - INTEREST_EXPENSE
-            - DEPRECIATION_AND_AMORTIZATION
-            - EBITDA
-            - EBIT
-            - NON_OPERATING_INCOME_EXCLUDING_INTEREST
-            - OPERATING_INCOME
-            - TOTAL_OTHER_INCOME_EXPENSES_NET
-            - INCOME_BEFORE_TAX
-            - INCOME_TAX_EXPENSE
-            - NET_INCOME_FROM_CONTINUING_OPERATIONS
-            - NET_INCOME_FROM_DISCONTINUED_OPERATIONS
-            - OTHER_ADJUSTMENTS_TO_NET_INCOME
-            - NET_INCOME
-            - NET_INCOME_DEDUCTIONS
-            - BOTTOM_LINE_NET_INCOME
-            - EPS
-            - EPS_DILUTED
-            - WEIGHTED_AVERAGE_SHS_OUT
-            - WEIGHTED_AVERAGE_SHS_OUT_DIL
-        values:
-          items:
-            prefixItems:
-            - type: string
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: integer
-              - type: 'null'
-            type: array
-            maxItems: 38
-            minItems: 38
-          type: array
-          title: Values
-          description: The values of the income statement.
-          examples:
-          - - '2025-06-30'
-            - USD
-            - '0001652044'
-            - '2025-07-24'
-            - '2025-07-23T19:44:01'
-            - 2025
-            - Q2
-            - 96428000000
-            - 39039000000
-            - 57389000000
-            - 13808000000
-            - 5209000000
-            - 7101000000
-            - 12310000000
-            - 0
-            - 26118000000
-            - 65157000000
-            - 789000000
-            - 1050000000
-            - 261000000
-            - 4998000000
-            - 39192000000
-            - 34194000000
-            - -2811000000
-            - 31271000000
-            - 2662000000
-            - 33933000000
-            - 5737000000
-            - 28196000000
-            - 0
-            - 0
-            - 28196000000
-            - 0
-            - 28196000000
-            - 2.33
-            - 2.31
-            - 12122000000
-            - 12198000000
-          - - '2025-03-31'
-            - USD
-            - '0001652044'
-            - '2025-04-25'
-            - '2025-04-24T21:05:29'
-            - 2025
-            - Q1
-            - 90234000000
-            - 36361000000
-            - 53873000000
-            - 13556000000
-            - 3539000000
-            - 6172000000
-            - 9711000000
-            - 0
-            - 23267000000
-            - 59628000000
-            - 967000000
-            - 1001000000
-            - 34000000
-            - 4487000000
-            - 46310000000
-            - 41823000000
-            - -11217000000
-            - 30606000000
-            - 11183000000
-            - 41789000000
-            - 7249000000
-            - 34540000000
-            - 0
-            - 0
-            - 34540000000
-            - 0
-            - 34540000000
-            - 2.84
-            - 2.81
-            - 12183000000
-            - 12291000000
       type: object
       required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: IncomeStatement
-    IdentifierType:
-      type: string
-      enum:
-      - rp_entity_id
-      title: IdentifierType
-      default: rp_entity_id
+      - type
+      - value
+      title: Identifier
     PublicCompanyRevenueProductResponse:
       properties:
         results:
@@ -566,339 +249,75 @@ components:
       required:
       - results
       title: PublicCompanyRevenueProductResponse
-    KeyMetricsTTMQuery:
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    PublicCashFlowStatementQuery:
       properties:
         identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: An object containing the identifier value(s) and their type for the Key Metrics TTM tool.
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the cash flow statement. You must supply one type and its corresponding value.
+          examples:
+          - type: rp_entity_id
+            value: 4A6F00
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the cash flow statement to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - annual
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Maximum number of cash flow statements records to return. If omitted, all cash flow statements records are returned.
+          default: 20
+          examples:
+          - 20
       type: object
       required:
       - identifier
-      title: KeyMetricsTTMQuery
-    Usage:
-      additionalProperties:
-        type: integer
-      type: object
-      title: Usage
-      description: 'Public structured-data usage for a request, aggregated per content tier.
-
-
-        A flat object keyed per content tier, where each key is derived from the
-
-        content tier identifier by dropping the ``content-`` prefix and appending
-
-        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
-
-        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
-
-        tokens appear, and an absent key means zero tokens for that tier.'
-    CashFlowStatement:
+      title: PublicCashFlowStatementQuery
+    AllowedPeriods:
+      type: string
+      enum:
+      - annual
+      - quarter
+      title: AllowedPeriods
+    CompanyRatiosTTMQuery:
       properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company.
-          examples:
-          - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier ID of the company.
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-            enum:
-            - REPORTED_CURRENCY
-            - CIK
-            - FILING_DATE
-            - ACCEPTED_DATE
-            - FISCAL_YEAR
-            - PERIOD
-            - NET_INCOME
-            - DEPRECIATION_AND_AMORTIZATION
-            - DEFERRED_INCOME_TAX
-            - STOCK_BASED_COMPENSATION
-            - CHANGE_IN_WORKING_CAPITAL
-            - ACCOUNTS_RECEIVABLES
-            - INVENTORY
-            - ACCOUNTS_PAYABLES
-            - OTHER_WORKING_CAPITAL
-            - OTHER_NON_CASH_ITEMS
-            - NET_CASH_PROVIDED_BY_OPERATING_ACTIVITIES
-            - INVESTMENTS_IN_PROPERTY_PLANT_AND_EQUIPMENT
-            - ACQUISITIONS_NET
-            - PURCHASES_OF_INVESTMENTS
-            - SALES_MATURITIES_OF_INVESTMENTS
-            - OTHER_INVESTING_ACTIVITIES
-            - NET_CASH_PROVIDED_BY_INVESTING_ACTIVITIES
-            - NET_DEBT_ISSUANCE
-            - LONG_TERM_NET_DEBT_ISSUANCE
-            - SHORT_TERM_NET_DEBT_ISSUANCE
-            - NET_STOCK_ISSUANCE
-            - NET_COMMON_STOCK_ISSUANCE
-            - COMMON_STOCK_ISSUANCE
-            - COMMON_STOCK_REPURCHASED
-            - NET_PREFERRED_STOCK_ISSUANCE
-            - NET_DIVIDENDS_PAID
-            - COMMON_DIVIDENDS_PAID
-            - PREFERRED_DIVIDENDS_PAID
-            - OTHER_FINANCING_ACTIVITIES
-            - NET_CASH_PROVIDED_BY_FINANCING_ACTIVITIES
-            - EFFECT_OF_FOREX_CHANGES_ON_CASH
-            - NET_CHANGE_IN_CASH
-            - CASH_AT_END_OF_PERIOD
-            - CASH_AT_BEGINNING_OF_PERIOD
-            - OPERATING_CASH_FLOW
-            - CAPITAL_EXPENDITURE
-            - FREE_CASH_FLOW
-            - INCOME_TAXES_PAID
-            - INTEREST_PAID
-          type: array
-          title: Fields
-          description: The fields of the cash flow statement.
-          examples:
-          - - REPORTED_CURRENCY
-            - CIK
-            - FILING_DATE
-            - ACCEPTED_DATE
-            - FISCAL_YEAR
-            - PERIOD
-            - NET_INCOME
-            - DEPRECIATION_AND_AMORTIZATION
-            - DEFERRED_INCOME_TAX
-            - STOCK_BASED_COMPENSATION
-            - CHANGE_IN_WORKING_CAPITAL
-            - ACCOUNTS_RECEIVABLES
-            - INVENTORY
-            - ACCOUNTS_PAYABLES
-            - OTHER_WORKING_CAPITAL
-            - OTHER_NON_CASH_ITEMS
-            - NET_CASH_PROVIDED_BY_OPERATING_ACTIVITIES
-            - INVESTMENTS_IN_PROPERTY_PLANT_AND_EQUIPMENT
-            - ACQUISITIONS_NET
-            - PURCHASES_OF_INVESTMENTS
-            - SALES_MATURITIES_OF_INVESTMENTS
-            - OTHER_INVESTING_ACTIVITIES
-            - NET_CASH_PROVIDED_BY_INVESTING_ACTIVITIES
-            - NET_DEBT_ISSUANCE
-            - LONG_TERM_NET_DEBT_ISSUANCE
-            - SHORT_TERM_NET_DEBT_ISSUANCE
-            - NET_STOCK_ISSUANCE
-            - NET_COMMON_STOCK_ISSUANCE
-            - COMMON_STOCK_ISSUANCE
-            - COMMON_STOCK_REPURCHASED
-            - NET_PREFERRED_STOCK_ISSUANCE
-            - NET_DIVIDENDS_PAID
-            - COMMON_DIVIDENDS_PAID
-            - PREFERRED_DIVIDENDS_PAID
-            - OTHER_FINANCING_ACTIVITIES
-            - NET_CASH_PROVIDED_BY_FINANCING_ACTIVITIES
-            - EFFECT_OF_FOREX_CHANGES_ON_CASH
-            - NET_CHANGE_IN_CASH
-            - CASH_AT_END_OF_PERIOD
-            - CASH_AT_BEGINNING_OF_PERIOD
-            - OPERATING_CASH_FLOW
-            - CAPITAL_EXPENDITURE
-            - FREE_CASH_FLOW
-            - INCOME_TAXES_PAID
-            - INTEREST_PAID
-        values:
-          items:
-            prefixItems:
-            - type: string
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            - anyOf:
-              - type: number
-              - type: 'null'
-            type: array
-            maxItems: 45
-            minItems: 45
-          type: array
-          title: Values
-          description: The values of the cash flow statement.
-          examples:
-          - - USD
-            - '0001652044'
-            - '2025-07-24'
-            - '2025-07-23T19:44:01'
-            - 2025
-            - Q2
-            - 28196000000
-            - 4998000000
-            - -444000000
-            - 0
-            - -10110000000
-            - -2839000000
-            - 0
-            - 553000000
-            - -7824000000
-            - 5107000000
-            - 27747000000
-            - -22446000000
-            - -13000000
-            - -22771000000
-            - 21199000000
-            - -513000000
-            - -24544000000
-            - 12970000000
-            - 12970000000
-            - 0
-            - -13638000000
-            - -13638000000
-            - 0
-            - -13638000000
-            - 0
-            - -2543000000
-            - -2543000000
-            - 0
-            - -2621000000
-            - -5832000000
-            - 401000000
-            - -2228000000
-            - 21036000000
-            - 23264000000
-            - 27747000000
-            - -22446000000
-            - 5301000000
-            - 0
-            - 0
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: An object containing the identifier value(s) and their type for the Company Ratios TTM tool.
       type: object
       required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: CashFlowStatement
+      - identifier
+      title: CompanyRatiosTTMQuery
+    PublicCompanyRevenueGeographicQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the company revenue geographic data. You must supply one type and its corresponding value.
+          examples:
+          - type: rp_entity_id
+            value: D8442A
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the company revenue geographic data to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - quarter
+      type: object
+      required:
+      - identifier
+      title: PublicCompanyRevenueGeographicQuery
     KeyMetricsTTMResponse:
       properties:
         results:
@@ -932,1073 +351,6 @@ components:
       required:
       - results
       title: KeyMetricsTTMResponse
-    AllowedPeriods:
-      type: string
-      enum:
-      - annual
-      - quarter
-      title: AllowedPeriods
-    BalanceSheet:
-      properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company.
-          examples:
-          - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier ID of the company.
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-          type: array
-          title: Fields
-          description: The fields of the balance sheet.
-          examples:
-          - - FISCAL_PERIOD_END_DATE
-            - REPORTED_CURRENCY
-            - CIK
-            - FILING_DATE
-            - ACCEPTED_DATE
-            - FISCAL_YEAR
-            - PERIOD
-            - CASH_AND_CASH_EQUIVALENTS
-            - SHORT_TERM_INVESTMENTS
-            - CASH_AND_SHORT_TERM_INVESTMENTS
-            - NET_RECEIVABLES
-            - ACCOUNTS_RECEIVABLES
-            - OTHER_RECEIVABLES
-            - INVENTORY
-            - PREPAIDS
-            - OTHER_CURRENT_ASSETS
-            - TOTAL_CURRENT_ASSETS
-            - PROPERTY_PLANT_EQUIPMENT_NET
-            - GOODWILL
-            - INTANGIBLE_ASSETS
-            - GOODWILL_AND_INTANGIBLE_ASSETS
-            - LONG_TERM_INVESTMENTS
-            - TAX_ASSETS
-            - OTHER_NON_CURRENT_ASSETS
-            - TOTAL_NON_CURRENT_ASSETS
-            - OTHER_ASSETS
-            - TOTAL_ASSETS
-            - TOTAL_PAYABLES
-            - ACCOUNT_PAYABLES
-            - OTHER_PAYABLES
-            - ACCRUED_EXPENSES
-            - SHORT_TERM_DEBT
-            - CAPITAL_LEASE_OBLIGATIONS_CURRENT
-            - TAX_PAYABLES
-            - DEFERRED_REVENUE
-            - OTHER_CURRENT_LIABILITIES
-            - TOTAL_CURRENT_LIABILITIES
-            - LONG_TERM_DEBT
-            - CAPITAL_LEASE_OBLIGATIONS_NON_CURRENT
-            - DEFERRED_REVENUE_NON_CURRENT
-            - DEFERRED_TAX_LIABILITIES_NON_CURRENT
-            - OTHER_NON_CURRENT_LIABILITIES
-            - TOTAL_NON_CURRENT_LIABILITIES
-            - OTHER_LIABILITIES
-            - CAPITAL_LEASE_OBLIGATIONS
-            - TOTAL_LIABILITIES
-            - TREASURY_STOCK
-            - PREFERRED_STOCK
-            - COMMON_STOCK
-            - RETAINED_EARNINGS
-            - ADDITIONAL_PAID_IN_CAPITAL
-            - ACCUMULATED_OTHER_COMPREHENSIVE_INCOME_LOSS
-            - OTHER_TOTAL_STOCKHOLDERS_EQUITY
-            - TOTAL_STOCKHOLDERS_EQUITY
-            - TOTAL_EQUITY
-            - MINORITY_INTEREST
-            - TOTAL_LIABILITIES_AND_TOTAL_EQUITY
-            - TOTAL_INVESTMENTS
-            - TOTAL_DEBT
-            - NET_DEBT
-        values:
-          items:
-            items:
-              anyOf:
-              - type: string
-              - type: integer
-              - type: number
-            type: array
-          type: array
-          title: Values
-          description: The values of the balance sheet.
-          examples:
-          - - '2025-06-30'
-            - USD
-            - '0001652044'
-            - '2025-07-24'
-            - '2025-07-23T19:44:01'
-            - 2025
-            - Q2
-            - 21036000000
-            - 74112000000
-            - 95148000000
-            - 55048000000
-            - 55048000000
-            - 0
-            - 0
-            - 0
-            - 16020000000
-            - 166216000000
-            - 217486000000
-            - 32335000000
-            - 0
-            - 32335000000
-            - 52574000000
-            - 19289000000
-            - 14153000000
-            - 335837000000
-            - 0
-            - 502053000000
-            - 9133000000
-            - 8347000000
-            - 786000000
-            - 12168000000
-            - 4107000000
-            - 0
-            - 786000000
-            - 4969000000
-            - 56933000000
-            - 87310000000
-            - 23607000000
-            - 13954000000
-            - 0
-            - 0
-            - 14266000000
-            - 51827000000
-            - 0
-            - 11952000000
-            - 139137000000
-            - 0
-            - 0
-            - 12104000000
-            - 275760000000
-            - 77179000000
-            - -2127000000
-            - 0
-            - 362916000000
-            - 362916000000
-            - 0
-            - 502053000000
-            - 126686000000
-            - 41668000000
-            - 20632000000
-          - - '2025-03-31'
-            - USD
-            - '0001652044'
-            - '2025-04-25'
-            - '2025-04-24T21:05:29'
-            - 2025
-            - Q1
-            - 23264000000
-            - 72064000000
-            - 95328000000
-            - 51000000000
-            - 51000000000
-            - 0
-            - 0
-            - 0
-            - 15724000000
-            - 162052000000
-            - 198784000000
-            - 32173000000
-            - 0
-            - 32173000000
-            - 51029000000
-            - 18386000000
-            - 12950000000
-            - 313322000000
-            - 0
-            - 475374000000
-            - 22546000000
-            - 8497000000
-            - 14049000000
-            - 46682000000
-            - 1000000000
-            - 0
-            - 9773000000
-            - 4908000000
-            - 16518000000
-            - 91654000000
-            - 10886000000
-            - 11678000000
-            - 0
-            - 0
-            - 15889000000
-            - 38453000000
-            - 0
-            - 11678000000
-            - 130107000000
-            - 0
-            - 0
-            - 86725000000
-            - 262628000000
-            - 0
-            - -4086000000
-            - 0
-            - 345267000000
-            - 345267000000
-            - 0
-            - 475374000000
-            - 123093000000
-            - 23564000000
-            - 300000000
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: BalanceSheet
-    ErrorDetail:
-      properties:
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-      type: object
-      title: ErrorDetail
-    SingleIdentifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierTypeEnum'
-          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
-          examples:
-          - rp_entity_id
-        value:
-          type: string
-          maxLength: 6
-          minLength: 6
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: SingleIdentifier
-    Source:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Content catalog identifier of the source.
-          examples:
-          - CA9FA3
-        name:
-          type: string
-          title: Name
-          description: Catalog name of the dataset the data came from.
-          examples:
-          - Corporate Fundamentals
-      type: object
-      required:
-      - id
-      - name
-      title: Source
-      description: A content catalog source that contributed data to a structured-data response.
-    PublicBalanceSheetQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: Object specifying which identifier you are using to request the balance sheet. You must supply one type and its corresponding value.
-        period:
-          $ref: '#/components/schemas/AllowedPeriods'
-          description: Select whether the balance sheet to be provided are on an annual or quarterly basis.
-          default: quarter
-          examples:
-          - annual
-        limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Limit
-          description: Maximum number of balance sheets to return. If omitted, all balance sheets are returned.
-          default: 20
-          examples:
-          - 20
-      type: object
-      required:
-      - identifier
-      title: PublicBalanceSheetQuery
-    PublicCompanyRevenueProductQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/SingleIdentifier'
-          description: Object specifying which identifier you are using to request the company revenue product data. You must supply one type and its corresponding value.
-          examples:
-          - type: rp_entity_id
-            value: 4A6F00
-        period:
-          $ref: '#/components/schemas/AllowedPeriods'
-          description: Select whether the company revenue product data to be provided are on an annual or quarterly basis.
-          default: quarter
-          examples:
-          - annual
-      type: object
-      required:
-      - identifier
-      title: PublicCompanyRevenueProductQuery
-    IdentifierTypeEnum:
-      type: string
-      enum:
-      - rp_entity_id
-      title: IdentifierTypeEnum
-    PublicCashFlowResponse:
-      properties:
-        results:
-          anyOf:
-          - $ref: '#/components/schemas/CashFlowStatement'
-          - items:
-              $ref: '#/components/schemas/CashFlowStatement'
-            type: array
-          title: Results
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: PublicCashFlowResponse
-    CompanyRevenueProduct:
-      properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company.
-          examples:
-          - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier ID of the company.
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-            enum:
-            - FISCAL_YEAR
-            - PERIOD
-            - REPORTED_CURRENCY
-            - PRODUCT_SEGMENTS
-          type: array
-          title: Fields
-          description: The fields of the company revenue product data.
-          examples:
-          - - FISCAL_YEAR
-            - PERIOD
-            - REPORTED_CURRENCY
-            - PRODUCT_SEGMENTS
-        values:
-          items:
-            prefixItems:
-            - anyOf:
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - additionalProperties:
-                  anyOf:
-                  - type: integer
-                  - type: 'null'
-                type: object
-              - type: 'null'
-            type: array
-            maxItems: 4
-            minItems: 4
-          type: array
-          title: Values
-          description: The values of the company revenue product data.
-          examples:
-          - - 2024
-            - FY
-            - USD
-            - Google Cloud: 43229000000
-              Google Network: 30359000000
-              Google Search & Other: 198084000000
-              Google Subscriptions, Platforms, And Devices: 40340000000
-              Other Bets: 1648000000
-              YouTube Ads: 36147000000
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: CompanyRevenueProduct
-    Metadata:
-      properties:
-        request_id:
-          type: string
-          title: Request Id
-        timestamp:
-          type: string
-          title: Timestamp
-      type: object
-      required:
-      - request_id
-      title: Metadata
-    PublicCashFlowStatementQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/SingleIdentifier'
-          description: Object specifying which identifier you are using to request the cash flow statement. You must supply one type and its corresponding value.
-          examples:
-          - type: rp_entity_id
-            value: 4A6F00
-        period:
-          $ref: '#/components/schemas/AllowedPeriods'
-          description: Select whether the cash flow statement to be provided are on an annual or quarterly basis.
-          default: quarter
-          examples:
-          - annual
-        limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Limit
-          description: Maximum number of cash flow statements records to return. If omitted, all cash flow statements records are returned.
-          default: 20
-          examples:
-          - 20
-      type: object
-      required:
-      - identifier
-      title: PublicCashFlowStatementQuery
-    PublicIncomeStatementQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/SingleIdentifier'
-          description: Object specifying which identifier you are using to request the income statement. You must supply one type and its corresponding value.
-        period:
-          $ref: '#/components/schemas/AllowedPeriods'
-          description: Select whether the income statement to be provided are on an annual or quarterly basis.
-          default: quarter
-          examples:
-          - quarter
-        limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Limit
-          description: Maximum number of income statements records to return. If omitted, all income statements records are returned.
-          default: 20
-          examples:
-          - 20
-      type: object
-      required:
-      - identifier
-      title: PublicIncomeStatementQuery
-    PublicCompanyRevenueGeographicResponse:
-      properties:
-        results:
-          anyOf:
-          - $ref: '#/components/schemas/CompanyRevenueGeographic'
-          - additionalProperties: true
-            type: object
-          title: Results
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: PublicCompanyRevenueGeographicResponse
-    CompanyRevenueGeographic:
-      properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company.
-          examples:
-          - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier ID of the company.
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-            enum:
-            - FISCAL_YEAR
-            - PERIOD
-            - REPORTED_CURRENCY
-            - REGION_SEGMENTS
-          type: array
-          title: Fields
-          description: The fields of the company revenue geographic data.
-          examples:
-          - - FISCAL_YEAR
-            - PERIOD
-            - REPORTED_CURRENCY
-            - REGION_SEGMENTS
-        values:
-          items:
-            prefixItems:
-            - anyOf:
-              - type: integer
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - type: string
-              - type: 'null'
-            - anyOf:
-              - additionalProperties:
-                  anyOf:
-                  - type: integer
-                  - type: 'null'
-                type: object
-              - type: 'null'
-            type: array
-            maxItems: 4
-            minItems: 4
-          type: array
-          title: Values
-          description: The values of the company revenue geographic data.
-          examples:
-          - - 2025
-            - Q3
-            - USD
-            - Americas Segment: 41198000000
-              Europe Segment: 24014000000
-              Greater China Segment: 15369000000
-              Japan Segment: 5782000000
-              Rest of Asia Pacific Segment: 7673000000
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: CompanyRevenueGeographic
-    Identifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierType'
-          description: The identifier namespace. Currently only `rp_entity_id` is supported.
-          default: rp_entity_id
-          examples:
-          - rp_entity_id
-        value:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: Identifier
-    KeyMetricsTTM:
-      properties:
-        rp_entity_id:
-          type: string
-          title: Rp Entity Id
-          description: RavenPack internal entity identifier.
-          examples:
-          - 4A6F00
-        target_identifier_id:
-          type: string
-          title: Target Identifier Id
-          description: The target identifier provided in the request, e.g., stock symbol.
-          examples:
-          - GOOGL
-        market_cap:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Market Cap
-          description: The market cap of the company.
-          examples:
-          - 2907172311540
-        enterprise_value_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Enterprise Value Ttm
-          description: The enterprise value of the company.
-          examples:
-          - 2907172311540
-        ev_to_sales_ttm:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Ev To Sales Ttm
-          description: The EV/Sales ratio of the company.
-          examples:
-          - 7.883
-        ev_to_operating_cash_flow_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Ev To Operating Cash Flow Ttm
-          description: The EV/Operating Cash Flow ratio of the company.
-          examples:
-          - 21.897
-        ev_to_free_cash_flow_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Ev To Free Cash Flow Ttm
-          description: The EV/Free Cash Flow ratio of the company.
-          examples:
-          - 43.876
-        ev_to_ebitda_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Ev To Ebitda Ttm
-          description: The EV/EBITDA ratio of the company.
-          examples:
-          - 18.56
-        net_debt_to_ebitda_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Net Debt To Ebitda Ttm
-          description: The Net Debt/EBITDA ratio of the company.
-          examples:
-          - 0.13
-        current_ratio_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Current Ratio Ttm
-          description: The Current Ratio of the company.
-          examples:
-          - 1.903
-        income_quality_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Income Quality Ttm
-          description: The Income Quality of the company.
-          examples:
-          - 1.156
-        graham_number_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Graham Number Ttm
-          description: The Graham Number of the company.
-          examples:
-          - 80.139
-        graham_net_net_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Graham Net Net Ttm
-          description: The Graham Net Net of the company.
-          examples:
-          - -0.222
-        tax_burden_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Tax Burden Ttm
-          description: The Tax Burden of the company.
-          examples:
-          - 0.827
-        interest_burden_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Interest Burden Ttm
-          description: The Interest Burden of the company.
-          examples:
-          - 0.997
-        working_capital_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Working Capital Ttm
-          description: The Working Capital of the company.
-          examples:
-          - 78906000000
-        invested_capital_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Invested Capital Ttm
-          description: The Invested Capital of the company.
-          examples:
-          - 328727000000
-        return_on_assets_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Return On Assets Ttm
-          description: The Return on Assets of the company.
-          examples:
-          - 0.23
-        operating_return_on_assets_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Operating Return On Assets Ttm
-          description: The Operating Return on Assets of the company.
-          examples:
-          - 0.248
-        return_on_tangible_assets_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Return On Tangible Assets Ttm
-          description: The Return on Tangible Assets of the company.
-          examples:
-          - 0.246
-        return_on_equity_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Return On Equity Ttm
-          description: The Return on Equity of the company.
-          examples:
-          - 0.343
-        return_on_invested_capital_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Return On Invested Capital Ttm
-          description: The Return on Invested Capital of the company.
-          examples:
-          - 0.239
-        return_on_capital_employed_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Return On Capital Employed Ttm
-          description: The Return on Capital Employed of the company.
-          examples:
-          - 0.292
-        earnings_yield_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Earnings Yield Ttm
-          description: The Earnings Yield of the company.
-          examples:
-          - 0.039
-        free_cash_flow_yield_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Free Cash Flow Yield Ttm
-          description: The Free Cash Flow Yield of the company.
-          examples:
-          - 0.022
-        capex_to_operating_cash_flow_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Capex To Operating Cash Flow Ttm
-          description: The Capex to Operating Cash Flow of the company.
-          examples:
-          - 0.5
-        capex_to_depreciation_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Capex To Depreciation Ttm
-          description: The Capex to Depreciation of the company.
-          examples:
-          - 3.789
-        capex_to_revenue_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Capex To Revenue Ttm
-          description: The Capex to Revenue of the company.
-          examples:
-          - 0.18
-        sales_general_and_admin_to_revenue_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Sales General And Admin To Revenue Ttm
-          description: The Sales General and Admin to Revenue of the company.
-          examples:
-          - 0.045
-        research_and_development_to_revenue_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Research And Development To Revenue Ttm
-          description: The Research and Development to Revenue of the company.
-          examples:
-          - 0.142
-        stock_based_compensation_to_revenue_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Stock Based Compensation To Revenue Ttm
-          description: The Stock Based Compensation to Revenue of the company.
-          examples:
-          - 0.046
-        intangibles_to_total_assets_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Intangibles To Total Assets Ttm
-          description: The Intangibles to Total Assets of the company.
-          examples:
-          - 0.064
-        average_receivables_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Average Receivables Ttm
-          description: The Average Receivables of the company.
-          examples:
-          - 53024000000
-        average_payables_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Average Payables Ttm
-          description: The Average Payables of the company.
-          examples:
-          - 8422000000
-        average_inventory_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Average Inventory Ttm
-          description: The Average Inventory of the company.
-          examples:
-          - 0
-        days_of_sales_outstanding_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Days Of Sales Outstanding Ttm
-          description: The Days of Sales Outstanding of the company.
-          examples:
-          - 54.099
-        days_of_payables_outstanding_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Days Of Payables Outstanding Ttm
-          description: The Days of Payables Outstanding of the company.
-          examples:
-          - 19.978
-        days_of_inventory_outstanding_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Days Of Inventory Outstanding Ttm
-          description: The Days of Inventory Outstanding of the company.
-          examples:
-          - 0
-        operating_cycle_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Operating Cycle Ttm
-          description: The Operating Cycle of the company.
-          examples:
-          - 54.099
-        cash_conversion_cycle_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Cash Conversion Cycle Ttm
-          description: The Cash Conversion Cycle of the company.
-          examples:
-          - 34.119784543416905
-        free_cash_flow_to_equity_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Free Cash Flow To Equity Ttm
-          description: The Free Cash Flow to Equity of the company.
-          examples:
-          - 46096000000
-        free_cash_flow_to_firm_ttm:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: 'null'
-          title: Free Cash Flow To Firm Ttm
-          description: The Free Cash Flow to Firm of the company.
-          examples:
-          - 58092641321.391
-        tangible_asset_value_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Tangible Asset Value Ttm
-          description: The Tangible Asset Value of the company.
-          examples:
-          - 330581000000
-        net_current_asset_value_ttm:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Net Current Asset Value Ttm
-          description: The Net Current Asset Value of the company.
-          examples:
-          - 27079000000
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      title: KeyMetricsTTM
-    PublicCompanyRevenueGeographicQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/SingleIdentifier'
-          description: Object specifying which identifier you are using to request the company revenue geographic data. You must supply one type and its corresponding value.
-          examples:
-          - type: rp_entity_id
-            value: D8442A
-        period:
-          $ref: '#/components/schemas/AllowedPeriods'
-          description: Select whether the company revenue geographic data to be provided are on an annual or quarterly basis.
-          default: quarter
-          examples:
-          - quarter
-      type: object
-      required:
-      - identifier
-      title: PublicCompanyRevenueGeographicQuery
-    PublicIncomeStatementResponse:
-      properties:
-        results:
-          anyOf:
-          - $ref: '#/components/schemas/IncomeStatement'
-          - additionalProperties: true
-            type: object
-          title: Results
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: PublicIncomeStatementResponse
-    CompanyRatiosTTMQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: An object containing the identifier value(s) and their type for the Company Ratios TTM tool.
-      type: object
-      required:
-      - identifier
-      title: CompanyRatiosTTMQuery
     CompanyRatiosTTM:
       properties:
         rp_entity_id:
@@ -2431,6 +783,1292 @@ components:
       - rp_entity_id
       - target_identifier_id
       title: CompanyRatiosTTM
+    CompanyRevenueGeographic:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+            enum:
+            - FISCAL_YEAR
+            - PERIOD
+            - REPORTED_CURRENCY
+            - REGION_SEGMENTS
+          type: array
+          title: Fields
+          description: The fields of the company revenue geographic data.
+          examples:
+          - - FISCAL_YEAR
+            - PERIOD
+            - REPORTED_CURRENCY
+            - REGION_SEGMENTS
+        values:
+          items:
+            prefixItems:
+            - anyOf:
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - additionalProperties:
+                  anyOf:
+                  - type: integer
+                  - type: 'null'
+                type: object
+              - type: 'null'
+            type: array
+            maxItems: 4
+            minItems: 4
+          type: array
+          title: Values
+          description: The values of the company revenue geographic data.
+          examples:
+          - - 2025
+            - Q3
+            - USD
+            - Americas Segment: 41198000000
+              Europe Segment: 24014000000
+              Greater China Segment: 15369000000
+              Japan Segment: 5782000000
+              Rest of Asia Pacific Segment: 7673000000
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: CompanyRevenueGeographic
+    PublicIncomeStatementQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the income statement. You must supply one type and its corresponding value.
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the income statement to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - quarter
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Maximum number of income statements records to return. If omitted, all income statements records are returned.
+          default: 20
+          examples:
+          - 20
+      type: object
+      required:
+      - identifier
+      title: PublicIncomeStatementQuery
+    CompanyRevenueProduct:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+            enum:
+            - FISCAL_YEAR
+            - PERIOD
+            - REPORTED_CURRENCY
+            - PRODUCT_SEGMENTS
+          type: array
+          title: Fields
+          description: The fields of the company revenue product data.
+          examples:
+          - - FISCAL_YEAR
+            - PERIOD
+            - REPORTED_CURRENCY
+            - PRODUCT_SEGMENTS
+        values:
+          items:
+            prefixItems:
+            - anyOf:
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - additionalProperties:
+                  anyOf:
+                  - type: integer
+                  - type: 'null'
+                type: object
+              - type: 'null'
+            type: array
+            maxItems: 4
+            minItems: 4
+          type: array
+          title: Values
+          description: The values of the company revenue product data.
+          examples:
+          - - 2024
+            - FY
+            - USD
+            - Google Cloud: 43229000000
+              Google Network: 30359000000
+              Google Search & Other: 198084000000
+              Google Subscriptions, Platforms, And Devices: 40340000000
+              Other Bets: 1648000000
+              YouTube Ads: 36147000000
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: CompanyRevenueProduct
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    PublicIncomeStatementResponse:
+      properties:
+        results:
+          anyOf:
+          - $ref: '#/components/schemas/IncomeStatement'
+          - additionalProperties: true
+            type: object
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicIncomeStatementResponse
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
+    PublicBalanceSheetQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the balance sheet. You must supply one type and its corresponding value.
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the balance sheet to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - annual
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Maximum number of balance sheets to return. If omitted, all balance sheets are returned.
+          default: 20
+          examples:
+          - 20
+      type: object
+      required:
+      - identifier
+      title: PublicBalanceSheetQuery
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    KeyMetricsTTM:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: RavenPack internal entity identifier.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier provided in the request, e.g., stock symbol.
+          examples:
+          - GOOGL
+        market_cap:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Market Cap
+          description: The market cap of the company.
+          examples:
+          - 2907172311540
+        enterprise_value_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Enterprise Value Ttm
+          description: The enterprise value of the company.
+          examples:
+          - 2907172311540
+        ev_to_sales_ttm:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ev To Sales Ttm
+          description: The EV/Sales ratio of the company.
+          examples:
+          - 7.883
+        ev_to_operating_cash_flow_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Ev To Operating Cash Flow Ttm
+          description: The EV/Operating Cash Flow ratio of the company.
+          examples:
+          - 21.897
+        ev_to_free_cash_flow_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Ev To Free Cash Flow Ttm
+          description: The EV/Free Cash Flow ratio of the company.
+          examples:
+          - 43.876
+        ev_to_ebitda_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Ev To Ebitda Ttm
+          description: The EV/EBITDA ratio of the company.
+          examples:
+          - 18.56
+        net_debt_to_ebitda_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Net Debt To Ebitda Ttm
+          description: The Net Debt/EBITDA ratio of the company.
+          examples:
+          - 0.13
+        current_ratio_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Current Ratio Ttm
+          description: The Current Ratio of the company.
+          examples:
+          - 1.903
+        income_quality_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Income Quality Ttm
+          description: The Income Quality of the company.
+          examples:
+          - 1.156
+        graham_number_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Graham Number Ttm
+          description: The Graham Number of the company.
+          examples:
+          - 80.139
+        graham_net_net_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Graham Net Net Ttm
+          description: The Graham Net Net of the company.
+          examples:
+          - -0.222
+        tax_burden_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Tax Burden Ttm
+          description: The Tax Burden of the company.
+          examples:
+          - 0.827
+        interest_burden_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Interest Burden Ttm
+          description: The Interest Burden of the company.
+          examples:
+          - 0.997
+        working_capital_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Working Capital Ttm
+          description: The Working Capital of the company.
+          examples:
+          - 78906000000
+        invested_capital_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Invested Capital Ttm
+          description: The Invested Capital of the company.
+          examples:
+          - 328727000000
+        return_on_assets_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Return On Assets Ttm
+          description: The Return on Assets of the company.
+          examples:
+          - 0.23
+        operating_return_on_assets_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Operating Return On Assets Ttm
+          description: The Operating Return on Assets of the company.
+          examples:
+          - 0.248
+        return_on_tangible_assets_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Return On Tangible Assets Ttm
+          description: The Return on Tangible Assets of the company.
+          examples:
+          - 0.246
+        return_on_equity_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Return On Equity Ttm
+          description: The Return on Equity of the company.
+          examples:
+          - 0.343
+        return_on_invested_capital_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Return On Invested Capital Ttm
+          description: The Return on Invested Capital of the company.
+          examples:
+          - 0.239
+        return_on_capital_employed_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Return On Capital Employed Ttm
+          description: The Return on Capital Employed of the company.
+          examples:
+          - 0.292
+        earnings_yield_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Earnings Yield Ttm
+          description: The Earnings Yield of the company.
+          examples:
+          - 0.039
+        free_cash_flow_yield_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Free Cash Flow Yield Ttm
+          description: The Free Cash Flow Yield of the company.
+          examples:
+          - 0.022
+        capex_to_operating_cash_flow_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Capex To Operating Cash Flow Ttm
+          description: The Capex to Operating Cash Flow of the company.
+          examples:
+          - 0.5
+        capex_to_depreciation_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Capex To Depreciation Ttm
+          description: The Capex to Depreciation of the company.
+          examples:
+          - 3.789
+        capex_to_revenue_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Capex To Revenue Ttm
+          description: The Capex to Revenue of the company.
+          examples:
+          - 0.18
+        sales_general_and_admin_to_revenue_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Sales General And Admin To Revenue Ttm
+          description: The Sales General and Admin to Revenue of the company.
+          examples:
+          - 0.045
+        research_and_development_to_revenue_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Research And Development To Revenue Ttm
+          description: The Research and Development to Revenue of the company.
+          examples:
+          - 0.142
+        stock_based_compensation_to_revenue_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Stock Based Compensation To Revenue Ttm
+          description: The Stock Based Compensation to Revenue of the company.
+          examples:
+          - 0.046
+        intangibles_to_total_assets_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Intangibles To Total Assets Ttm
+          description: The Intangibles to Total Assets of the company.
+          examples:
+          - 0.064
+        average_receivables_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Average Receivables Ttm
+          description: The Average Receivables of the company.
+          examples:
+          - 53024000000
+        average_payables_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Average Payables Ttm
+          description: The Average Payables of the company.
+          examples:
+          - 8422000000
+        average_inventory_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Average Inventory Ttm
+          description: The Average Inventory of the company.
+          examples:
+          - 0
+        days_of_sales_outstanding_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Days Of Sales Outstanding Ttm
+          description: The Days of Sales Outstanding of the company.
+          examples:
+          - 54.099
+        days_of_payables_outstanding_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Days Of Payables Outstanding Ttm
+          description: The Days of Payables Outstanding of the company.
+          examples:
+          - 19.978
+        days_of_inventory_outstanding_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Days Of Inventory Outstanding Ttm
+          description: The Days of Inventory Outstanding of the company.
+          examples:
+          - 0
+        operating_cycle_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Operating Cycle Ttm
+          description: The Operating Cycle of the company.
+          examples:
+          - 54.099
+        cash_conversion_cycle_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Cash Conversion Cycle Ttm
+          description: The Cash Conversion Cycle of the company.
+          examples:
+          - 34.119784543416905
+        free_cash_flow_to_equity_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Free Cash Flow To Equity Ttm
+          description: The Free Cash Flow to Equity of the company.
+          examples:
+          - 46096000000
+        free_cash_flow_to_firm_ttm:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Free Cash Flow To Firm Ttm
+          description: The Free Cash Flow to Firm of the company.
+          examples:
+          - 58092641321.391
+        tangible_asset_value_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tangible Asset Value Ttm
+          description: The Tangible Asset Value of the company.
+          examples:
+          - 330581000000
+        net_current_asset_value_ttm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Net Current Asset Value Ttm
+          description: The Net Current Asset Value of the company.
+          examples:
+          - 27079000000
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      title: KeyMetricsTTM
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    PublicCashFlowResponse:
+      properties:
+        results:
+          anyOf:
+          - $ref: '#/components/schemas/CashFlowStatement'
+          - items:
+              $ref: '#/components/schemas/CashFlowStatement'
+            type: array
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicCashFlowResponse
+    IncomeStatement:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+            enum:
+            - FISCAL_PERIOD_END_DATE
+            - REPORTED_CURRENCY
+            - CIK
+            - FILING_DATE
+            - ACCEPTED_DATE
+            - FISCAL_YEAR
+            - PERIOD
+            - REVENUE
+            - COST_OF_REVENUE
+            - GROSS_PROFIT
+            - RESEARCH_AND_DEVELOPMENT_EXPENSES
+            - GENERAL_AND_ADMINISTRATIVE_EXPENSES
+            - SELLING_AND_MARKETING_EXPENSES
+            - SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES
+            - OTHER_EXPENSES
+            - OPERATING_EXPENSES
+            - COST_AND_EXPENSES
+            - NET_INTEREST_INCOME
+            - INTEREST_INCOME
+            - INTEREST_EXPENSE
+            - DEPRECIATION_AND_AMORTIZATION
+            - EBITDA
+            - EBIT
+            - NON_OPERATING_INCOME_EXCLUDING_INTEREST
+            - OPERATING_INCOME
+            - TOTAL_OTHER_INCOME_EXPENSES_NET
+            - INCOME_BEFORE_TAX
+            - INCOME_TAX_EXPENSE
+            - NET_INCOME_FROM_CONTINUING_OPERATIONS
+            - NET_INCOME_FROM_DISCONTINUED_OPERATIONS
+            - OTHER_ADJUSTMENTS_TO_NET_INCOME
+            - NET_INCOME
+            - NET_INCOME_DEDUCTIONS
+            - BOTTOM_LINE_NET_INCOME
+            - EPS
+            - EPS_DILUTED
+            - WEIGHTED_AVERAGE_SHS_OUT
+            - WEIGHTED_AVERAGE_SHS_OUT_DIL
+          type: array
+          title: Fields
+          description: The fields of the income statement (fixed list).
+          examples:
+          - - FISCAL_PERIOD_END_DATE
+            - REPORTED_CURRENCY
+            - CIK
+            - FILING_DATE
+            - ACCEPTED_DATE
+            - FISCAL_YEAR
+            - PERIOD
+            - REVENUE
+            - COST_OF_REVENUE
+            - GROSS_PROFIT
+            - RESEARCH_AND_DEVELOPMENT_EXPENSES
+            - GENERAL_AND_ADMINISTRATIVE_EXPENSES
+            - SELLING_AND_MARKETING_EXPENSES
+            - SELLING_GENERAL_AND_ADMINISTRATIVE_EXPENSES
+            - OTHER_EXPENSES
+            - OPERATING_EXPENSES
+            - COST_AND_EXPENSES
+            - NET_INTEREST_INCOME
+            - INTEREST_INCOME
+            - INTEREST_EXPENSE
+            - DEPRECIATION_AND_AMORTIZATION
+            - EBITDA
+            - EBIT
+            - NON_OPERATING_INCOME_EXCLUDING_INTEREST
+            - OPERATING_INCOME
+            - TOTAL_OTHER_INCOME_EXPENSES_NET
+            - INCOME_BEFORE_TAX
+            - INCOME_TAX_EXPENSE
+            - NET_INCOME_FROM_CONTINUING_OPERATIONS
+            - NET_INCOME_FROM_DISCONTINUED_OPERATIONS
+            - OTHER_ADJUSTMENTS_TO_NET_INCOME
+            - NET_INCOME
+            - NET_INCOME_DEDUCTIONS
+            - BOTTOM_LINE_NET_INCOME
+            - EPS
+            - EPS_DILUTED
+            - WEIGHTED_AVERAGE_SHS_OUT
+            - WEIGHTED_AVERAGE_SHS_OUT_DIL
+        values:
+          items:
+            prefixItems:
+            - type: string
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: integer
+              - type: 'null'
+            type: array
+            maxItems: 38
+            minItems: 38
+          type: array
+          title: Values
+          description: The values of the income statement.
+          examples:
+          - - '2025-06-30'
+            - USD
+            - '0001652044'
+            - '2025-07-24'
+            - '2025-07-23T19:44:01'
+            - 2025
+            - Q2
+            - 96428000000
+            - 39039000000
+            - 57389000000
+            - 13808000000
+            - 5209000000
+            - 7101000000
+            - 12310000000
+            - 0
+            - 26118000000
+            - 65157000000
+            - 789000000
+            - 1050000000
+            - 261000000
+            - 4998000000
+            - 39192000000
+            - 34194000000
+            - -2811000000
+            - 31271000000
+            - 2662000000
+            - 33933000000
+            - 5737000000
+            - 28196000000
+            - 0
+            - 0
+            - 28196000000
+            - 0
+            - 28196000000
+            - 2.33
+            - 2.31
+            - 12122000000
+            - 12198000000
+          - - '2025-03-31'
+            - USD
+            - '0001652044'
+            - '2025-04-25'
+            - '2025-04-24T21:05:29'
+            - 2025
+            - Q1
+            - 90234000000
+            - 36361000000
+            - 53873000000
+            - 13556000000
+            - 3539000000
+            - 6172000000
+            - 9711000000
+            - 0
+            - 23267000000
+            - 59628000000
+            - 967000000
+            - 1001000000
+            - 34000000
+            - 4487000000
+            - 46310000000
+            - 41823000000
+            - -11217000000
+            - 30606000000
+            - 11183000000
+            - 41789000000
+            - 7249000000
+            - 34540000000
+            - 0
+            - 0
+            - 34540000000
+            - 0
+            - 34540000000
+            - 2.84
+            - 2.81
+            - 12183000000
+            - 12291000000
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: IncomeStatement
+    BalanceSheet:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+          type: array
+          title: Fields
+          description: The fields of the balance sheet.
+          examples:
+          - - FISCAL_PERIOD_END_DATE
+            - REPORTED_CURRENCY
+            - CIK
+            - FILING_DATE
+            - ACCEPTED_DATE
+            - FISCAL_YEAR
+            - PERIOD
+            - CASH_AND_CASH_EQUIVALENTS
+            - SHORT_TERM_INVESTMENTS
+            - CASH_AND_SHORT_TERM_INVESTMENTS
+            - NET_RECEIVABLES
+            - ACCOUNTS_RECEIVABLES
+            - OTHER_RECEIVABLES
+            - INVENTORY
+            - PREPAIDS
+            - OTHER_CURRENT_ASSETS
+            - TOTAL_CURRENT_ASSETS
+            - PROPERTY_PLANT_EQUIPMENT_NET
+            - GOODWILL
+            - INTANGIBLE_ASSETS
+            - GOODWILL_AND_INTANGIBLE_ASSETS
+            - LONG_TERM_INVESTMENTS
+            - TAX_ASSETS
+            - OTHER_NON_CURRENT_ASSETS
+            - TOTAL_NON_CURRENT_ASSETS
+            - OTHER_ASSETS
+            - TOTAL_ASSETS
+            - TOTAL_PAYABLES
+            - ACCOUNT_PAYABLES
+            - OTHER_PAYABLES
+            - ACCRUED_EXPENSES
+            - SHORT_TERM_DEBT
+            - CAPITAL_LEASE_OBLIGATIONS_CURRENT
+            - TAX_PAYABLES
+            - DEFERRED_REVENUE
+            - OTHER_CURRENT_LIABILITIES
+            - TOTAL_CURRENT_LIABILITIES
+            - LONG_TERM_DEBT
+            - CAPITAL_LEASE_OBLIGATIONS_NON_CURRENT
+            - DEFERRED_REVENUE_NON_CURRENT
+            - DEFERRED_TAX_LIABILITIES_NON_CURRENT
+            - OTHER_NON_CURRENT_LIABILITIES
+            - TOTAL_NON_CURRENT_LIABILITIES
+            - OTHER_LIABILITIES
+            - CAPITAL_LEASE_OBLIGATIONS
+            - TOTAL_LIABILITIES
+            - TREASURY_STOCK
+            - PREFERRED_STOCK
+            - COMMON_STOCK
+            - RETAINED_EARNINGS
+            - ADDITIONAL_PAID_IN_CAPITAL
+            - ACCUMULATED_OTHER_COMPREHENSIVE_INCOME_LOSS
+            - OTHER_TOTAL_STOCKHOLDERS_EQUITY
+            - TOTAL_STOCKHOLDERS_EQUITY
+            - TOTAL_EQUITY
+            - MINORITY_INTEREST
+            - TOTAL_LIABILITIES_AND_TOTAL_EQUITY
+            - TOTAL_INVESTMENTS
+            - TOTAL_DEBT
+            - NET_DEBT
+        values:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: integer
+              - type: number
+            type: array
+          type: array
+          title: Values
+          description: The values of the balance sheet.
+          examples:
+          - - '2025-06-30'
+            - USD
+            - '0001652044'
+            - '2025-07-24'
+            - '2025-07-23T19:44:01'
+            - 2025
+            - Q2
+            - 21036000000
+            - 74112000000
+            - 95148000000
+            - 55048000000
+            - 55048000000
+            - 0
+            - 0
+            - 0
+            - 16020000000
+            - 166216000000
+            - 217486000000
+            - 32335000000
+            - 0
+            - 32335000000
+            - 52574000000
+            - 19289000000
+            - 14153000000
+            - 335837000000
+            - 0
+            - 502053000000
+            - 9133000000
+            - 8347000000
+            - 786000000
+            - 12168000000
+            - 4107000000
+            - 0
+            - 786000000
+            - 4969000000
+            - 56933000000
+            - 87310000000
+            - 23607000000
+            - 13954000000
+            - 0
+            - 0
+            - 14266000000
+            - 51827000000
+            - 0
+            - 11952000000
+            - 139137000000
+            - 0
+            - 0
+            - 12104000000
+            - 275760000000
+            - 77179000000
+            - -2127000000
+            - 0
+            - 362916000000
+            - 362916000000
+            - 0
+            - 502053000000
+            - 126686000000
+            - 41668000000
+            - 20632000000
+          - - '2025-03-31'
+            - USD
+            - '0001652044'
+            - '2025-04-25'
+            - '2025-04-24T21:05:29'
+            - 2025
+            - Q1
+            - 23264000000
+            - 72064000000
+            - 95328000000
+            - 51000000000
+            - 51000000000
+            - 0
+            - 0
+            - 0
+            - 15724000000
+            - 162052000000
+            - 198784000000
+            - 32173000000
+            - 0
+            - 32173000000
+            - 51029000000
+            - 18386000000
+            - 12950000000
+            - 313322000000
+            - 0
+            - 475374000000
+            - 22546000000
+            - 8497000000
+            - 14049000000
+            - 46682000000
+            - 1000000000
+            - 0
+            - 9773000000
+            - 4908000000
+            - 16518000000
+            - 91654000000
+            - 10886000000
+            - 11678000000
+            - 0
+            - 0
+            - 15889000000
+            - 38453000000
+            - 0
+            - 11678000000
+            - 130107000000
+            - 0
+            - 0
+            - 86725000000
+            - 262628000000
+            - 0
+            - -4086000000
+            - 0
+            - 345267000000
+            - 345267000000
+            - 0
+            - 475374000000
+            - 123093000000
+            - 23564000000
+            - 300000000
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: BalanceSheet
+    PublicCompanyRevenueProductQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the company revenue product data. You must supply one type and its corresponding value.
+          examples:
+          - type: rp_entity_id
+            value: 4A6F00
+        period:
+          $ref: '#/components/schemas/AllowedPeriods'
+          description: Select whether the company revenue product data to be provided are on an annual or quarterly basis.
+          default: quarter
+          examples:
+          - annual
+      type: object
+      required:
+      - identifier
+      title: PublicCompanyRevenueProductQuery
     PublicBalanceSheetResponse:
       properties:
         results:
@@ -2461,6 +2099,368 @@ components:
       required:
       - results
       title: PublicBalanceSheetResponse
+    Metadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - request_id
+      title: Metadata
+    KeyMetricsTTMQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: An object containing the identifier value(s) and their type for the Key Metrics TTM tool.
+      type: object
+      required:
+      - identifier
+      title: KeyMetricsTTMQuery
+    CashFlowStatement:
+      properties:
+        rp_entity_id:
+          type: string
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company.
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          type: string
+          title: Target Identifier Id
+          description: The target identifier ID of the company.
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+            enum:
+            - REPORTED_CURRENCY
+            - CIK
+            - FILING_DATE
+            - ACCEPTED_DATE
+            - FISCAL_YEAR
+            - PERIOD
+            - NET_INCOME
+            - DEPRECIATION_AND_AMORTIZATION
+            - DEFERRED_INCOME_TAX
+            - STOCK_BASED_COMPENSATION
+            - CHANGE_IN_WORKING_CAPITAL
+            - ACCOUNTS_RECEIVABLES
+            - INVENTORY
+            - ACCOUNTS_PAYABLES
+            - OTHER_WORKING_CAPITAL
+            - OTHER_NON_CASH_ITEMS
+            - NET_CASH_PROVIDED_BY_OPERATING_ACTIVITIES
+            - INVESTMENTS_IN_PROPERTY_PLANT_AND_EQUIPMENT
+            - ACQUISITIONS_NET
+            - PURCHASES_OF_INVESTMENTS
+            - SALES_MATURITIES_OF_INVESTMENTS
+            - OTHER_INVESTING_ACTIVITIES
+            - NET_CASH_PROVIDED_BY_INVESTING_ACTIVITIES
+            - NET_DEBT_ISSUANCE
+            - LONG_TERM_NET_DEBT_ISSUANCE
+            - SHORT_TERM_NET_DEBT_ISSUANCE
+            - NET_STOCK_ISSUANCE
+            - NET_COMMON_STOCK_ISSUANCE
+            - COMMON_STOCK_ISSUANCE
+            - COMMON_STOCK_REPURCHASED
+            - NET_PREFERRED_STOCK_ISSUANCE
+            - NET_DIVIDENDS_PAID
+            - COMMON_DIVIDENDS_PAID
+            - PREFERRED_DIVIDENDS_PAID
+            - OTHER_FINANCING_ACTIVITIES
+            - NET_CASH_PROVIDED_BY_FINANCING_ACTIVITIES
+            - EFFECT_OF_FOREX_CHANGES_ON_CASH
+            - NET_CHANGE_IN_CASH
+            - CASH_AT_END_OF_PERIOD
+            - CASH_AT_BEGINNING_OF_PERIOD
+            - OPERATING_CASH_FLOW
+            - CAPITAL_EXPENDITURE
+            - FREE_CASH_FLOW
+            - INCOME_TAXES_PAID
+            - INTEREST_PAID
+          type: array
+          title: Fields
+          description: The fields of the cash flow statement.
+          examples:
+          - - REPORTED_CURRENCY
+            - CIK
+            - FILING_DATE
+            - ACCEPTED_DATE
+            - FISCAL_YEAR
+            - PERIOD
+            - NET_INCOME
+            - DEPRECIATION_AND_AMORTIZATION
+            - DEFERRED_INCOME_TAX
+            - STOCK_BASED_COMPENSATION
+            - CHANGE_IN_WORKING_CAPITAL
+            - ACCOUNTS_RECEIVABLES
+            - INVENTORY
+            - ACCOUNTS_PAYABLES
+            - OTHER_WORKING_CAPITAL
+            - OTHER_NON_CASH_ITEMS
+            - NET_CASH_PROVIDED_BY_OPERATING_ACTIVITIES
+            - INVESTMENTS_IN_PROPERTY_PLANT_AND_EQUIPMENT
+            - ACQUISITIONS_NET
+            - PURCHASES_OF_INVESTMENTS
+            - SALES_MATURITIES_OF_INVESTMENTS
+            - OTHER_INVESTING_ACTIVITIES
+            - NET_CASH_PROVIDED_BY_INVESTING_ACTIVITIES
+            - NET_DEBT_ISSUANCE
+            - LONG_TERM_NET_DEBT_ISSUANCE
+            - SHORT_TERM_NET_DEBT_ISSUANCE
+            - NET_STOCK_ISSUANCE
+            - NET_COMMON_STOCK_ISSUANCE
+            - COMMON_STOCK_ISSUANCE
+            - COMMON_STOCK_REPURCHASED
+            - NET_PREFERRED_STOCK_ISSUANCE
+            - NET_DIVIDENDS_PAID
+            - COMMON_DIVIDENDS_PAID
+            - PREFERRED_DIVIDENDS_PAID
+            - OTHER_FINANCING_ACTIVITIES
+            - NET_CASH_PROVIDED_BY_FINANCING_ACTIVITIES
+            - EFFECT_OF_FOREX_CHANGES_ON_CASH
+            - NET_CHANGE_IN_CASH
+            - CASH_AT_END_OF_PERIOD
+            - CASH_AT_BEGINNING_OF_PERIOD
+            - OPERATING_CASH_FLOW
+            - CAPITAL_EXPENDITURE
+            - FREE_CASH_FLOW
+            - INCOME_TAXES_PAID
+            - INTEREST_PAID
+        values:
+          items:
+            prefixItems:
+            - type: string
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: integer
+              - type: 'null'
+            - anyOf:
+              - type: string
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            - anyOf:
+              - type: number
+              - type: 'null'
+            type: array
+            maxItems: 45
+            minItems: 45
+          type: array
+          title: Values
+          description: The values of the cash flow statement.
+          examples:
+          - - USD
+            - '0001652044'
+            - '2025-07-24'
+            - '2025-07-23T19:44:01'
+            - 2025
+            - Q2
+            - 28196000000
+            - 4998000000
+            - -444000000
+            - 0
+            - -10110000000
+            - -2839000000
+            - 0
+            - 553000000
+            - -7824000000
+            - 5107000000
+            - 27747000000
+            - -22446000000
+            - -13000000
+            - -22771000000
+            - 21199000000
+            - -513000000
+            - -24544000000
+            - 12970000000
+            - 12970000000
+            - 0
+            - -13638000000
+            - -13638000000
+            - 0
+            - -13638000000
+            - 0
+            - -2543000000
+            - -2543000000
+            - 0
+            - -2621000000
+            - -5832000000
+            - 401000000
+            - -2228000000
+            - 21036000000
+            - 23264000000
+            - 27747000000
+            - -22446000000
+            - 5301000000
+            - 0
+            - 0
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: CashFlowStatement
+    PublicCompanyRevenueGeographicResponse:
+      properties:
+        results:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyRevenueGeographic'
+          - additionalProperties: true
+            type: object
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicCompanyRevenueGeographicResponse
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

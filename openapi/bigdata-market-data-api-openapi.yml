@@ -179,6 +179,273 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestsError'
 components:
   schemas:
+    QueryTimestamp:
+      properties:
+        start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start
+          description: The start datetime of the time range for retrieving events. Only events occurring on or after this datetime will be included. The expected timestamp format is 'YYYY-MM-DD', for example, '2025-09-02'
+        end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End
+          description: The end datetime of the time range for retrieving events. Only events occurring on or before this datetime will be included. The expected timestamp format is 'YYYY-MM-DD', for example, '2025-09-03'.
+      type: object
+      title: QueryTimestamp
+    Identifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierType'
+          description: The identifier namespace. Currently only `rp_entity_id` is supported.
+          default: rp_entity_id
+          examples:
+          - rp_entity_id
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: Identifier
+    DailyPricesResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/DailyPricesResults'
+          type: array
+          title: Results
+          description: The main data result
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: DailyPricesResponse
+      description: Company Daily Prices response model.
+    DividendsResults:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RP Entity identifier
+          examples:
+          - D8442A
+        target_identifier_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Identifier Id
+          description: The external identifier ID, such as a symbol
+          examples:
+          - AAPL
+        fields:
+          items:
+            type: string
+          type: array
+          title: Fields
+          description: Column names for the data values
+          examples:
+          - - DATE
+            - DIVIDEND
+            - ADJ_DIVIDEND
+            - RECORD_DATE
+            - PAYMENT_DATE
+            - DECLARATION_DATE
+            - YIELD
+            - FREQUENCY
+        values:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: number
+              - type: 'null'
+            type: array
+          type: array
+          title: Values
+          description: Dividend records. Each array contains [date, dividend, adjDividend, recordDate, paymentDate, declarationDate, yield, frequency]
+          examples:
+          - - - '2023-08-11'
+              - 0.24
+              - 0.24
+              - '2023-08-14'
+              - '2023-08-17'
+              - '2023-08-03'
+              - null
+              - Quarterly
+            - - '2023-11-10'
+              - 0.24
+              - 0.24
+              - '2023-11-13'
+              - '2023-11-16'
+              - '2023-11-02'
+              - null
+              - Quarterly
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: DividendsResults
+    IntradayPricesResponse:
+      properties:
+        results:
+          $ref: '#/components/schemas/IntradayPricesResults'
+          description: The main data result
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: IntradayPricesResponse
+      description: Company Intraday Prices response model.
+    AftermarketQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the latest extended-hours (aftermarket) trade and quote. You must supply one type and its corresponding value, or a list of values.
+          examples:
+          - type: rp_entity_id
+            value: 4A6F00
+      type: object
+      required:
+      - identifier
+      title: AftermarketQuery
+    DividendsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/DividendsResults'
+          type: array
+          description: The main data result
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: DividendsResponse
+      description: Company Dividends response model.
+    AftermarketRecord:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack internal entity identifier.
+          examples:
+          - 4A6F00
+          - D8442A
+        target_identifier_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Identifier Id
+          description: The target identifier provided in the request, e.g., stock symbol.
+          examples:
+          - GOOGL
+          - AAPL
+        trade:
+          anyOf:
+          - $ref: '#/components/schemas/AftermarketTrade'
+          - type: 'null'
+          description: The latest extended-hours trade.
+        quote:
+          anyOf:
+          - $ref: '#/components/schemas/AftermarketQuote'
+          - type: 'null'
+          description: The latest extended-hours quote.
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      title: AftermarketRecord
+      description: Latest extended-hours trade and quote for a single entity.
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
     TimeSeriesSentimentResponse:
       properties:
         results:
@@ -210,6 +477,26 @@ components:
       - metadata
       title: TimeSeriesSentimentResponse
       description: Public API response for time series sentiment query.
+    DailyPricesValue:
+      prefixItems:
+      - type: string
+        format: date
+      - type: number
+      - type: number
+      - type: number
+      - type: number
+      - type: integer
+      - type: number
+      - type: number
+      - type: number
+      - anyOf:
+        - type: string
+        - type: 'null'
+      type: array
+      maxItems: 10
+      minItems: 10
+      title: DailyPricesValue
+      description: Represents one row of values as a tuple (or list).
     CompanyQuote:
       properties:
         rp_entity_id:
@@ -380,157 +667,6 @@ components:
       - timestamp
       - currency
       title: CompanyQuote
-    DailyPricesQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/DailyPriceIdentifier'
-          description: Object specifying which identifier you are using to request the daily price. You must supply one type and its corresponding value. Only one identifier should be provided per request.
-          examples:
-          - type: rp_entity_id
-            value: 4A6F00
-        date_range:
-          anyOf:
-          - $ref: '#/components/schemas/QueryDateRange'
-          - type: 'null'
-          description: The date range for retrieving daily prices. All dates must be provided in the local time zone of the security exchange, and all results are returned in that same local exchange time. The expected date format is 'YYYY-MM-DD', for example, '2025-09-02'.
-          examples:
-          - end: '2023-09-05'
-            start: '2023-09-01'
-      type: object
-      required:
-      - identifier
-      - date_range
-      title: DailyPricesQuery
-    TimeSeriesSentimentQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: Object specifying which identifier you are using to request the sentiment data. You must supply one type and its corresponding value or a list of entities.
-        timestamp:
-          $ref: '#/components/schemas/QueryDateRange'
-          description: The time range for retrieving sentiment data. The expected date format is 'YYYY-MM-DD', for example, '2025-09-02'.
-      type: object
-      required:
-      - identifier
-      - timestamp
-      title: TimeSeriesSentimentQuery
-      description: Query model for time series sentiment request.
-      example:
-        identifier:
-          type: rp_entity_id
-          value: 4A6F00
-        timestamp:
-          start: '2025-01-01'
-          end: '2025-01-20'
-    IdentifierType:
-      type: string
-      enum:
-      - rp_entity_id
-      title: IdentifierType
-      default: rp_entity_id
-    DividendsResults:
-      properties:
-        rp_entity_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rp Entity Id
-          description: RP Entity identifier
-          examples:
-          - D8442A
-        target_identifier_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Identifier Id
-          description: The external identifier ID, such as a symbol
-          examples:
-          - AAPL
-        fields:
-          items:
-            type: string
-          type: array
-          title: Fields
-          description: Column names for the data values
-          examples:
-          - - DATE
-            - DIVIDEND
-            - ADJ_DIVIDEND
-            - RECORD_DATE
-            - PAYMENT_DATE
-            - DECLARATION_DATE
-            - YIELD
-            - FREQUENCY
-        values:
-          items:
-            items:
-              anyOf:
-              - type: string
-              - type: number
-              - type: 'null'
-            type: array
-          type: array
-          title: Values
-          description: Dividend records. Each array contains [date, dividend, adjDividend, recordDate, paymentDate, declarationDate, yield, frequency]
-          examples:
-          - - - '2023-08-11'
-              - 0.24
-              - 0.24
-              - '2023-08-14'
-              - '2023-08-17'
-              - '2023-08-03'
-              - null
-              - Quarterly
-            - - '2023-11-10'
-              - 0.24
-              - 0.24
-              - '2023-11-13'
-              - '2023-11-16'
-              - '2023-11-02'
-              - null
-              - Quarterly
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: DividendsResults
-    DailyPricesResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/DailyPricesResults'
-          type: array
-          title: Results
-          description: The main data result
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: DailyPricesResponse
-      description: Company Daily Prices response model.
     DividendsQuery:
       properties:
         identifier:
@@ -552,43 +688,16 @@ components:
       required:
       - identifier
       title: DividendsQuery
-    SentimentDataPoint:
-      properties:
-        date:
-          type: string
-          title: Date
-          description: Date in YYYY-MM-DD format
-          examples:
-          - '2025-10-20'
-        daily_sentiment:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Daily Sentiment
-          description: 'The daily mean event sentiment represents the weighted average sentiment of all events detected on the same day for a given entity. Each event''s sentiment is weighted by its relevance and novelty using a quadratic function. The sentiment score ranges from -1 (negative sentiment) to 1 (positive sentiment). This sentiment is enhanced by considering the entity sentiment from documents without events. Sentiment from subsidiaries is also added at parent level. Use-case: Captures the overall tone of news and events for a company on a given day, ranging from very negative to very positive.'
-          examples:
-          - 0.017404
-        sentiment_pressure:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Sentiment Pressure
-          description: 'The Z-score of the 90-days moving average of the daily sentiment normalized to [-1,1] using a sigmoid function. Absolute values over 0.9 can be considered abnormal, which approximately matches 3 standard deviations. A year is considered for z-standardization. Use-case: Measures how sentiment over the last 90 days compares to recent history, highlighting unusually strong positive or negative sentiment trends.'
-          examples:
-          - 0.217784
-        abnormal_media_attention:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Abnormal Media Attention
-          description: 'The Z-score of the daily volume of media events for a company normalized to [-1,1] using a sigmoid function, indicating abnormal media attention. Absolute values over 0.9 can be considered abnormal, which approximately matches 3 standard deviations. Use-case: Indicates whether a company is receiving more or less media attention than usual, based on recent trends.'
-          examples:
-          - -0.833533
-      type: object
-      required:
-      - date
-      title: SentimentDataPoint
-      description: Individual sentiment data for a specific date.
+    IntradayTimeFrame:
+      type: string
+      enum:
+      - 1min
+      - 5min
+      - 15min
+      - 30min
+      - 1hour
+      - 4hour
+      title: IntradayTimeFrame
     DailyPriceIdentifier:
       properties:
         type:
@@ -612,196 +721,27 @@ components:
       - type
       - value
       title: DailyPriceIdentifier
-    Usage:
-      additionalProperties:
-        type: integer
-      type: object
-      title: Usage
-      description: 'Public structured-data usage for a request, aggregated per content tier.
-
-
-        A flat object keyed per content tier, where each key is derived from the
-
-        content tier identifier by dropping the ``content-`` prefix and appending
-
-        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
-
-        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
-
-        tokens appear, and an absent key means zero tokens for that tier.'
-    AftermarketRecord:
+    TimeSeriesSentimentQuery:
       properties:
-        rp_entity_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rp Entity Id
-          description: RavenPack internal entity identifier.
-          examples:
-          - 4A6F00
-          - D8442A
-        target_identifier_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Identifier Id
-          description: The target identifier provided in the request, e.g., stock symbol.
-          examples:
-          - GOOGL
-          - AAPL
-        trade:
-          anyOf:
-          - $ref: '#/components/schemas/AftermarketTrade'
-          - type: 'null'
-          description: The latest extended-hours trade.
-        quote:
-          anyOf:
-          - $ref: '#/components/schemas/AftermarketQuote'
-          - type: 'null'
-          description: The latest extended-hours quote.
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the sentiment data. You must supply one type and its corresponding value or a list of entities.
+        timestamp:
+          $ref: '#/components/schemas/QueryDateRange'
+          description: The time range for retrieving sentiment data. The expected date format is 'YYYY-MM-DD', for example, '2025-09-02'.
       type: object
       required:
-      - rp_entity_id
-      - target_identifier_id
-      title: AftermarketRecord
-      description: Latest extended-hours trade and quote for a single entity.
-    InternalServerError:
-      properties:
-        statusCode:
-          type: integer
-          const: 500
-          title: Statuscode
-          default: 500
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - message
-      title: InternalServerError
-      description: Internal Server Error
+      - identifier
+      - timestamp
+      title: TimeSeriesSentimentQuery
+      description: Query model for time series sentiment request.
       example:
-        message: Internal Server Error
-        statusCode: 500
-    PublicPriceChangesResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PriceChanges'
-          type: array
-          title: Results
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: PublicPriceChangesResponse
-    TimeSeriesSentimentResults:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Company name
-          examples:
-          - Alphabet Inc.
-        id:
-          type: string
-          title: Id
-          description: RP entity identifier
-          examples:
-          - 4A6F00
-        values:
-          items:
-            $ref: '#/components/schemas/SentimentDataPoint'
-          type: array
-          title: Values
-          description: List of sentiment data points
-          examples:
-          - - date: '2025-10-20'
-              daily_sentiment: 0.017404
-              sentiment_pressure: 0.217784
-              abnormal_media_attention: -0.833533
-            - date: '2025-10-21'
-              daily_sentiment: 0.033251
-              sentiment_pressure: 0.208085
-              abnormal_media_attention: -0.835593
-      type: object
-      required:
-      - name
-      - id
-      - values
-      title: TimeSeriesSentimentResults
-      description: Results container for time series sentiment data.
-    PriceChangesQuery:
-      properties:
         identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: Object specifying which identifier you are using to request the price changes. You must supply one type and its corresponding value.
-      type: object
-      required:
-      - identifier
-      title: PriceChangesQuery
-    ErrorDetail:
-      properties:
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-      type: object
-      title: ErrorDetail
-    AftermarketQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: Object specifying which identifier you are using to request the latest extended-hours (aftermarket) trade and quote. You must supply one type and its corresponding value, or a list of values.
-          examples:
-          - type: rp_entity_id
-            value: 4A6F00
-      type: object
-      required:
-      - identifier
-      title: AftermarketQuery
-    SingleIdentifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierTypeEnum'
-          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
-          examples:
-          - rp_entity_id
-        value:
-          type: string
-          maxLength: 6
-          minLength: 6
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: SingleIdentifier
+          type: rp_entity_id
+          value: 4A6F00
+        timestamp:
+          start: '2025-01-01'
+          end: '2025-01-20'
     QueryDateRange:
       properties:
         start:
@@ -824,169 +764,6 @@ components:
           - '2025-01-20'
       type: object
       title: QueryDateRange
-    AftermarketQuote:
-      properties:
-        bid_price:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Bid Price
-          description: The best extended-hours bid price.
-          examples:
-          - 245.5
-        bid_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Bid Size
-          description: The size available at the best bid.
-          examples:
-          - 200
-        ask_price:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Ask Price
-          description: The best extended-hours ask price.
-          examples:
-          - 245.9
-        ask_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Ask Size
-          description: The size available at the best ask.
-          examples:
-          - 150
-        volume:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Volume
-          description: The cumulative extended-hours volume.
-          examples:
-          - 1250000
-        timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Timestamp
-          description: The time of the last extended-hours quote (UTC).
-          examples:
-          - '2025-09-25T23:59:00'
-      type: object
-      title: AftermarketQuote
-      description: Latest extended-hours (aftermarket) quote.
-    TooManyRequestsError:
-      properties:
-        statusCode:
-          type: integer
-          const: 429
-          title: Statuscode
-          default: 429
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - message
-      title: TooManyRequestsError
-      description: Too many requests. Please try again later.
-      example:
-        message: Too many requests. Please try again later.
-        statusCode: 429
-    IntradayPricesValue:
-      prefixItems:
-      - type: string
-        format: date-time
-      - type: number
-      - type: number
-      - type: number
-      - type: number
-      - type: integer
-      - type: string
-      type: array
-      maxItems: 7
-      minItems: 7
-      title: IntradayPricesValue
-      description: Represents one row of values as a tuple (or list).
-    Source:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Content catalog identifier of the source.
-          examples:
-          - CA9FA3
-        name:
-          type: string
-          title: Name
-          description: Catalog name of the dataset the data came from.
-          examples:
-          - Corporate Fundamentals
-      type: object
-      required:
-      - id
-      - name
-      title: Source
-      description: A content catalog source that contributed data to a structured-data response.
-    QueryTimestamp:
-      properties:
-        start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start
-          description: The start datetime of the time range for retrieving events. Only events occurring on or after this datetime will be included. The expected timestamp format is 'YYYY-MM-DD', for example, '2025-09-02'
-        end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End
-          description: The end datetime of the time range for retrieving events. Only events occurring on or before this datetime will be included. The expected timestamp format is 'YYYY-MM-DD', for example, '2025-09-03'.
-      type: object
-      title: QueryTimestamp
-    PublicCompanyQuoteResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/CompanyQuote'
-          type: array
-          title: Results
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: PublicCompanyQuoteResponse
-    IdentifierTypeEnum:
-      type: string
-      enum:
-      - rp_entity_id
-      title: IdentifierTypeEnum
     PriceChanges:
       properties:
         rp_entity_id:
@@ -1105,235 +882,50 @@ components:
       - 10Y
       - max
       title: PriceChanges
-    IntradayTimeFrame:
-      type: string
-      enum:
-      - 1min
-      - 5min
-      - 15min
-      - 30min
-      - 1hour
-      - 4hour
-      title: IntradayTimeFrame
-    DailyPriceIdentifierType:
-      type: string
-      enum:
-      - rp_entity_id
-      - currency_pair
-      title: DailyPriceIdentifierType
-    Metadata:
+    SentimentDataPoint:
       properties:
-        request_id:
+        date:
           type: string
-          title: Request Id
-        timestamp:
-          type: string
-          title: Timestamp
-      type: object
-      required:
-      - request_id
-      title: Metadata
-    IntradayPricesResults:
-      properties:
-        rp_entity_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rp Entity Id
-          description: RP Entity identifier
+          title: Date
+          description: Date in YYYY-MM-DD format
           examples:
-          - 4A6F00
-        target_identifier_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Identifier Id
-          description: The external identifier ID, such as a symbol
-          examples:
-          - GOOGL
-        fields:
-          items:
-            type: string
-          type: array
-          title: Fields
-          description: Column names for the data values
-          examples:
-          - - TIMESTAMP
-            - OPEN
-            - LOW
-            - HIGH
-            - CLOSE
-            - VOLUME
-            - CURRENCY
-        values:
-          items:
-            $ref: '#/components/schemas/IntradayPricesValue'
-          type: array
-          title: Values
-          description: Intraday Prices records
-          examples:
-          - - '2025-09-15T09:30:00'
-            - 244.77
-            - 244.66
-            - 252.4
-            - 249.52
-            - 41229669
-            - USD
-      type: object
-      required:
-      - rp_entity_id
-      - target_identifier_id
-      - fields
-      - values
-      title: IntradayPricesResults
-      description: Alternative result model with strongly typed records.
-    AftermarketTrade:
-      properties:
-        price:
+          - '2025-10-20'
+        daily_sentiment:
           anyOf:
           - type: number
           - type: 'null'
-          title: Price
-          description: The last extended-hours trade price.
+          title: Daily Sentiment
+          description: 'The daily mean event sentiment represents the weighted average sentiment of all events detected on the same day for a given entity. Each event''s sentiment is weighted by its relevance and novelty using a quadratic function. The sentiment score ranges from -1 (negative sentiment) to 1 (positive sentiment). This sentiment is enhanced by considering the entity sentiment from documents without events. Sentiment from subsidiaries is also added at parent level. Use-case: Captures the overall tone of news and events for a company on a given day, ranging from very negative to very positive.'
           examples:
-          - 245.79
-        trade_size:
+          - 0.017404
+        sentiment_pressure:
           anyOf:
-          - type: integer
+          - type: number
           - type: 'null'
-          title: Trade Size
-          description: The size (number of shares) of the last extended-hours trade.
+          title: Sentiment Pressure
+          description: 'The Z-score of the 90-days moving average of the daily sentiment normalized to [-1,1] using a sigmoid function. Absolute values over 0.9 can be considered abnormal, which approximately matches 3 standard deviations. A year is considered for z-standardization. Use-case: Measures how sentiment over the last 90 days compares to recent history, highlighting unusually strong positive or negative sentiment trends.'
           examples:
-          - 100
-        timestamp:
+          - 0.217784
+        abnormal_media_attention:
           anyOf:
-          - type: string
-            format: date-time
+          - type: number
           - type: 'null'
-          title: Timestamp
-          description: The time of the last extended-hours trade (UTC).
+          title: Abnormal Media Attention
+          description: 'The Z-score of the daily volume of media events for a company normalized to [-1,1] using a sigmoid function, indicating abnormal media attention. Absolute values over 0.9 can be considered abnormal, which approximately matches 3 standard deviations. Use-case: Indicates whether a company is receiving more or less media attention than usual, based on recent trends.'
           examples:
-          - '2025-09-25T23:59:00'
-      type: object
-      title: AftermarketTrade
-      description: Latest extended-hours (aftermarket) trade.
-    IntradayPricesResponse:
-      properties:
-        results:
-          $ref: '#/components/schemas/IntradayPricesResults'
-          description: The main data result
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+          - -0.833533
       type: object
       required:
-      - results
-      title: IntradayPricesResponse
-      description: Company Intraday Prices response model.
-    Identifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierType'
-          description: The identifier namespace. Currently only `rp_entity_id` is supported.
-          default: rp_entity_id
-          examples:
-          - rp_entity_id
-        value:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: Identifier
-    DailyPricesValue:
-      prefixItems:
-      - type: string
-        format: date
-      - type: number
-      - type: number
-      - type: number
-      - type: number
-      - type: integer
-      - type: number
-      - type: number
-      - type: number
-      - anyOf:
-        - type: string
-        - type: 'null'
-      type: array
-      maxItems: 10
-      minItems: 10
-      title: DailyPricesValue
-      description: Represents one row of values as a tuple (or list).
-    DividendsResponse:
+      - date
+      title: SentimentDataPoint
+      description: Individual sentiment data for a specific date.
+    PublicPriceChangesResponse:
       properties:
         results:
           items:
-            $ref: '#/components/schemas/DividendsResults'
-          type: array
-          description: The main data result
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/Metadata'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      title: DividendsResponse
-      description: Company Dividends response model.
-    AftermarketResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AftermarketRecord'
+            $ref: '#/components/schemas/PriceChanges'
           type: array
           title: Results
-          description: The main data result
         errors:
           anyOf:
           - items:
@@ -1359,26 +951,28 @@ components:
       type: object
       required:
       - results
-      title: AftermarketResponse
-      description: Company aftermarket trades & quotes response model.
-    BadRequestError:
+      title: PublicPriceChangesResponse
+    DailyPricesQuery:
       properties:
-        statusCode:
-          type: integer
-          const: 400
-          title: Statuscode
-          default: 400
-        message:
-          type: string
-          title: Message
+        identifier:
+          $ref: '#/components/schemas/DailyPriceIdentifier'
+          description: Object specifying which identifier you are using to request the daily price. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - type: rp_entity_id
+            value: 4A6F00
+        date_range:
+          anyOf:
+          - $ref: '#/components/schemas/QueryDateRange'
+          - type: 'null'
+          description: The date range for retrieving daily prices. All dates must be provided in the local time zone of the security exchange, and all results are returned in that same local exchange time. The expected date format is 'YYYY-MM-DD', for example, '2025-09-02'.
+          examples:
+          - end: '2023-09-05'
+            start: '2023-09-01'
       type: object
       required:
-      - message
-      title: BadRequestError
-      description: Bad Request Error
-      example:
-        message: Bad Request Error
-        statusCode: 400
+      - identifier
+      - date_range
+      title: DailyPricesQuery
     DailyPricesResults:
       properties:
         rp_entity_id:
@@ -1441,6 +1035,30 @@ components:
       - values
       title: DailyPricesResults
       description: Prices for an entity id.
+    DailyPriceIdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      - currency_pair
+      title: DailyPriceIdentifierType
+    BadRequestError:
+      properties:
+        statusCode:
+          type: integer
+          const: 400
+          title: Statuscode
+          default: 400
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: BadRequestError
+      description: Bad Request Error
+      example:
+        message: Bad Request Error
+        statusCode: 400
     IntradayPricesQuery:
       properties:
         identifier:
@@ -1469,6 +1087,65 @@ components:
       - timestamp
       - interval
       title: IntradayPricesQuery
+    TooManyRequestsError:
+      properties:
+        statusCode:
+          type: integer
+          const: 429
+          title: Statuscode
+          default: 429
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: TooManyRequestsError
+      description: Too many requests. Please try again later.
+      example:
+        message: Too many requests. Please try again later.
+        statusCode: 429
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    IntradayPricesValue:
+      prefixItems:
+      - type: string
+        format: date-time
+      - type: number
+      - type: number
+      - type: number
+      - type: number
+      - type: integer
+      - type: string
+      type: array
+      maxItems: 7
+      minItems: 7
+      title: IntradayPricesValue
+      description: Represents one row of values as a tuple (or list).
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
     CompanyQuoteQuery:
       properties:
         identifier:
@@ -1478,6 +1155,329 @@ components:
       required:
       - identifier
       title: CompanyQuoteQuery
+    IntradayPricesResults:
+      properties:
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RP Entity identifier
+          examples:
+          - 4A6F00
+        target_identifier_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Identifier Id
+          description: The external identifier ID, such as a symbol
+          examples:
+          - GOOGL
+        fields:
+          items:
+            type: string
+          type: array
+          title: Fields
+          description: Column names for the data values
+          examples:
+          - - TIMESTAMP
+            - OPEN
+            - LOW
+            - HIGH
+            - CLOSE
+            - VOLUME
+            - CURRENCY
+        values:
+          items:
+            $ref: '#/components/schemas/IntradayPricesValue'
+          type: array
+          title: Values
+          description: Intraday Prices records
+          examples:
+          - - '2025-09-15T09:30:00'
+            - 244.77
+            - 244.66
+            - 252.4
+            - 249.52
+            - 41229669
+            - USD
+      type: object
+      required:
+      - rp_entity_id
+      - target_identifier_id
+      - fields
+      - values
+      title: IntradayPricesResults
+      description: Alternative result model with strongly typed records.
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    TimeSeriesSentimentResults:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Company name
+          examples:
+          - Alphabet Inc.
+        id:
+          type: string
+          title: Id
+          description: RP entity identifier
+          examples:
+          - 4A6F00
+        values:
+          items:
+            $ref: '#/components/schemas/SentimentDataPoint'
+          type: array
+          title: Values
+          description: List of sentiment data points
+          examples:
+          - - date: '2025-10-20'
+              daily_sentiment: 0.017404
+              sentiment_pressure: 0.217784
+              abnormal_media_attention: -0.833533
+            - date: '2025-10-21'
+              daily_sentiment: 0.033251
+              sentiment_pressure: 0.208085
+              abnormal_media_attention: -0.835593
+      type: object
+      required:
+      - name
+      - id
+      - values
+      title: TimeSeriesSentimentResults
+      description: Results container for time series sentiment data.
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
+    InternalServerError:
+      properties:
+        statusCode:
+          type: integer
+          const: 500
+          title: Statuscode
+          default: 500
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: InternalServerError
+      description: Internal Server Error
+      example:
+        message: Internal Server Error
+        statusCode: 500
+    Usage:
+      additionalProperties:
+        type: integer
+      type: object
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
+    AftermarketQuote:
+      properties:
+        bid_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Bid Price
+          description: The best extended-hours bid price.
+          examples:
+          - 245.5
+        bid_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Bid Size
+          description: The size available at the best bid.
+          examples:
+          - 200
+        ask_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ask Price
+          description: The best extended-hours ask price.
+          examples:
+          - 245.9
+        ask_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ask Size
+          description: The size available at the best ask.
+          examples:
+          - 150
+        volume:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Volume
+          description: The cumulative extended-hours volume.
+          examples:
+          - 1250000
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: The time of the last extended-hours quote (UTC).
+          examples:
+          - '2025-09-25T23:59:00'
+      type: object
+      title: AftermarketQuote
+      description: Latest extended-hours (aftermarket) quote.
+    Metadata:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+      type: object
+      required:
+      - request_id
+      title: Metadata
+    PriceChangesQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request the price changes. You must supply one type and its corresponding value.
+      type: object
+      required:
+      - identifier
+      title: PriceChangesQuery
+    AftermarketResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AftermarketRecord'
+          type: array
+          title: Results
+          description: The main data result
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: AftermarketResponse
+      description: Company aftermarket trades & quotes response model.
+    PublicCompanyQuoteResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/CompanyQuote'
+          type: array
+          title: Results
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/Metadata'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      title: PublicCompanyQuoteResponse
+    AftermarketTrade:
+      properties:
+        price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Price
+          description: The last extended-hours trade price.
+          examples:
+          - 245.79
+        trade_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Trade Size
+          description: The size (number of shares) of the last extended-hours trade.
+          examples:
+          - 100
+        timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Timestamp
+          description: The time of the last extended-hours trade (UTC).
+          examples:
+          - '2025-09-25T23:59:00'
+      type: object
+      title: AftermarketTrade
+      description: Latest extended-hours (aftermarket) trade.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

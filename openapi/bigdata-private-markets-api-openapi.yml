@@ -283,6 +283,370 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestsError'
 components:
   schemas:
+    PublicPeopleResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicPosition'
+          type: array
+          title: Results
+          description: People who hold or held a position at the company, one entry per position, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no positions for the company.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicPeopleMetadata'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicPeopleResponse
+    DateWithPrecision:
+      properties:
+        value:
+          type: string
+          format: date
+          title: Value
+          description: The date.
+          examples:
+          - '2015-12-08'
+        precision:
+          anyOf:
+          - $ref: '#/components/schemas/DatePrecision'
+          - type: 'null'
+          description: How much of the date is known. Parts of the date beyond it carry no meaning.
+          examples:
+          - day
+      type: object
+      required:
+      - value
+      title: DateWithPrecision
+      description: A date that may be known only to the month or the year.
+    Identifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierType'
+          description: The identifier namespace. Currently only `rp_entity_id` is supported.
+          default: rp_entity_id
+          examples:
+          - rp_entity_id
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
+      type: object
+      required:
+      - type
+      - value
+      title: Identifier
+    PublicPeopleQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/SingleIdentifier'
+          description: Object specifying which identifier you are using to request the company profile. You must supply one type and its corresponding value.
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          description: Positions to return, from 1 to 100.
+          default: 100
+          examples:
+          - 100
+        cursor:
+          anyOf:
+          - type: string
+            maxLength: 256
+          - type: 'null'
+          title: Cursor
+          description: Token for the next page. Send back 'pagination.cursor' from the previous response, unchanged and with the same identifier; 'limit' may differ. Omit it for the first page.
+      additionalProperties: false
+      type: object
+      required:
+      - identifier
+      title: PublicPeopleQuery
+      example:
+        identifier:
+          type: rp_entity_id
+          value: UWCVKI
+        limit: 100
+    PublicPeopleMetadata:
+      properties:
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+        rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company requested.
+          examples:
+          - UWCVKI
+      type: object
+      required:
+      - rp_entity_id
+      title: PublicPeopleMetadata
+    PublicFundingRound:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The round's name.
+          examples:
+          - Series F - OpenAI
+        announced_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the round was announced.
+        closed_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the round closed.
+        investment_type:
+          anyOf:
+          - $ref: '#/components/schemas/FundingType'
+          - type: 'null'
+          description: The kind of round.
+          examples:
+          - series_f
+        investment_stage:
+          anyOf:
+          - $ref: '#/components/schemas/InvestmentStage'
+          - type: 'null'
+          description: The stage of the company the round belongs to.
+          examples:
+          - late_stage_venture
+        money_raised:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Amount raised in the round.
+        target_money_raised:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Amount the round set out to raise.
+        pre_money_valuation:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Valuation of the company before the round.
+        post_money_valuation:
+          anyOf:
+          - $ref: '#/components/schemas/MoneyAmount'
+          - type: 'null'
+          description: Valuation of the company after the round.
+        post_money_valuation_source:
+          anyOf:
+          - $ref: '#/components/schemas/ValuationSource'
+          - type: 'null'
+          description: Whether the post-money valuation is confirmed or estimated.
+          examples:
+          - confirmed
+        is_equity:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Equity
+          description: Whether the round was an equity round.
+        num_investors:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Investors
+          description: Number of investors in the round.
+          examples:
+          - 32
+        lead_investors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EntityReference'
+            type: array
+          - type: 'null'
+          title: Lead Investors
+          description: The investors who led the round.
+        investors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EntityReference'
+            type: array
+          - type: 'null'
+          title: Investors
+          description: Every investor in the round, the leads included.
+      type: object
+      title: PublicFundingRound
+      description: One funding round a company raised.
+    ActivityRank:
+      properties:
+        overall_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Overall Rank
+          description: Where the company stands against all other companies, with 1 as the top. Calculated by the data provider from signals such as total funding, relationships with other organizations, and recent attention, so it moves as the company's activity changes.
+          examples:
+          - 6
+        change_7d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 7D
+          description: Movement in the rank over the last 7 days, a score from -10 to 10.
+          examples:
+          - 0.0
+        change_30d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 30D
+          description: Movement in the rank over the last 30 days, a score from -10 to 10.
+          examples:
+          - -0.9
+        change_90d:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Change 90D
+          description: Movement in the rank over the last 90 days, a score from -10 to 10.
+          examples:
+          - 1.5
+      type: object
+      title: ActivityRank
+      description: A company's position in the data provider's ranking, and how it has moved.
+    PublicPrivateCompanyOverviewResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicPrivateCompanyOverview'
+          type: array
+          title: Results
+          description: One overview per requested ID, in request order. A company with no overview to serve carries only its rp_entity_id, which covers a company we cannot map, a mapped company with no record, and a lookup that failed.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicPrivateCompanyOverviewResponse
+    PublicPosition:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Name of the person who holds or held the position.
+          examples:
+          - Sam Altman
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The position's title.
+          examples:
+          - Co-Founder and CEO
+        role_type:
+          anyOf:
+          - $ref: '#/components/schemas/RoleType'
+          - type: 'null'
+          description: The kind of position.
+          examples:
+          - executive
+        is_current:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Current
+          description: Whether the person still holds the position.
+        started_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the person started in the position.
+        ended_on:
+          anyOf:
+          - $ref: '#/components/schemas/DateWithPrecision'
+          - type: 'null'
+          description: Date the person left the position.
+      type: object
+      title: PublicPosition
+      description: One position a person holds or held at the company.
+    ErrorDetail:
+      properties:
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      type: object
+      title: ErrorDetail
+    DatePrecision:
+      anyOf:
+      - type: string
+        enum:
+        - day
+        - month
+        - year
+        title: DatePrecision
+        description: How much of a date is known. Parts of the date beyond it carry no meaning.
+      - type: string
     PublicPrivateCompanyOverview:
       properties:
         rp_entity_id:
@@ -430,33 +794,28 @@ components:
       required:
       - rp_entity_id
       title: PublicPrivateCompanyOverview
-    DateWithPrecision:
+    PublicFundingRoundsMetadata:
       properties:
-        value:
-          type: string
-          format: date
-          title: Value
-          description: The date.
-          examples:
-          - '2015-12-08'
-        precision:
+        request_id:
           anyOf:
-          - $ref: '#/components/schemas/DatePrecision'
+          - type: string
           - type: 'null'
-          description: How much of the date is known. Parts of the date beyond it carry no meaning.
+          title: Request Id
+        timestamp:
+          type: string
+          title: Timestamp
+        rp_entity_id:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Rp Entity Id
+          description: The RavenPack entity ID of the company requested.
           examples:
-          - day
+          - UWCVKI
       type: object
       required:
-      - value
-      title: DateWithPrecision
-      description: A date that may be known only to the month or the year.
-    IdentifierType:
-      type: string
-      enum:
       - rp_entity_id
-      title: IdentifierType
-      default: rp_entity_id
+      title: PublicFundingRoundsMetadata
     MoneyAmount:
       properties:
         value:
@@ -488,26 +847,51 @@ components:
       type: object
       title: MoneyAmount
       description: An amount of money, as reported and converted to US dollars.
-    RoleType:
+    PublicFundingRoundsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicFundingRound'
+          type: array
+          title: Results
+          description: The company's funding rounds, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no rounds for the company.
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ErrorDetail'
+            type: array
+          - type: 'null'
+          title: Errors
+        metadata:
+          $ref: '#/components/schemas/PublicFundingRoundsMetadata'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
+      type: object
+      required:
+      - results
+      - metadata
+      title: PublicFundingRoundsResponse
+    ValuationSource:
       anyOf:
       - type: string
         enum:
-        - executive
-        - employee
-        - advisor
-        - board_member
-        - board_observer
-        title: RoleType
-        description: What kind of position a person holds at a company.
-      - type: string
-    OperatingStatus:
-      anyOf:
-      - type: string
-        enum:
-        - active
-        - closed
-        title: OperatingStatus
-        description: Whether the company still operates.
+        - confirmed
+        - estimated
+        title: ValuationSource
+        description: Whether a valuation is confirmed or estimated.
       - type: string
     EntityType:
       anyOf:
@@ -519,6 +903,38 @@ components:
         title: EntityType
         description: What kind of entity a reference points at.
       - type: string
+    PublicPrivateCompanyOverviewQuery:
+      properties:
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+          description: Object specifying which identifier you are using to request private company data. Supply one type and its corresponding value or a list of values (max 50).
+          examples:
+          - type: rp_entity_id
+            value:
+            - UWCVKI
+            - 98A8F2
+      type: object
+      required:
+      - identifier
+      title: PublicPrivateCompanyOverviewQuery
+    BadRequestError:
+      properties:
+        statusCode:
+          type: integer
+          const: 400
+          title: Statuscode
+          default: 400
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: BadRequestError
+      description: Bad Request Error
+      example:
+        message: Bad Request Error
+        statusCode: 400
     PrivateCompanyType:
       anyOf:
       - type: string
@@ -528,6 +944,50 @@ components:
         title: PrivateCompanyType
         description: Whether the company is run for profit.
       - type: string
+    TooManyRequestsError:
+      properties:
+        statusCode:
+          type: integer
+          const: 429
+          title: Statuscode
+          default: 429
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: TooManyRequestsError
+      description: Too many requests. Please try again later.
+      example:
+        message: Too many requests. Please try again later.
+        statusCode: 429
+    IdentifierType:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierType
+      default: rp_entity_id
+    Source:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Content catalog identifier of the source.
+          examples:
+          - CA9FA3
+        name:
+          type: string
+          title: Name
+          description: Catalog name of the dataset the data came from.
+          examples:
+          - Corporate Fundamentals
+      type: object
+      required:
+      - id
+      - name
+      title: Source
+      description: A content catalog source that contributed data to a structured-data response.
     Address:
       properties:
         street_1:
@@ -595,23 +1055,43 @@ components:
       type: object
       title: Address
       description: A postal address.
-    Usage:
-      additionalProperties:
-        type: integer
+    SingleIdentifier:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentifierTypeEnum'
+          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
+          examples:
+          - rp_entity_id
+        value:
+          type: string
+          maxLength: 6
+          minLength: 6
+          title: Value
+          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
+          examples:
+          - 4A6F00
       type: object
-      title: Usage
-      description: 'Public structured-data usage for a request, aggregated per content tier.
-
-
-        A flat object keyed per content tier, where each key is derived from the
-
-        content tier identifier by dropping the ``content-`` prefix and appending
-
-        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
-
-        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
-
-        tokens appear, and an absent key means zero tokens for that tier.'
+      required:
+      - type
+      - value
+      title: SingleIdentifier
+    RoleType:
+      anyOf:
+      - type: string
+        enum:
+        - executive
+        - employee
+        - advisor
+        - board_member
+        - board_observer
+        title: RoleType
+        description: What kind of position a person holds at a company.
+      - type: string
+    IdentifierTypeEnum:
+      type: string
+      enum:
+      - rp_entity_id
+      title: IdentifierTypeEnum
     InternalServerError:
       properties:
         statusCode:
@@ -630,25 +1110,23 @@ components:
       example:
         message: Internal Server Error
         statusCode: 500
-    DatePrecision:
-      anyOf:
-      - type: string
-        enum:
-        - day
-        - month
-        - year
-        title: DatePrecision
-        description: How much of a date is known. Parts of the date beyond it carry no meaning.
-      - type: string
-    ErrorDetail:
-      properties:
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
+    Usage:
+      additionalProperties:
+        type: integer
       type: object
-      title: ErrorDetail
+      title: Usage
+      description: 'Public structured-data usage for a request, aggregated per content tier.
+
+
+        A flat object keyed per content tier, where each key is derived from the
+
+        content tier identifier by dropping the ``content-`` prefix and appending
+
+        ``_tokens`` (e.g. ``corporate-fundamentals`` ->
+
+        ``corporate_fundamentals_tokens``). It is sparse: only tiers with non-zero
+
+        tokens appear, and an absent key means zero tokens for that tier.'
     FundingType:
       anyOf:
       - type: string
@@ -684,86 +1162,76 @@ components:
         title: FundingType
         description: The kind of a funding round.
       - type: string
-    SingleIdentifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierTypeEnum'
-          description: Object specifying which identifier you are using to request the data. You must supply one type and its corresponding value. Only one identifier should be provided per request.
-          examples:
-          - rp_entity_id
-        value:
-          type: string
-          maxLength: 6
-          minLength: 6
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: SingleIdentifier
-    PublicFundingRoundsMetadata:
+    IpoStatus:
+      anyOf:
+      - type: string
+        enum:
+        - delisted
+        - private
+        - public
+        title: IpoStatus
+        description: Whether the company is listed.
+      - type: string
+    InvestmentStage:
+      anyOf:
+      - type: string
+        enum:
+        - early_stage_venture
+        - late_stage_venture
+        - private_equity
+        - seed
+        title: InvestmentStage
+        description: The stage of the company a funding round belongs to.
+      - type: string
+    OperatingStatus:
+      anyOf:
+      - type: string
+        enum:
+        - active
+        - closed
+        title: OperatingStatus
+        description: Whether the company still operates.
+      - type: string
+    Metadata:
       properties:
         request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Request Id
         timestamp:
           type: string
           title: Timestamp
-        rp_entity_id:
-          type: string
-          maxLength: 6
-          minLength: 6
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company requested.
-          examples:
-          - UWCVKI
       type: object
       required:
-      - rp_entity_id
-      title: PublicFundingRoundsMetadata
-    Pagination:
+      - request_id
+      title: Metadata
+    EntityReference:
       properties:
-        cursor:
+        name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Cursor
-          description: Next page token or URL to retrieve the next page of results.
+          title: Name
+          description: Name of the entity.
           examples:
-          - 00000DexaRK4NT6t
-        has_cursor:
-          type: boolean
-          title: Has Cursor
-          description: Whether there are more pages available after this one.
-          default: false
+          - Khosla Ventures
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+          description: What the reference points at.
           examples:
-          - true
-      type: object
-      title: Pagination
-      description: Common pagination response for endpoints that support pagination.
-    TooManyRequestsError:
-      properties:
-        statusCode:
-          type: integer
-          const: 429
-          title: Statuscode
-          default: 429
-        message:
-          type: string
-          title: Message
+          - organization
+        rp_entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rp Entity Id
+          description: RavenPack entity identifier of the entity, where it has one. Null where the entity cannot be mapped, which leaves the name and the kind as the whole of what identifies it.
+          examples:
+          - 4A6F00
       type: object
       required:
-      - message
-      title: TooManyRequestsError
-      description: Too many requests. Please try again later.
-      example:
-        message: Too many requests. Please try again later.
-        statusCode: 429
+      - entity_type
+      title: EntityReference
+      description: Another entity a row points at, such as an investor in a funding round.
     PublicFundingRoundsQuery:
       properties:
         identifier:
@@ -795,494 +1263,26 @@ components:
           type: rp_entity_id
           value: UWCVKI
         limit: 100
-    PublicPrivateCompanyOverviewResponse:
+    Pagination:
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicPrivateCompanyOverview'
-          type: array
-          title: Results
-          description: One overview per requested ID, in request order. A company with no overview to serve carries only its rp_entity_id, which covers a company we cannot map, a mapped company with no record, and a lookup that failed.
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      - metadata
-      title: PublicPrivateCompanyOverviewResponse
-    Source:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Content catalog identifier of the source.
-          examples:
-          - CA9FA3
-        name:
-          type: string
-          title: Name
-          description: Catalog name of the dataset the data came from.
-          examples:
-          - Corporate Fundamentals
-      type: object
-      required:
-      - id
-      - name
-      title: Source
-      description: A content catalog source that contributed data to a structured-data response.
-    PublicFundingRoundsResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicFundingRound'
-          type: array
-          title: Results
-          description: The company's funding rounds, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no rounds for the company.
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          $ref: '#/components/schemas/PublicFundingRoundsMetadata'
-        pagination:
-          anyOf:
-          - $ref: '#/components/schemas/Pagination'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      - metadata
-      title: PublicFundingRoundsResponse
-    PublicPeopleResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicPosition'
-          type: array
-          title: Results
-          description: People who hold or held a position at the company, one entry per position, in the order the data provider lists them. A response holds one page; send `pagination.cursor` back as `cursor` for the next. Empty when the provider has no positions for the company.
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ErrorDetail'
-            type: array
-          - type: 'null'
-          title: Errors
-        metadata:
-          $ref: '#/components/schemas/PublicPeopleMetadata'
-        pagination:
-          anyOf:
-          - $ref: '#/components/schemas/Pagination'
-          - type: 'null'
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-          title: Sources
-          description: The content catalog sources the response was built from, one entry per source. Empty when no catalog source contributed.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-          description: Tokens the request consumed, per content tier. Present only for API keys billed in tokens.
-      type: object
-      required:
-      - results
-      - metadata
-      title: PublicPeopleResponse
-    PublicPeopleQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/SingleIdentifier'
-          description: Object specifying which identifier you are using to request the company profile. You must supply one type and its corresponding value.
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          description: Positions to return, from 1 to 100.
-          default: 100
-          examples:
-          - 100
         cursor:
           anyOf:
           - type: string
-            maxLength: 256
           - type: 'null'
           title: Cursor
-          description: Token for the next page. Send back 'pagination.cursor' from the previous response, unchanged and with the same identifier; 'limit' may differ. Omit it for the first page.
-      additionalProperties: false
+          description: Next page token or URL to retrieve the next page of results.
+          examples:
+          - 00000DexaRK4NT6t
+        has_cursor:
+          type: boolean
+          title: Has Cursor
+          description: Whether there are more pages available after this one.
+          default: false
+          examples:
+          - true
       type: object
-      required:
-      - identifier
-      title: PublicPeopleQuery
-      example:
-        identifier:
-          type: rp_entity_id
-          value: UWCVKI
-        limit: 100
-    IdentifierTypeEnum:
-      type: string
-      enum:
-      - rp_entity_id
-      title: IdentifierTypeEnum
-    PublicPrivateCompanyOverviewQuery:
-      properties:
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-          description: Object specifying which identifier you are using to request private company data. Supply one type and its corresponding value or a list of values (max 50).
-          examples:
-          - type: rp_entity_id
-            value:
-            - UWCVKI
-            - 98A8F2
-      type: object
-      required:
-      - identifier
-      title: PublicPrivateCompanyOverviewQuery
-    PublicPosition:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Name of the person who holds or held the position.
-          examples:
-          - Sam Altman
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: The position's title.
-          examples:
-          - Co-Founder and CEO
-        role_type:
-          anyOf:
-          - $ref: '#/components/schemas/RoleType'
-          - type: 'null'
-          description: The kind of position.
-          examples:
-          - executive
-        is_current:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Current
-          description: Whether the person still holds the position.
-        started_on:
-          anyOf:
-          - $ref: '#/components/schemas/DateWithPrecision'
-          - type: 'null'
-          description: Date the person started in the position.
-        ended_on:
-          anyOf:
-          - $ref: '#/components/schemas/DateWithPrecision'
-          - type: 'null'
-          description: Date the person left the position.
-      type: object
-      title: PublicPosition
-      description: One position a person holds or held at the company.
-    Metadata:
-      properties:
-        request_id:
-          type: string
-          title: Request Id
-        timestamp:
-          type: string
-          title: Timestamp
-      type: object
-      required:
-      - request_id
-      title: Metadata
-    ValuationSource:
-      anyOf:
-      - type: string
-        enum:
-        - confirmed
-        - estimated
-        title: ValuationSource
-        description: Whether a valuation is confirmed or estimated.
-      - type: string
-    InvestmentStage:
-      anyOf:
-      - type: string
-        enum:
-        - early_stage_venture
-        - late_stage_venture
-        - private_equity
-        - seed
-        title: InvestmentStage
-        description: The stage of the company a funding round belongs to.
-      - type: string
-    Identifier:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdentifierType'
-          description: The identifier namespace. Currently only `rp_entity_id` is supported.
-          default: rp_entity_id
-          examples:
-          - rp_entity_id
-        value:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          title: Value
-          description: 'Bigdata uses the RavenPack Entity identifier (RP_Entity_ID) to uniquely reference entities such as companies. This identifier is a 6-character alphanumeric code (letters and numbers only). Example: Alphabet Inc. (`4A6F00`)'
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - type
-      - value
-      title: Identifier
-    IpoStatus:
-      anyOf:
-      - type: string
-        enum:
-        - delisted
-        - private
-        - public
-        title: IpoStatus
-        description: Whether the company is listed.
-      - type: string
-    ActivityRank:
-      properties:
-        overall_rank:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Overall Rank
-          description: Where the company stands against all other companies, with 1 as the top. Calculated by the data provider from signals such as total funding, relationships with other organizations, and recent attention, so it moves as the company's activity changes.
-          examples:
-          - 6
-        change_7d:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Change 7D
-          description: Movement in the rank over the last 7 days, a score from -10 to 10.
-          examples:
-          - 0.0
-        change_30d:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Change 30D
-          description: Movement in the rank over the last 30 days, a score from -10 to 10.
-          examples:
-          - -0.9
-        change_90d:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Change 90D
-          description: Movement in the rank over the last 90 days, a score from -10 to 10.
-          examples:
-          - 1.5
-      type: object
-      title: ActivityRank
-      description: A company's position in the data provider's ranking, and how it has moved.
-    BadRequestError:
-      properties:
-        statusCode:
-          type: integer
-          const: 400
-          title: Statuscode
-          default: 400
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - message
-      title: BadRequestError
-      description: Bad Request Error
-      example:
-        message: Bad Request Error
-        statusCode: 400
-    PublicFundingRound:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The round's name.
-          examples:
-          - Series F - OpenAI
-        announced_on:
-          anyOf:
-          - $ref: '#/components/schemas/DateWithPrecision'
-          - type: 'null'
-          description: Date the round was announced.
-        closed_on:
-          anyOf:
-          - $ref: '#/components/schemas/DateWithPrecision'
-          - type: 'null'
-          description: Date the round closed.
-        investment_type:
-          anyOf:
-          - $ref: '#/components/schemas/FundingType'
-          - type: 'null'
-          description: The kind of round.
-          examples:
-          - series_f
-        investment_stage:
-          anyOf:
-          - $ref: '#/components/schemas/InvestmentStage'
-          - type: 'null'
-          description: The stage of the company the round belongs to.
-          examples:
-          - late_stage_venture
-        money_raised:
-          anyOf:
-          - $ref: '#/components/schemas/MoneyAmount'
-          - type: 'null'
-          description: Amount raised in the round.
-        target_money_raised:
-          anyOf:
-          - $ref: '#/components/schemas/MoneyAmount'
-          - type: 'null'
-          description: Amount the round set out to raise.
-        pre_money_valuation:
-          anyOf:
-          - $ref: '#/components/schemas/MoneyAmount'
-          - type: 'null'
-          description: Valuation of the company before the round.
-        post_money_valuation:
-          anyOf:
-          - $ref: '#/components/schemas/MoneyAmount'
-          - type: 'null'
-          description: Valuation of the company after the round.
-        post_money_valuation_source:
-          anyOf:
-          - $ref: '#/components/schemas/ValuationSource'
-          - type: 'null'
-          description: Whether the post-money valuation is confirmed or estimated.
-          examples:
-          - confirmed
-        is_equity:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Equity
-          description: Whether the round was an equity round.
-        num_investors:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Investors
-          description: Number of investors in the round.
-          examples:
-          - 32
-        lead_investors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EntityReference'
-            type: array
-          - type: 'null'
-          title: Lead Investors
-          description: The investors who led the round.
-        investors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EntityReference'
-            type: array
-          - type: 'null'
-          title: Investors
-          description: Every investor in the round, the leads included.
-      type: object
-      title: PublicFundingRound
-      description: One funding round a company raised.
-    PublicPeopleMetadata:
-      properties:
-        request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Id
-        timestamp:
-          type: string
-          title: Timestamp
-        rp_entity_id:
-          type: string
-          maxLength: 6
-          minLength: 6
-          title: Rp Entity Id
-          description: The RavenPack entity ID of the company requested.
-          examples:
-          - UWCVKI
-      type: object
-      required:
-      - rp_entity_id
-      title: PublicPeopleMetadata
-    EntityReference:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Name of the entity.
-          examples:
-          - Khosla Ventures
-        entity_type:
-          $ref: '#/components/schemas/EntityType'
-          description: What the reference points at.
-          examples:
-          - organization
-        rp_entity_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rp Entity Id
-          description: RavenPack entity identifier of the entity, where it has one. Null where the entity cannot be mapped, which leaves the name and the kind as the whole of what identifies it.
-          examples:
-          - 4A6F00
-      type: object
-      required:
-      - entity_type
-      title: EntityReference
-      description: Another entity a row points at, such as an investor in a funding round.
+      title: Pagination
+      description: Common pagination response for endpoints that support pagination.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

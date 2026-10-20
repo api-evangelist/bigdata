@@ -2,12 +2,18 @@ generated: '2026-10-20'
 method: derived
 generator: derive-data-model.py
 source:
-- openapi/bigdata-structured_data.json
+- openapi/bigdata-analyst-estimates-api-openapi.yml
+- openapi/bigdata-company-events-api-openapi.yml
+- openapi/bigdata-financials-ratios-api-openapi.yml
+- openapi/bigdata-fixed-income-api-openapi.yml
+- openapi/bigdata-fund-holdings-api-openapi.yml
+- openapi/bigdata-market-data-api-openapi.yml
+- openapi/bigdata-private-markets-api-openapi.yml
 notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
 summary:
-  entities: 165
-  entities_in_spec: 165
-  relationships: 218
+  entities: 137
+  entities_in_spec: 137
+  relationships: 198
 entities:
 - name: ActivityRank
   fields: 4
@@ -88,8 +94,6 @@ entities:
 - name: CompanyScreenerQuery
   fields: 2
   description: Allows filtering companies based on various financial and descriptive criteria.
-- name: CompanySubsidiariesMetadata
-  fields: 3
 - name: DailyPriceIdentifier
   fields: 2
 - name: DailyPricesQuery
@@ -100,12 +104,6 @@ entities:
 - name: DailyPricesResults
   fields: 4
   description: Prices for an entity id.
-- name: DateRange
-  fields: 2
-  description: Date range for filtering sentiment data.
-- name: DateRangeFilter
-  fields: 2
-  description: Filters based on a time window.
 - name: DateWithPrecision
   fields: 2
   description: A date that may be known only to the month or the year.
@@ -116,17 +114,6 @@ entities:
   description: Company Dividends response model.
 - name: DividendsResults
   fields: 4
-- name: Document
-  fields: 7
-  description: A document that can be returned in search results.
-- name: DocumentChunk
-  fields: 3
-  description: A chunk of text from a document.
-- name: DocumentSource
-  fields: 2
-  description: Supported document sources
-- name: DocumentTypeFilter
-  fields: 2
 - name: ESGPerformanceScore
   fields: 7
 - name: EconomicCalendarQuery
@@ -137,8 +124,6 @@ entities:
   fields: 21
 - name: EmptyResponse
   fields: 0
-- name: EntityFilter
-  fields: 3
 - name: EntityReference
   fields: 3
   description: Another entity a row points at, such as an investor in a funding round.
@@ -150,27 +135,17 @@ entities:
   fields: 8
 - name: EventsCalendarResponse
   fields: 7
-- name: HTTPValidationError
-  fields: 1
-- name: HoldingsFilters
-  fields: 2
-  description: Filters for the request.
 - name: HoldingsMapping
   fields: 2
   description: Mapping of RP entity IDs to Wall St Rank symbols used.
 - name: HoldingsOverviewFilters
   fields: 2
-- name: HoldingsRequestMetadata
-  fields: 6
-  description: Metadata for the request. Includes the backend request.
 - name: Identifier
   fields: 2
 - name: IdentifierQuery
   fields: 1
 - name: IncomeStatement
   fields: 4
-- name: InputPagination
-  fields: 2
 - name: InternalServerError
   fields: 2
   description: Internal Server Error
@@ -190,8 +165,6 @@ entities:
   fields: 1
 - name: KeyMetricsTTMResponse
   fields: 5
-- name: KeywordFilter
-  fields: 3
 - name: LatestSurprise
   fields: 10
 - name: LatestSurpriseQuery
@@ -204,12 +177,6 @@ entities:
   fields: 3
   description: An amount of money, as reported and converted to US dollars.
 - name: Pagination
-  fields: 2
-  description: Common pagination response for endpoints that support pagination.
-- name: Pagination-Input
-  fields: 2
-  description: Common pagination parameters for endpoints that support pagination.
-- name: Pagination-Output
   fields: 2
   description: Common pagination response for endpoints that support pagination.
 - name: PriceChanges
@@ -247,11 +214,6 @@ entities:
 - name: PublicCompanyScreenerResponse
   fields: 5
   description: Response model for the Company Screener service.
-- name: PublicCompanySubsidiariesQuery
-  fields: 1
-  description: Public API request schema for company subsidiaries.
-- name: PublicCompanySubsidiariesResponse
-  fields: 3
 - name: PublicESGPerformanceScoreResponse
   fields: 4
 - name: PublicFundTrendsMetadata
@@ -295,9 +257,6 @@ entities:
   description: Model for a single holding in the portfolio.
 - name: PublicHoldingsRequestMetadata
   fields: 6
-  description: Metadata for the request. Includes the backend request.
-- name: PublicHoldingsRequestMetadataPagination
-  fields: 7
   description: Metadata for the request. Includes the backend request.
 - name: PublicIncomeStatementQuery
   fields: 3
@@ -352,44 +311,19 @@ entities:
   fields: 2
 - name: QueryTimestamp
   fields: 2
-- name: QuotaUsage
-  fields: 1
-- name: RankingParams
-  fields: 3
-  description: Parameters for ranking the search results.
-- name: ReRanker
-  fields: 1
-  description: Parameters for reranking the search results.
-- name: RequestSearchFilters
-  fields: 5
-  description: A container for all possible filters to narrow down the search scope.
 - name: ScreenedCompany
   fields: 15
   description: Represents a company returned by the screening service.
-- name: SearchQuery
-  fields: 4
-  description: A search query with optional filters.
-- name: SearchResults
-  fields: 2
-  description: The results of a search query.
 - name: SentimentDataPoint
   fields: 4
   description: Individual sentiment data for a specific date.
-- name: SentimentOptions
-  fields: 1
-  description: Required parameters for sentiment query.
 - name: SingleIdentifier
   fields: 2
 - name: Source
   fields: 2
   description: A content catalog source that contributed data to a structured-data response.
-- name: SourceFilter
-  fields: 2
-  description: Filters based on source identifiers.
 - name: StructuredDataMetadata
   fields: 2
-- name: SubsidiaryRecord
-  fields: 7
 - name: TargetPrice
   fields: 7
 - name: TargetPriceQuery
@@ -409,41 +343,7 @@ entities:
 - name: Usage
   fields: 0
   description: Public structured-data usage for a request, aggregated per content tier.
-- name: ValidationError
-  fields: 3
 relationships:
-- from: AftermarketQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: AftermarketRecord
-  to: AftermarketTrade
-  type: has_one
-  via: trade
-- from: AftermarketRecord
-  to: AftermarketQuote
-  type: has_one
-  via: quote
-- from: AftermarketResponse
-  to: AftermarketRecord
-  type: has_many
-  via: results
-- from: AftermarketResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: AftermarketResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: AftermarketResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: AnalystRatingsQuery
-  to: Identifier
-  type: has_one
-  via: identifier
 - from: AnalystRatingsResponse
   to: AnalystRatings
   type: has_many
@@ -460,175 +360,7 @@ relationships:
   to: Usage
   type: has_one
   via: usage
-- from: CompanyRatiosTTMQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: CompanyRatiosTTMResponse
-  to: CompanyRatiosTTM
-  type: has_many
-  via: results
-- from: CompanyRatiosTTMResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: CompanyRatiosTTMResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: CompanyRatiosTTMResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: CompanyScreenerQuery
-  to: CompanyScreenerFilters
-  type: has_one
-  via: filters
-- from: CompanyQuoteQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: DailyPricesQuery
-  to: DailyPriceIdentifier
-  type: has_one
-  via: identifier
-- from: DailyPricesQuery
-  to: QueryDateRange
-  type: has_one
-  via: date_range
-- from: DailyPricesResponse
-  to: DailyPricesResults
-  type: has_many
-  via: results
-- from: DailyPricesResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: DailyPricesResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: DailyPricesResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: Document
-  to: DocumentSource
-  type: has_one
-  via: source
-- from: Document
-  to: DocumentChunk
-  type: has_many
-  via: chunks
-- from: EventsCalendarResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: EventsCalendarResponse
-  to: Pagination
-  type: has_one
-  via: pagination
-- from: EventsCalendarResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: EventsCalendarResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: HTTPValidationError
-  to: ValidationError
-  type: has_many
-  via: detail
-- from: IdentifierQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: IntradayPricesQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: IntradayPricesQuery
-  to: QueryTimestamp
-  type: has_one
-  via: timestamp
-- from: IntradayPricesResponse
-  to: IntradayPricesResults
-  type: has_one
-  via: results
-- from: IntradayPricesResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: IntradayPricesResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: IntradayPricesResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: DividendsQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: DividendsResponse
-  to: DividendsResults
-  type: has_many
-  via: results
-- from: DividendsResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: DividendsResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: DividendsResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: KeyMetricsTTMQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: KeyMetricsTTMResponse
-  to: KeyMetricsTTM
-  type: has_many
-  via: results
-- from: KeyMetricsTTMResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: KeyMetricsTTMResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: KeyMetricsTTMResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: LatestSurpriseQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: LatestSurpriseResponse
-  to: LatestSurprise
-  type: has_many
-  via: results
-- from: LatestSurpriseResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: LatestSurpriseResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: LatestSurpriseResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: PriceChangesQuery
+- from: TargetPriceQuery
   to: Identifier
   type: has_one
   via: identifier
@@ -652,95 +384,63 @@ relationships:
   to: Usage
   type: has_one
   via: usage
-- from: PublicBalanceSheetQuery
+- from: AnalystRatingsQuery
   to: Identifier
   type: has_one
   via: identifier
-- from: PublicBalanceSheetResponse
-  to: BalanceSheet
-  type: has_one
+- from: LatestSurpriseResponse
+  to: LatestSurprise
+  type: has_many
   via: results
-- from: PublicBalanceSheetResponse
+- from: LatestSurpriseResponse
   to: Metadata
   type: has_one
   via: metadata
-- from: PublicBalanceSheetResponse
+- from: LatestSurpriseResponse
   to: Source
   type: has_many
   via: sources
-- from: PublicBalanceSheetResponse
+- from: LatestSurpriseResponse
   to: Usage
   type: has_one
   via: usage
-- from: PublicCompanyProfileResponse
-  to: CompanyProfileData
+- from: PublicTargetPriceResponse
+  to: TargetPrice
   type: has_many
   via: results
-- from: PublicCompanyProfileResponse
+- from: PublicTargetPriceResponse
   to: Metadata
   type: has_one
   via: metadata
-- from: PublicCompanyProfileResponse
+- from: PublicTargetPriceResponse
   to: Source
   type: has_many
   via: sources
-- from: PublicCompanyProfileResponse
+- from: PublicTargetPriceResponse
   to: Usage
   type: has_one
   via: usage
-- from: PublicCompanyQuoteResponse
-  to: CompanyQuote
-  type: has_many
-  via: results
-- from: PublicCompanyQuoteResponse
-  to: Metadata
+- from: LatestSurpriseQuery
+  to: Identifier
   type: has_one
-  via: metadata
-- from: PublicCompanyQuoteResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: PublicCompanyQuoteResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: PublicCompanyRevenueGeographicQuery
+  via: identifier
+- from: PublicGetPerformanceScoreQuery
   to: SingleIdentifier
   type: has_one
   via: identifier
-- from: PublicCompanyRevenueGeographicResponse
-  to: CompanyRevenueGeographic
-  type: has_one
+- from: EconomicCalendarResponse
+  to: EconomicEvent
+  type: has_many
   via: results
-- from: PublicCompanyRevenueGeographicResponse
+- from: EconomicCalendarResponse
   to: Metadata
   type: has_one
   via: metadata
-- from: PublicCompanyRevenueGeographicResponse
+- from: EconomicCalendarResponse
   to: Source
   type: has_many
   via: sources
-- from: PublicCompanyRevenueGeographicResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: PublicCompanyRevenueProductQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: PublicCompanyRevenueProductResponse
-  to: CompanyRevenueProduct
-  type: has_one
-  via: results
-- from: PublicCompanyRevenueProductResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: PublicCompanyRevenueProductResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: PublicCompanyRevenueProductResponse
+- from: EconomicCalendarResponse
   to: Usage
   type: has_one
   via: usage
@@ -764,6 +464,46 @@ relationships:
   to: Usage
   type: has_one
   via: usage
+- from: PublicCompanyProfileResponse
+  to: CompanyProfileData
+  type: has_many
+  via: results
+- from: PublicCompanyProfileResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: PublicCompanyProfileResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: PublicCompanyProfileResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: IdentifierQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: CompanyScreenerQuery
+  to: CompanyScreenerFilters
+  type: has_one
+  via: filters
+- from: EventsCalendarResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: EventsCalendarResponse
+  to: Pagination
+  type: has_one
+  via: pagination
+- from: EventsCalendarResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: EventsCalendarResponse
+  to: Usage
+  type: has_one
+  via: usage
 - from: PublicCompanyScreenerResponse
   to: ScreenedCompany
   type: has_many
@@ -780,6 +520,66 @@ relationships:
   to: Usage
   type: has_one
   via: usage
+- from: CompanyRatiosTTMResponse
+  to: CompanyRatiosTTM
+  type: has_many
+  via: results
+- from: CompanyRatiosTTMResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: CompanyRatiosTTMResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: CompanyRatiosTTMResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: PublicCompanyRevenueProductResponse
+  to: CompanyRevenueProduct
+  type: has_one
+  via: results
+- from: PublicCompanyRevenueProductResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: PublicCompanyRevenueProductResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: PublicCompanyRevenueProductResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: KeyMetricsTTMQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: KeyMetricsTTMResponse
+  to: KeyMetricsTTM
+  type: has_many
+  via: results
+- from: KeyMetricsTTMResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: KeyMetricsTTMResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: KeyMetricsTTMResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: PublicBalanceSheetQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: PublicCompanyRevenueProductQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
 - from: PublicCashFlowResponse
   to: CashFlowStatement
   type: has_one
@@ -800,26 +600,110 @@ relationships:
   to: SingleIdentifier
   type: has_one
   via: identifier
-- from: PublicPriceChangesResponse
-  to: PriceChanges
-  type: has_many
+- from: PublicIncomeStatementQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: PublicCompanyRevenueGeographicResponse
+  to: CompanyRevenueGeographic
+  type: has_one
   via: results
-- from: PublicPriceChangesResponse
+- from: PublicCompanyRevenueGeographicResponse
   to: Metadata
   type: has_one
   via: metadata
-- from: PublicPriceChangesResponse
+- from: PublicCompanyRevenueGeographicResponse
   to: Source
   type: has_many
   via: sources
-- from: PublicPriceChangesResponse
+- from: PublicCompanyRevenueGeographicResponse
   to: Usage
   type: has_one
   via: usage
-- from: PublicFundTrendsMetadata
-  to: HoldingsMapping
+- from: PublicCompanyRevenueGeographicQuery
+  to: SingleIdentifier
   type: has_one
-  via: mapping
+  via: identifier
+- from: PublicIncomeStatementResponse
+  to: IncomeStatement
+  type: has_one
+  via: results
+- from: PublicIncomeStatementResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: PublicIncomeStatementResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: PublicIncomeStatementResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: CompanyRatiosTTMQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: PublicBalanceSheetResponse
+  to: BalanceSheet
+  type: has_one
+  via: results
+- from: PublicBalanceSheetResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: PublicBalanceSheetResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: PublicBalanceSheetResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: BondsByIssuerResponse
+  to: Bond
+  type: has_many
+  via: results
+- from: BondsByIssuerResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: BondsByIssuerResponse
+  to: Pagination
+  type: has_one
+  via: pagination
+- from: BondsByIssuerResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: BondsByIssuerResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: BondsByIssuerQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: BondByIsinResponse
+  to: StructuredDataMetadata
+  type: has_one
+  via: metadata
+- from: BondByIsinResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: BondByIsinQuery
+  to: IsinIdentifier
+  type: has_one
+  via: identifier
+- from: PublicGetCompanyFundsHoldingsQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: PublicGetCompanyFundsHoldingsQuery
+  to: CompanyFundsHoldingsFilters
+  type: has_one
+  via: filters
 - from: PublicFundTrendsResponse
   to: PublicFundTrendsResults
   type: has_one
@@ -836,6 +720,14 @@ relationships:
   to: Usage
   type: has_one
   via: usage
+- from: PublicGetHoldingsOverviewResult
+  to: PublicHolding
+  type: has_many
+  via: holdings
+- from: PublicGetHoldingsOverviewResult
+  to: PublicTopTransactions
+  type: has_one
+  via: top_transactions
 - from: PublicFundTrendsResults
   to: PublicPositionChangeItem
   type: has_many
@@ -888,14 +780,18 @@ relationships:
   to: PublicNetReducedPositionsItem
   type: has_many
   via: net_reduced_positions
-- from: PublicGetCompanyFundsHoldingsQuery
-  to: SingleIdentifier
+- from: PublicFundTrendsMetadata
+  to: HoldingsMapping
   type: has_one
-  via: identifier
-- from: PublicGetCompanyFundsHoldingsQuery
-  to: CompanyFundsHoldingsFilters
-  type: has_one
-  via: filters
+  via: mapping
+- from: PublicTopTransactions
+  to: PublicHolding
+  type: has_many
+  via: buys
+- from: PublicTopTransactions
+  to: PublicHolding
+  type: has_many
+  via: sells
 - from: PublicGetCompanyFundsHoldingsResponse
   to: CompanyFundHoldingsResults
   type: has_one
@@ -916,10 +812,6 @@ relationships:
   to: Usage
   type: has_one
   via: usage
-- from: PublicGetHoldingsOverviewQuery
-  to: HoldingsOverviewFilters
-  type: has_one
-  via: filters
 - from: PublicGetHoldingsOverviewResponse
   to: PublicGetHoldingsOverviewResult
   type: has_one
@@ -940,54 +832,10 @@ relationships:
   to: Usage
   type: has_one
   via: usage
-- from: PublicGetHoldingsOverviewResult
-  to: PublicHolding
-  type: has_many
-  via: holdings
-- from: PublicGetHoldingsOverviewResult
-  to: PublicTopTransactions
+- from: PublicGetHoldingsOverviewQuery
+  to: HoldingsOverviewFilters
   type: has_one
-  via: top_transactions
-- from: PublicGetPerformanceScoreQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: PublicHoldingsRequestMetadataPagination
-  to: Pagination-Output
-  type: has_one
-  via: pagination
-- from: PublicIncomeStatementQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: PublicIncomeStatementResponse
-  to: IncomeStatement
-  type: has_one
-  via: results
-- from: PublicIncomeStatementResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: PublicIncomeStatementResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: PublicIncomeStatementResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: TargetPriceQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: TimeSeriesSentimentQuery
-  to: Identifier
-  type: has_one
-  via: identifier
-- from: TimeSeriesSentimentQuery
-  to: QueryDateRange
-  type: has_one
-  via: timestamp
+  via: filters
 - from: TimeSeriesSentimentResponse
   to: TimeSeriesSentimentResults
   type: has_one
@@ -1008,162 +856,154 @@ relationships:
   to: Usage
   type: has_one
   via: usage
+- from: DailyPricesQuery
+  to: DailyPriceIdentifier
+  type: has_one
+  via: identifier
+- from: DailyPricesQuery
+  to: QueryDateRange
+  type: has_one
+  via: date_range
+- from: TimeSeriesSentimentQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: TimeSeriesSentimentQuery
+  to: QueryDateRange
+  type: has_one
+  via: timestamp
+- from: DailyPricesResponse
+  to: DailyPricesResults
+  type: has_many
+  via: results
+- from: DailyPricesResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: DailyPricesResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: DailyPricesResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: DividendsQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: AftermarketRecord
+  to: AftermarketTrade
+  type: has_one
+  via: trade
+- from: AftermarketRecord
+  to: AftermarketQuote
+  type: has_one
+  via: quote
+- from: PublicPriceChangesResponse
+  to: PriceChanges
+  type: has_many
+  via: results
+- from: PublicPriceChangesResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: PublicPriceChangesResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: PublicPriceChangesResponse
+  to: Usage
+  type: has_one
+  via: usage
 - from: TimeSeriesSentimentResults
   to: SentimentDataPoint
   type: has_many
   via: values
-- from: PublicTargetPriceResponse
-  to: TargetPrice
+- from: PriceChangesQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: AftermarketQuery
+  to: Identifier
+  type: has_one
+  via: identifier
+- from: PublicCompanyQuoteResponse
+  to: CompanyQuote
   type: has_many
   via: results
-- from: PublicTargetPriceResponse
+- from: PublicCompanyQuoteResponse
   to: Metadata
   type: has_one
   via: metadata
-- from: PublicTargetPriceResponse
+- from: PublicCompanyQuoteResponse
   to: Source
   type: has_many
   via: sources
-- from: PublicTargetPriceResponse
+- from: PublicCompanyQuoteResponse
   to: Usage
   type: has_one
   via: usage
-- from: PublicTopTransactions
-  to: PublicHolding
-  type: has_many
-  via: buys
-- from: PublicTopTransactions
-  to: PublicHolding
-  type: has_many
-  via: sells
-- from: RankingParams
-  to: ReRanker
+- from: IntradayPricesResponse
+  to: IntradayPricesResults
   type: has_one
-  via: reranker
-- from: RequestSearchFilters
-  to: DateRangeFilter
+  via: results
+- from: IntradayPricesResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: IntradayPricesResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: IntradayPricesResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: DividendsResponse
+  to: DividendsResults
+  type: has_many
+  via: results
+- from: DividendsResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: DividendsResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: DividendsResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: AftermarketResponse
+  to: AftermarketRecord
+  type: has_many
+  via: results
+- from: AftermarketResponse
+  to: Metadata
+  type: has_one
+  via: metadata
+- from: AftermarketResponse
+  to: Source
+  type: has_many
+  via: sources
+- from: AftermarketResponse
+  to: Usage
+  type: has_one
+  via: usage
+- from: IntradayPricesQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: IntradayPricesQuery
+  to: QueryTimestamp
   type: has_one
   via: timestamp
-- from: RequestSearchFilters
-  to: DocumentTypeFilter
-  type: has_one
-  via: document_type
-- from: RequestSearchFilters
-  to: SourceFilter
-  type: has_one
-  via: source
-- from: RequestSearchFilters
-  to: KeywordFilter
-  type: has_one
-  via: keyword
-- from: RequestSearchFilters
-  to: EntityFilter
-  type: has_one
-  via: entity
-- from: SearchQuery
-  to: RequestSearchFilters
-  type: has_one
-  via: filters
-- from: SearchQuery
-  to: RankingParams
-  type: has_one
-  via: ranking_params
-- from: SearchResults
-  to: Document
-  type: has_many
-  via: results
-- from: SearchResults
-  to: QuotaUsage
-  type: has_one
-  via: usage
-- from: SentimentOptions
-  to: DateRange
-  type: has_one
-  via: date_range
-- from: HoldingsRequestMetadata
-  to: HoldingsMapping
-  type: has_one
-  via: mapping
-- from: HoldingsRequestMetadata
-  to: Pagination-Output
-  type: has_one
-  via: pagination
-- from: PublicCompanySubsidiariesQuery
-  to: SingleIdentifier
+- from: CompanyQuoteQuery
+  to: Identifier
   type: has_one
   via: identifier
-- from: PublicCompanySubsidiariesResponse
-  to: SubsidiaryRecord
-  type: has_many
-  via: results
-- from: PublicCompanySubsidiariesResponse
-  to: CompanySubsidiariesMetadata
-  type: has_one
-  via: metadata
-- from: EconomicCalendarResponse
-  to: EconomicEvent
-  type: has_many
-  via: results
-- from: EconomicCalendarResponse
-  to: Metadata
-  type: has_one
-  via: metadata
-- from: EconomicCalendarResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: EconomicCalendarResponse
-  to: Usage
-  type: has_one
-  via: usage
-- from: PublicFundingRound
-  to: DateWithPrecision
-  type: has_one
-  via: announced_on
-- from: PublicFundingRound
-  to: DateWithPrecision
-  type: has_one
-  via: closed_on
-- from: PublicFundingRound
-  to: MoneyAmount
-  type: has_one
-  via: money_raised
-- from: PublicFundingRound
-  to: MoneyAmount
-  type: has_one
-  via: target_money_raised
-- from: PublicFundingRound
-  to: MoneyAmount
-  type: has_one
-  via: pre_money_valuation
-- from: PublicFundingRound
-  to: MoneyAmount
-  type: has_one
-  via: post_money_valuation
-- from: PublicFundingRoundsQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: PublicFundingRoundsResponse
-  to: PublicFundingRound
-  type: has_many
-  via: results
-- from: PublicFundingRoundsResponse
-  to: PublicFundingRoundsMetadata
-  type: has_one
-  via: metadata
-- from: PublicFundingRoundsResponse
-  to: Pagination
-  type: has_one
-  via: pagination
-- from: PublicFundingRoundsResponse
-  to: Source
-  type: has_many
-  via: sources
-- from: PublicFundingRoundsResponse
-  to: Usage
-  type: has_one
-  via: usage
 - from: PublicPrivateCompanyOverview
   to: DateWithPrecision
   type: has_one
@@ -1196,8 +1036,8 @@ relationships:
   to: ActivityRank
   type: has_one
   via: activity_rank
-- from: PublicPrivateCompanyOverviewQuery
-  to: Identifier
+- from: PublicFundingRoundsQuery
+  to: SingleIdentifier
   type: has_one
   via: identifier
 - from: PublicPrivateCompanyOverviewResponse
@@ -1216,34 +1056,26 @@ relationships:
   to: Usage
   type: has_one
   via: usage
-- from: BondsByIssuerQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
-- from: BondsByIssuerResponse
-  to: Bond
+- from: PublicFundingRoundsResponse
+  to: PublicFundingRound
   type: has_many
   via: results
-- from: BondsByIssuerResponse
-  to: Metadata
+- from: PublicFundingRoundsResponse
+  to: PublicFundingRoundsMetadata
   type: has_one
   via: metadata
-- from: BondsByIssuerResponse
+- from: PublicFundingRoundsResponse
   to: Pagination
   type: has_one
   via: pagination
-- from: BondsByIssuerResponse
+- from: PublicFundingRoundsResponse
   to: Source
   type: has_many
   via: sources
-- from: BondsByIssuerResponse
+- from: PublicFundingRoundsResponse
   to: Usage
   type: has_one
   via: usage
-- from: PublicPeopleQuery
-  to: SingleIdentifier
-  type: has_one
-  via: identifier
 - from: PublicPeopleResponse
   to: PublicPosition
   type: has_many
@@ -1264,6 +1096,14 @@ relationships:
   to: Usage
   type: has_one
   via: usage
+- from: PublicPeopleQuery
+  to: SingleIdentifier
+  type: has_one
+  via: identifier
+- from: PublicPrivateCompanyOverviewQuery
+  to: Identifier
+  type: has_one
+  via: identifier
 - from: PublicPosition
   to: DateWithPrecision
   type: has_one
@@ -1272,15 +1112,27 @@ relationships:
   to: DateWithPrecision
   type: has_one
   via: ended_on
-- from: BondByIsinQuery
-  to: IsinIdentifier
+- from: PublicFundingRound
+  to: DateWithPrecision
   type: has_one
-  via: identifier
-- from: BondByIsinResponse
-  to: StructuredDataMetadata
+  via: announced_on
+- from: PublicFundingRound
+  to: DateWithPrecision
   type: has_one
-  via: metadata
-- from: BondByIsinResponse
-  to: Usage
+  via: closed_on
+- from: PublicFundingRound
+  to: MoneyAmount
   type: has_one
-  via: usage
+  via: money_raised
+- from: PublicFundingRound
+  to: MoneyAmount
+  type: has_one
+  via: target_money_raised
+- from: PublicFundingRound
+  to: MoneyAmount
+  type: has_one
+  via: pre_money_valuation
+- from: PublicFundingRound
+  to: MoneyAmount
+  type: has_one
+  via: post_money_valuation
